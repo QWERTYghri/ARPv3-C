@@ -6,6 +6,7 @@ CFLAGS  := -std=gnu90 -Wpedantic -Wall -Wextra -pipe
 OFLAGS  := -g -O0
 #OFLAGS  := -0s
 
+
 #DIRS
 OUTDIR  := ./bin
 PUBLIC  := ./src/public
