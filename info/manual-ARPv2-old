@@ -1,0 +1,110 @@
+--[[
+ *	ARP - A luau based psuedo emulator
+ *
+ *	Auth : Mrgameybean17
+ *
+ *	This was primarily made for fun and along with providing a kind of backend to creating a pseudo PDP style computer
+ *
+ *	This is not meant to be an actual CPU as it doesn't follow any standard ISAs and the implementation of Lua is
+ *	restrictive to creating things such as bitfields, types, actual bitwise operations, and more. For example, Lua
+ *	utilizes double 64 bit floating point values and it is impossible to make integers in Luau.
+ *
+ *	The hardest part of all this is not gonna be this module and asm, it's gonna be writing programs in it
+
+Cpu is big endian based
+
+Memory layout to processing
+0x01 [ Opcode ]
+0x02 [ Operand ]
+
+The memory or sorta bus if you can do something special with it really has no max size, mainly because of the infinite size
+given towards lua tables
+
+Registers:
+	The ARP contains 3 registers [AC, X, SR]
+	
+	AC : The accumulator register which can be used with to perform arithmetic operations
+	X  : More of a multi-purpose register containing the same operations other than arithmetic with the AC
+	
+	SR : The Stack Register which is used in stack memory in a LIFO manner
+	
+Flags:
+	CM	: The comparison register which flips to true if a comparison is true / turns 0 once a CMP jump is used or the 
+											CLC Instruction is used
+	ST	: Defines the processing state of the cpu
+
+each instruction takes 1 cycle cuz im lazy
+
+Instructions:
+
+There's like a tone of instructions here because addressing mode is annoying
+
+REG LOAD:
+0x01	LDA	Load the accumulator with memory operand
+0x02	STA	Store accumulator value into the address memory operand
+0x03	GTA	Get the value from address and store in Accumulator
+0x04	LDX	Load the accumulator with memory operand
+0x05	STX	Store the value in X into memory address operand
+0x06	GTX	Get the value from address operand and store in X
+
+REG TRANFER:
+0x07	TAX	Load AC val to X reg
+0x08	TXA	Load X val to AC reg
+
+STACK OPERATIONS:
+0x09	TSX	Load SR val to X	-- Note transfer is here because of it's correspondence to the stack
+0x0A	TXS	Load X to SR reg	
+0x0B	PHA	Push Accumulator val into memory stack and increment SR
+0x0C	POA	Pop value in memory to accumulator and decrement SR
+
+ARITHMETIC:
+0x0D	ADD	Add AC with memory operand val
+0x0E	SUB	Sub AC val with memory operand val
+0x0F	SBA	Sub AC val with value from memory address given by mem operand
+0x10	ADA	Add AC val with val from memory address given by mem operand
+0x11	INX	Increment X register
+
+COMPARISON:	They all change CM val to 1 if correct
+0x12	CPX	Compare X reg val to memory operand
+0x13	CPA	Compare AC reg val to memory operand
+0x14	CXA	Compare X reg val to address operand val
+0x15	CAA	Compare AC reg val to address operand val
+0x16	CLC 	Clear CM val to 0
+
+JUMP/CALL:
+0x17	JMP	Jump to address val
+0x18	JLC	Jump when CM flag is 1
+0x19	JMS	Jump to address as subroutine / Store current PC val in stack and increment the SR
+0x1A	RET	Return from Subroutine val    / Store popped val into PC as the address to go back to
+0x1B	HLT	Set ST to 1 to halt cpu
+
+Functions:
+
+init ()
+	restart / initialize cpu / REG, FLAGS, MEMORY
+
+write ( adr, opcode, operand)
+	Write to memory
+		ADR [ opcode ]
+		ADR++ [operand]
+
+tabWrite ( table )
+	Decode table and write the content to memory
+	
+	table structure:
+	{
+		{ adr, opcode, operand }
+	}
+
+fetch ()
+	Fetch opcode into CIR / Fetch operand into MBR // Not a proper FDE cycle but idc
+
+step ()
+	Execute opcode in CIR to interact with MBR operand val / Uses fetch to get vals
+
+exec ()
+	Essentially a wrapper to loop the step function while checking on condition for cycle
+	
+dbExec ()
+	Like exec but listing register values and state
+]]
