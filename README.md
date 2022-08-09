@@ -17,6 +17,8 @@ Use Makefile to output binaries for it given the flags
 To make edits to config in makefile use Conf.mk
 Binaries are compiled into a bin directory
 
+Compiled in C99 Standard `-std=gnu99`
+
 ```
 clean: Remove ./bin and object files in proj directory.
 lib: Compile a static library of the module

@@ -21,7 +21,7 @@ Architecture
 **Registers**
 Registers are the same as the original
 
-`Register's AC, X are 16 bits wide or 8 bits wide`
+`Register's AC, X are 8 bits wide`
 `Stack register is 8 bits wide to keep a 255 wide stack space.`
 
 * AC : Accumulator registers to interract with arithematic operations
@@ -30,9 +30,7 @@ Registers are the same as the original
 * PC : 16 bits wide
 
 
-8 bit wide register would be sectioned to the little endian half of the register. Instructions are defined for the registers.
-
-Memory cells should be 8 bits wide with 16 bit vals being divided and 
+8
 
 **CPU Flags**
 Flags have changes, OV/SK have been added, ST has been removed
@@ -104,11 +102,13 @@ Val Name Mode Desc
 
 
 
+Design Stuff
+============
 
-
-
-
-
+Buses
+------------
+Bus.h is used to set a module to create buses. A `Bus` type is used to set up a address space for a Cpu.
+In ARPv3.h, the setBus function is used to alter an argument `ARP` struct that contains a Bus type that the functions map out to.
 
 
 

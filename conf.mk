@@ -1,5 +1,5 @@
 CC      := gcc
-CFLAGS  := -std=gnu90 -Wpedantic -Wall -Wextra -pipe
+CFLAGS  := -std=gnu99 -Wpedantic -Wall -Wextra -pipe
 
 
 #optimizaation flags
