@@ -9,54 +9,67 @@
 #include "../public/ARPv3.h"
 
 /* Redundancy is  pain */
+/* The functions will be classed into a struct containing the fetch mode and cpu cycles */
+/* Different functions are commented out because they'll be implemented using a function of same code but with different fetches */
 
 /* Register instructions */
-void LDA ( ARP* lnk );
-void STA ( ARP* lnk );
-void GTA ( ARP* lnk );
+void LDA ( ARP* lnk ) { lnk -> AC =  lnk -> MBR; } /* imm fetch */
+void STA ( ARP* lnk ) { lnk -> Bus[lnk -> MBR] = lnk -> AC; }
+/* void GTA ( ARP* lnk ) */
 
-void LDX ( ARP* lnk );
-void STX ( ARP* lnk );
-void GTX ( ARP* lnk );
+void LDX ( ARP* lnk ) { lnk -> X =  lnk -> MBR; } /* imm fetch */
+void STX ( ARP* lnk ) { lnk -> Bus[lnk -> MBR] = lnk -> X; }
+/* void GTX ( ARP* lnk ) */
 
 /* Register Transfer */
-void TAX ( ARP* lnk );
-void TXA ( ARP* lnk );
+void TAX ( ARP* lnk ) { lnk -> X = lnk -> AC; }
+void TXA ( ARP* lnk ) { lnk -> AC = lnk -> X; }
 
-void TSX ( ARP* lnk );
-void TXS ( ARP* lnk );
+void TSX ( ARP* lnk ) { lnk -> X = lnk -> SR; }
+void TXS ( ARP* lnk ) { lnk -> SR = lnk -> X; }
 
 /* Stack operations */
-void PHA ( ARP* lnk );
-void POA ( ARP* lnk );
+void PHA ( ARP* lnk ) { lnk -> Bus[lnk -> SR] = lnk -> AC; lnk -> SR++; }
+void POA ( ARP* lnk ) { lnk -> AC = lnk -> Bus[lnk -> SR; SR--; }
 
-void PSD ( ARP* lnk );
-void PSA ( ARP* lnk );
-void PAD ( ARP* lnk );
-void PAA ( ARP* lnk );
+void PSD ( ARP* lnk ) { lnk -> SR -= lnk -> AC; }
+void PSA ( ARP* lnk ) { lnk -> SR -= lnk -> MBR; }
+void PAD ( ARP* lnk ) { lnk -> SR += lnk -> AC; }
+void PAA ( ARP* lnk ) { lnk -> SR += lnk -> MBR; }
 
 /* Arithemetic */
-void ADD ( ARP* lnk );
-void ADA ( ARP* lnk );
-void SUB ( ARP* lnk );
-void SBA ( ARP* lnk );
-void INX ( ARP* lnk );
-void DEC ( ARP* lnk );
-void ADX ( ARP* lnk );
-void SUX ( ARP* lnk );
+void ADD ( ARP* lnk ) { lnk -> AC += lnk -> MBR; }
+/* void ADA ( ARP* lnk ) */
+void SUB ( ARP* lnk ); { lnk -> AC -= lnk -> MBR; }
+/* void SBA ( ARP* lnk ); */
+void INX ( ARP* lnk ) { lnk -> X++; }
+void DEC ( ARP* lnk ) { lnk -> X--; }
+void ADX ( ARP* lnk ) { lnk -> AC += lnk -> X; }
+void SUX ( ARP* lnk ) { lnk -> AC -= lnk -> X; }
 
 /* Comparison */
-void CPX ( ARP* lnk );
-void CPA ( ARP* lnk );
-void CXA ( ARP* lnk );
-void CAA ( ARP* lnk );
-void CLC ( ARP* lnk );
+void CPX ( ARP* lnk ) { ( lnk -> X == lnk -> MBR ) ? lnk -> flg.CM = 1 : 0; }
+void CPA ( ARP* lnk ) { ( lnk -> AC == lnk -> MBR ) ? lnk -> flg.CM = 1 : 0; }
+
+/* void CXA ( ARP* lnk ) */
+/* void CAA ( ARP* lnk ) */
+
+void CLC ( ARP* lnk ) { lnk -> flg.CM = 0 }
 
 /* Functions / Jumps */
-void JMP ( ARP* lnk );
-void JLC ( ARP* lnk );
-void JMS ( ARP* lnk );
-void RET ( ARP* lnk );
-void HLT ( ARP* lnk );
+void JMP ( ARP* lnk ) { lnk -> PC = lnk -> MBR; }
+void JLC ( ARP* lnk ) { ( lnk -> flg.CM == 1 ) ? lnk -> PC = lnk -> MBR : 0; }
+void JMS ( ARP* lnk )
+{
+	lnk -> Bus[lnk -> SR] = lnk -> PC;
+	lnk -> SR++;
+	lnk -> PC = lnk -> MBR;
+}
+
+void RET ( ARP* lnk )
+{
+	lnk -> SR--;
+	lnk -> PC = lnk -> Bus[lnk -> SR];
+}
 
 

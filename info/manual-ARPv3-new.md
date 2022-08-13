@@ -34,7 +34,7 @@ Registers are the same as the original
 
 
 **CPU Flags**
-Flags have changes, OV/SK have been added, ST has been removed
+Flags have changes, OV/SK have been added
 
 * OV : Overflow of any register.
 * SK : Stack overflow flag
@@ -72,9 +72,9 @@ Val Name Mode Desc
 * 0x0B	PHA	Push Accumulator into memory stack and increment SR
 * 0x0C	POA	Pop value in memory to accumulator and decrement SR
 * 0x0D	PSD Imm	Subtract the stack register by a value in AC register
-* 0x0E	PSA Dir Subtract the strack register by the value in the specified address
+* 0x0E	PSA Dir Subtract the stack register by the MBR
 * 0x0F	PAD Imm Add the stack register by a value in AC register
-* 0x10	PAA Dir	Add the stack register by value in specified address
+* 0x10	PAA Dir	Add the stack register by the MBR
 
 `Arithemetic Operations`
 * 0x11	ADD Imm	Add AC with memory operand val
@@ -98,14 +98,13 @@ Val Name Mode Desc
 * 0x1F	JLC	Jump when CM flag is 1
 * 0x20	JMS	Jump to address as subroutine / Store current PC val in stack and increment the SR
 * 0x21	RET	Return from Subroutine val    / Store popped val into PC as the address to go back to
-* 0x22	HLT	Halt processing
 
 
 
 
 Design Stuff
 ============
-
+I might intend to add Interrupts but welp
 Buses
 ------------
 Bus.h is used to set a module to create buses. A `Bus` type is used to set up a address space for a Cpu.

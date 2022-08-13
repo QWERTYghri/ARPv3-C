@@ -12,8 +12,7 @@
 #define ARP_H
 
 #include <stdint.h>
-#include "./handler.h" /* Function decleration of instructions */
-#include "./bus.h"        
+#include "./handler.h" /* Function decleration of instructions */      
 
 typedef enum defList
 {
@@ -42,7 +41,7 @@ typedef struct ARP
            individual flags.
         */
         
-        uint8_t		tempBus[0xffff];
+        uint8_t		Bus[0xffff];
         
         s_flg flg;
 } ARP;
