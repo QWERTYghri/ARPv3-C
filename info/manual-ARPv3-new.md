@@ -68,36 +68,36 @@ Val Name Mode Desc
 * 0x0A	TXS	Load X to SR reg
 
 `Stack Operations`
-0x0B	PHA	Push Accumulator into memory stack and increment SR
-0x0C	POA	Pop value in memory to accumulator and decrement SR
-0x0D	PSD Imm	Subtract the stack register by a value in AC register
-0x0E	PSA Dir Subtract the strack register by the value in the specified address
-0x0F	PAD Imm Add the stack register by a value in AC register
-0x10	PAA Dir	Add the stack register by value in specified address
+* 0x0B	PHA	Push Accumulator into memory stack and increment SR
+* 0x0C	POA	Pop value in memory to accumulator and decrement SR
+* 0x0D	PSD Imm	Subtract the stack register by a value in AC register
+* 0x0E	PSA Dir Subtract the strack register by the value in the specified address
+* 0x0F	PAD Imm Add the stack register by a value in AC register
+* 0x10	PAA Dir	Add the stack register by value in specified address
 
 `Arithemetic Operations`
-0x11	ADD Imm	Add AC with memory operand val
-0x12	ADA Dir	Add AC val with val from memory address given by mem operand
-0x13	SUB Imm	Sub AC val with memory operand val
-0x14	SBA Dir	Sub AC val with value from memory address given by mem operand
-0x15	INX	Increment X register
-0x16	DEC	Decrement X register
-0x17	ADX	Add AC register with X
-0x18	SUX	Sub AC register with X
+* 0x11	ADD Imm	Add AC with memory operand val
+* 0x12	ADA Dir	Add AC val with val from memory address given by mem operand
+* 0x13	SUB Imm	Sub AC val with memory operand val
+* 0x14	SBA Dir	Sub AC val with value from memory address given by mem operand
+* 0x15	INX	Increment X register
+* 0x16	DEC	Decrement X register
+* 0x17	ADX	Add AC register with X
+* 0x18	SUX	Sub AC register with X
 
 `Comparison`
-0x19	CPX	Compare X reg val to memory operand
-0x1A	CPA	Compare AC reg val to memory operand
-0x1B	CXA	Compare X reg val to address operand val
-0x1C	CAA	Compare AC reg val to address operand val
-0x1D	CLC 	Clear CM val to 0
+* 0x19	CPX	Compare X reg val to memory operand
+* 0x1A	CPA	Compare AC reg val to memory operand
+* 0x1B	CXA	Compare X reg val to address operand val
+* 0x1C	CAA	Compare AC reg val to address operand val
+* 0x1D	CLC 	Clear CM val to 0
 
 `Functions and jumps`
-0x1E	JMP	Jump to address val
-0x1F	JLC	Jump when CM flag is 1
-0x20	JMS	Jump to address as subroutine / Store current PC val in stack and increment the SR
-0x21	RET	Return from Subroutine val    / Store popped val into PC as the address to go back to
-0x22	HLT	Halt processing
+* 0x1E	JMP	Jump to address val
+* 0x1F	JLC	Jump when CM flag is 1
+* 0x20	JMS	Jump to address as subroutine / Store current PC val in stack and increment the SR
+* 0x21	RET	Return from Subroutine val    / Store popped val into PC as the address to go back to
+* 0x22	HLT	Halt processing
 
 
 
