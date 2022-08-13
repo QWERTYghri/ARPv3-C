@@ -29,8 +29,9 @@ Registers are the same as the original
 * SR : Stack register initializes to $000
 * PC : 16 bits wide
 
+* MBR : Memory buffer reg 8 bits for operand
+* CIR : Instruction register 8 bits
 
-8
 
 **CPU Flags**
 Flags have changes, OV/SK have been added, ST has been removed
