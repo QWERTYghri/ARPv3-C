@@ -17,7 +17,7 @@
 
 typedef enum defList
 {
-        ISAMAX  = 0x22
+        ISAMAX  = 34
 };
 
 /* CPU DATA SECTION */
@@ -45,6 +45,8 @@ typedef struct ARP
 /* Function definitions for system */
 void reset ( ARP* lnk );
 void fetch ( ARP* lnk );
+void clock ( ARP* lnk );
+
 /* void setBus ( ARP* lnk, Bus* cBusLk ); */
 
 #endif /* end */

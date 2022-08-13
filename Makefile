@@ -24,5 +24,5 @@ uTest: $(PUBLIC)/*.h ./src/uTests/* $(OUTDIR)/*.o
 	$(CC) $(CFLAGS) $(OFLAGS) $^
 
 clean:
-	rm -r *.o $(OUTDIR)/*
+	rm -r *.o $(OUTDIR)
 
