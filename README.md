@@ -9,13 +9,21 @@ processor. It exists as a header module to be included with a main program.
 
 The manual for the ARP is updated and support for peripherals would be added
 
+
+Other
+-------------
+* Two addressing modes exist. Indirect/Direct.
+* You can create your own "Peripheral" by defining a function where you can interact with the bus.
+* The bus exists as a object defined in an `ARP` struct.
+* Compilation outputs a static archive.
+
+
 Compilation
 -------------
-
 Use Makefile to output binaries for it given the flags
 
-To make edits to config in makefile use Conf.mk
-Binaries are compiled into a bin directory
+To make edits to config in makefile use `Conf.mk`
+Binaries are compiled into a `bin` directory
 
 Compiled in C99 Standard `-std=gnu99`
 
