@@ -16,6 +16,13 @@
 
 /* Note that some instructions are missing because they're similiar to an immediate
  * addressing but just take direct addressing
+ *
+ * GTA
+ * GTX
+ * ADA
+ * SBA
+ * CXA
+ * CAA
  */
 
 /* Register instructions */
@@ -43,9 +50,7 @@ void PAA ( ARP* lnk );
 
 /* Arithemetic */
 void ADD ( ARP* lnk );
-/* ADA */
 void SUB ( ARP* lnk );
-/* SBA */
 void INX ( ARP* lnk );
 void DEC ( ARP* lnk );
 void ADX ( ARP* lnk );
@@ -54,8 +59,6 @@ void SUX ( ARP* lnk );
 /* Comparison */
 void CPX ( ARP* lnk );
 void CPA ( ARP* lnk );
-/* void CXA ( ARP* lnk ); */
-/* void CAA ( ARP* lnk ); */
 void CLC ( ARP* lnk );
 
 /* Functions / Jumps */

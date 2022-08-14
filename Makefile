@@ -15,7 +15,7 @@ all: dir lib
 dir:
 	mkdir $(OUTDIR)
 
-lib: $(PUBLIC)/*.h $(PRIVATE)/*
+lib: $(PUBLIC)/*.h $(PRIVATE)/*.c
 	$(CC) $(CFLAGS) $(OFLAGS) -c $^
 	mv $(OUTDIR)
 	$(ARCHIVE) $(ARFLG) libarp.a $(OUTDIR)/*.o

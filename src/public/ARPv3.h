@@ -18,7 +18,7 @@ typedef enum defList
 {
         ISAMAX  = 34,
         MAXADDR = 0xffff
-};
+} defList;
 
 /* CPU DATA SECTION */
 typedef struct s_flg
@@ -34,7 +34,7 @@ typedef struct ARP
                         X,
                         PC;
 
-        uint8_t         SP;
+        uint8_t         SR;
         uint8_t		MBR, CIR;
 
         /* Flag reg is set to struct three bits that represent the
@@ -50,8 +50,7 @@ typedef struct ARP
 void reset      ( ARP* lnk );
 void immFetch   ( ARP* lnk );
 void dirFetch   ( ARP* lnk );
-void clock      ( ARP* lnk );
-
-void setBus ( ARP* lnk, Bus* cBusLk );
+/* void clock      ( ARP* lnk ); */
+/* void setBus ( ARP* lnk, Bus* cBusLk ); */
 
 #endif /* end */

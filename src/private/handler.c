@@ -13,13 +13,11 @@
 /* Different functions are commented out because they'll be implemented using a function of same code but with different fetches */
 
 /* Register instructions */
-void LDA ( ARP* lnk ) { lnk -> AC =  lnk -> MBR; } /* imm fetch */
+void LDA ( ARP* lnk ) { lnk -> AC =  lnk -> MBR; }
 void STA ( ARP* lnk ) { lnk -> Bus[lnk -> MBR] = lnk -> AC; }
-/* void GTA ( ARP* lnk ) */
 
-void LDX ( ARP* lnk ) { lnk -> X =  lnk -> MBR; } /* imm fetch */
+void LDX ( ARP* lnk ) { lnk -> X =  lnk -> MBR; }
 void STX ( ARP* lnk ) { lnk -> Bus[lnk -> MBR] = lnk -> X; }
-/* void GTX ( ARP* lnk ) */
 
 /* Register Transfer */
 void TAX ( ARP* lnk ) { lnk -> X = lnk -> AC; }
@@ -30,7 +28,7 @@ void TXS ( ARP* lnk ) { lnk -> SR = lnk -> X; }
 
 /* Stack operations */
 void PHA ( ARP* lnk ) { lnk -> Bus[lnk -> SR] = lnk -> AC; lnk -> SR++; }
-void POA ( ARP* lnk ) { lnk -> AC = lnk -> Bus[lnk -> SR; SR--; }
+void POA ( ARP* lnk ) { lnk -> AC = lnk -> Bus[lnk -> SR]; SR--; }
 
 void PSD ( ARP* lnk ) { lnk -> SR -= lnk -> AC; }
 void PSA ( ARP* lnk ) { lnk -> SR -= lnk -> MBR; }
@@ -39,9 +37,7 @@ void PAA ( ARP* lnk ) { lnk -> SR += lnk -> MBR; }
 
 /* Arithemetic */
 void ADD ( ARP* lnk ) { lnk -> AC += lnk -> MBR; }
-/* void ADA ( ARP* lnk ) */
-void SUB ( ARP* lnk ); { lnk -> AC -= lnk -> MBR; }
-/* void SBA ( ARP* lnk ); */
+void SUB ( ARP* lnk ) { lnk -> AC -= lnk -> MBR; }
 void INX ( ARP* lnk ) { lnk -> X++; }
 void DEC ( ARP* lnk ) { lnk -> X--; }
 void ADX ( ARP* lnk ) { lnk -> AC += lnk -> X; }
@@ -50,11 +46,7 @@ void SUX ( ARP* lnk ) { lnk -> AC -= lnk -> X; }
 /* Comparison */
 void CPX ( ARP* lnk ) { ( lnk -> X == lnk -> MBR ) ? lnk -> flg.CM = 1 : 0; }
 void CPA ( ARP* lnk ) { ( lnk -> AC == lnk -> MBR ) ? lnk -> flg.CM = 1 : 0; }
-
-/* void CXA ( ARP* lnk ) */
-/* void CAA ( ARP* lnk ) */
-
-void CLC ( ARP* lnk ) { lnk -> flg.CM = 0 }
+void CLC ( ARP* lnk ) { lnk -> flg.CM = 0; }
 
 /* Functions / Jumps */
 void JMP ( ARP* lnk ) { lnk -> PC = lnk -> MBR; }
