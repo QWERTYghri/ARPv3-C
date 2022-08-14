@@ -10,14 +10,11 @@
 
 include conf.mk
 
-all: dir lib
-
-dir:
-	mkdir $(OUTDIR)
+all: lib
 
 lib: $(PUBLIC)/*.h $(PRIVATE)/*.c
 	$(CC) $(CFLAGS) $(OFLAGS) -c $^
-	mv $(OUTDIR)
+	mkdir $(OUTDIR) && mv $(OUTDIR)
 	$(ARCHIVE) $(ARFLG) libarp.a $(OUTDIR)/*.o
 
 uTest: $(PUBLIC)/*.h ./src/uTests/* $(OUTDIR)/*.o
