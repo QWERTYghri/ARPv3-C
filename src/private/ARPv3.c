@@ -23,17 +23,15 @@ void reset ( ARP* lnk )
         lnk -> flg.CM	= 0;
        	
         /* Temp bus stuff */
-        for ( int i = 0; i <= MAXADDR; i++ )
+        for ( int32_t i = 0; i <= MAXADDR; i++ )
         	lnk -> Bus[i] = 0;
 }
 
 void immFetch ( ARP* lnk )
 {
-	/* wtf? cir = Bus[pc] */
 	lnk -> CIR = lnk -> Bus[lnk -> PC];
 	lnk -> PC++;
 	
-	/* welp mbr = Bus[pc] */
 	lnk -> MBR = lnk -> Bus[lnk -> PC];
 	lnk -> PC++;
 }

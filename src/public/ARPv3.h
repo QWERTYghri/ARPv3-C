@@ -40,7 +40,6 @@ typedef struct ARP
         /* Flag reg is set to struct three bits that represent the
            individual flags.
         */
-        
         uint8_t		Bus[0xffff];
         
         s_flg flg;
