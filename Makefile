@@ -12,7 +12,7 @@ lib: $(PUBLIC)/*.h $(PRIVATE)/*.c
 	$(ARCHIVE) $(ARFLG) $(SOUT) *.o
 
 mvAll:
-	-mv *.o $(OUTDIR)
+	-mv *.o *.a $(OUTDIR)
 
 uTest: $(PUBLIC)/*.h ./src/uTests/* $(OUTDIR)/*.o
 	$(CC) $(CFLAGS) $(OFLAGS) $^
