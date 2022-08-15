@@ -28,7 +28,7 @@ void TXS ( ARP* lnk ) { lnk -> SR = lnk -> X; }
 
 /* Stack operations */
 void PHA ( ARP* lnk ) { lnk -> Bus[lnk -> SR] = lnk -> AC; lnk -> SR++; }
-void POA ( ARP* lnk ) { lnk -> AC = lnk -> Bus[lnk -> SR]; SR--; }
+void POA ( ARP* lnk ) { lnk -> AC = lnk -> Bus[lnk -> SR]; lnk -> SR--; }
 
 void PSD ( ARP* lnk ) { lnk -> SR -= lnk -> AC; }
 void PSA ( ARP* lnk ) { lnk -> SR -= lnk -> MBR; }

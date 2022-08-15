@@ -14,3 +14,6 @@ PRIVATE := ./src/private
 
 ARCHIVE := ar
 ARFLG   := -rc
+
+#Static library name output
+SOUT	:= libarp.a

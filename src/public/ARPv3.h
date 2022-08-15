@@ -11,8 +11,7 @@
 #ifndef ARP_H
 #define ARP_H
 
-#include <stdint.h>
-#include "./handler.h" /* Function decleration of instructions */      
+#include <stdint.h>   
 
 typedef enum defList
 {

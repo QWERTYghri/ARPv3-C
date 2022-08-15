@@ -45,6 +45,6 @@ void dirFetch ( ARP* lnk )
 	/* get value from operand and use it to address from Bus to store mbr
 	 * MBR = bus[ bus[pc] ]
 	 */
-	lnk -> MBR = lnk -> Bus[ Bus[lnk -> PC] ];
+	lnk -> MBR = lnk -> Bus[ lnk -> Bus[lnk -> PC] ];
 	lnk -> PC++;
 }
