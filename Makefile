@@ -1,12 +1,4 @@
-#
-#
-# Shitty makefile
-#
-# Changes towards the compilation steps will be done later
-# Set up the wildcards for unit test programs
-#
-# @QWERTYghri
-#
+#Makefile to compile objects to static library
 
 include conf.mk
 
@@ -20,7 +12,7 @@ lib: $(PUBLIC)/*.h $(PRIVATE)/*.c
 	$(ARCHIVE) $(ARFLG) $(SOUT) *.o
 
 mvAll:
-	-mv *.o *.a $(OUTDIR)
+	-mv *.o $(OUTDIR)
 
 uTest: $(PUBLIC)/*.h ./src/uTests/* $(OUTDIR)/*.o
 	$(CC) $(CFLAGS) $(OFLAGS) $^

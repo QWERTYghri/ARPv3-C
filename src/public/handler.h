@@ -1,9 +1,5 @@
 /*
  * Handler to store declerations of function instructions
- *
- *
- * @QWERTYghri
- *
  */
 
 #ifndef HANDLER_H
