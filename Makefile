@@ -10,12 +10,17 @@
 
 include conf.mk
 
-all: lib
+all: binDir lib mvAll *.o *.a
+
+binDir:
+	-mkdir $(OUTDIR)
 
 lib: $(PUBLIC)/*.h $(PRIVATE)/*.c
 	$(CC) $(CFLAGS) $(OFLAGS) -c $^
-	mkdir $(OUTDIR) && mv *.o $(OUTDIR)
-	$(ARCHIVE) $(ARFLG) $(SOUT) $(OUTDIR)/*.o
+	$(ARCHIVE) $(ARFLG) $(SOUT) *.o
+
+mvAll:
+	-mv *.o *.a $(OUTDIR)
 
 uTest: $(PUBLIC)/*.h ./src/uTests/* $(OUTDIR)/*.o
 	$(CC) $(CFLAGS) $(OFLAGS) $^
