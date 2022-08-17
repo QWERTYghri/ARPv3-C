@@ -8,9 +8,11 @@ int main ( void )
 	int32_t ch;
 
 	ARP* cpu = calloc ( 1, sizeof ( ARP ) );
-	reset ( cpu, 0xfffa );
+	reset ( cpu, 300 );
 	
-	writeMem ( cpu, 0xfffe, 0x01, 0x04 );
+	
+	writeMem ( cpu, 300, 0x01, 15 );
+	writeMem ( cpu, 302, 0x04, 16 );
 	
 	while ( ( ch = getc ( stdin ) ) != 'Q' )
 	{

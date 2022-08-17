@@ -106,7 +106,7 @@ void fDebug ( ARP* lnk, FILE* fp )
 void step ( ARP* lnk )
 {
 	insFetch ( lnk );
-	int32_t jVar = lnk -> CIR - 1;
+	int32_t jVar = ( lnk -> CIR == 0 ) ? 0 : ( lnk -> CIR-- );
 	
 	if ( iList[jVar].addrMd == IMM )
 		immFetch ( lnk );
@@ -114,7 +114,7 @@ void step ( ARP* lnk )
 		dirFetch ( lnk );
 	else if ( iList[jVar].addrMd == NOM )
 		lnk -> PC++; /* do nothing */
-	iList[lnk -> CIR].inst ( lnk );
+	iList[jVar].inst ( lnk );
 	
 	lnk -> clkCnt++;
 }
