@@ -50,23 +50,14 @@ i_set iList[ISAMAX] =
 		{ JMS, NOM },
 		{ RET, NOM }
 };
-		
 
-ARP* initArp ( void )
-{
-	ARP* set = calloc ( 1, sizeof ( ARP ) );
-	reset ( set );
-	
-	return set;
-}
-
-void reset ( ARP* lnk )
+void reset ( ARP* lnk, uint16_t initPc )
 {
         lnk -> AC	= 0;
         lnk -> X 	= 0;
         lnk -> SR	= 0;
 
-        lnk -> PC	= 0xff;
+        lnk -> PC	= initPc;
 	lnk -> MBR	= 0;
 	lnk -> CIR	= 0;
         lnk -> flg.OV	= 0;
@@ -105,7 +96,7 @@ void dirFetch ( ARP* lnk )
 /* Pain */
 void fDebug ( ARP* lnk, FILE* fp )
 {
-	fprintf ( fp, "CYC: %ld\n\tAC: %d\n\tX: %d\n\tSR: %d\n\tPC: $%x\n\tMBR: %d\n\t"
+	fprintf ( fp, "CYC: %ld\n\tAC: %d\n\tX: %d\n\tSR: %d\n\tPC: $%d\n\tMBR: %d\n\t"
 		      "CIR: %d\n\nFlags:\n\t\tOV: %d\n\t\tSK: %d\n\t\tCM: %d\n\n\n",
 		      lnk -> clkCnt, lnk -> AC, lnk -> X, lnk -> SR, lnk -> PC, lnk -> MBR,
 		      lnk -> CIR, lnk -> flg.OV, lnk -> flg.SK, lnk -> flg.CM );
@@ -115,13 +106,17 @@ void fDebug ( ARP* lnk, FILE* fp )
 void step ( ARP* lnk )
 {
 	insFetch ( lnk );
-	if ( iList[lnk -> CIR].addrMd == IMM )
+	int32_t jVar = lnk -> CIR - 1;
+	
+	if ( iList[jVar].addrMd == IMM )
 		immFetch ( lnk );
-	else if ( iList[lnk -> CIR].addrMd == DIR )
+	else if ( iList[jVar].addrMd == DIR )
 		dirFetch ( lnk );
-	else if ( iList[lnk -> CIR].addrMd == NOM )
+	else if ( iList[jVar].addrMd == NOM )
 		lnk -> PC++; /* do nothing */
 	iList[lnk -> CIR].inst ( lnk );
+	
+	lnk -> clkCnt++;
 }
 
 void writeMem ( ARP* lnk, uint16_t addr, uint16_t opCode, int16_t operand )

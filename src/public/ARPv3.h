@@ -22,8 +22,9 @@ typedef struct s_flg
 typedef struct ARP
 {
         int16_t         AC,
-                        X,
-                        PC;
+                        X;
+        
+        uint16_t        PC;
 
         uint8_t         SR;
         uint8_t		MBR, CIR;
@@ -55,8 +56,7 @@ typedef struct i_set
 } i_set;
 
 /* Function definitions for system */
-ARP* initArp	( void );
-void reset      ( ARP* lnk );
+void reset      ( ARP* lnk, uint16_t init );
 void immFetch   ( ARP* lnk );
 void dirFetch   ( ARP* lnk );
 void fDebug	( ARP* lnk, FILE* fp );
