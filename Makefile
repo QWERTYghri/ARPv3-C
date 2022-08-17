@@ -2,7 +2,7 @@
 
 include conf.mk
 
-all: binDir lib mvAll *.o *.a
+all: binDir lib mvAll
 
 binDir:
 	-mkdir $(OUTDIR)
@@ -14,9 +14,9 @@ lib: $(PUBLIC)/*.h $(PRIVATE)/*.c
 mvAll:
 	-mv *.o *.a $(OUTDIR)
 
-uTest: $(PUBLIC)/*.h ./src/uTests/* $(OUTDIR)/*.o
-	$(CC) $(CFLAGS) $(OFLAGS) $^
+uTest: $(PUBLIC)/*.h ./src/uTests/* $(OUTDIR)/*.a
+	$(CC) $(CFLAGS) $(OFLAGS) -o exec.out $^
 
 clean:
-	-rm -r *.o $(OUTDIR) *.a
+	-rm -r *.o $(OUTDIR) *.a *.out
 

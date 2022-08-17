@@ -71,10 +71,10 @@ Val Name Mode Desc
 `Stack Operations`
 * 0x0B	PHA	Push Accumulator into memory stack and increment SR
 * 0x0C	POA	Pop value in memory to accumulator and decrement SR
-* 0x0D	PSD Imm	Subtract the stack register by a value in AC register
-* 0x0E	PSA Dir Subtract the stack register by the MBR
-* 0x0F	PAD Imm Add the stack register by a value in AC register
-* 0x10	PAA Dir	Add the stack register by the MBR
+* 0x0D	PSD 	Subtract the stack register by a value in AC register
+* 0x0E	PSA Imm Subtract the stack register by the MBR
+* 0x0F	PAD     Add the stack register by a value in AC register
+* 0x10	PAA Imm	Add the stack register by the MBR
 
 `Arithemetic Operations`
 * 0x11	ADD Imm	Add AC with memory operand val
