@@ -11,27 +11,6 @@
 #include <stdint.h>   
 #include <stdio.h>
 
-
-typedef enum defList
-{
-        ISAMAX  = 34,
-        MAXADDR = 0xffff
-        NOM	= 0, /* No Mode */
-        IMM	= 1,
-        DIR	= 2
-} defList;
-
-/* Data Stuff */
-typedef void ( *pFunc ) void;
-typedef struct i_set
-{
-	pFunc inst;
-	int32_t addrMd;
-} i_set;
-
-/* Not really a need for a clock rn */
-extern const i_set iList[ISAMAX];
-
 /* CPU DATA SECTION */
 typedef struct s_flg
 {
@@ -58,6 +37,23 @@ typedef struct ARP
         s_flg flg;
 } ARP;
 
+/* Data Stuff */
+typedef enum defList
+{
+        ISAMAX  = 34,
+        MAXADDR = 0xffff,
+        NOM	= 0, /* No Mode */
+        IMM	= 1,
+        DIR	= 2
+} defList;
+
+typedef void ( *pFunc ) ( ARP* );
+typedef struct i_set
+{
+	pFunc inst;
+	int32_t addrMd;
+} i_set;
+
 /* Function definitions for system */
 ARP* initArp	( void );
 void reset      ( ARP* lnk );
@@ -68,6 +64,6 @@ void fDebug	( ARP* lnk, FILE* fp );
 //void clock	( ARP* lnk );
 //void setBus	( ARP* lnk, Bus* cBusLk );
 void step	( ARP* lnk );
-void writeMem	( ARP* lnk );
+void writeMem ( ARP* lnk, uint16_t addr, uint16_t opCode, int16_t operand );
 
 #endif /* end */

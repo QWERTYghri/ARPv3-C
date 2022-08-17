@@ -9,7 +9,7 @@
 
 /* Instruction init */
 
-iList =
+i_set iList[ISAMAX] =
 	{
 		{ LDA, IMM },
 		{ STA, IMM },
@@ -37,7 +37,19 @@ iList =
 		{ INX, NOM },
 		{ DEC, NOM },
 		{ ADX, NOM },
-		{ SUX, NOM }
+		{ SUX, NOM },
+		
+		{ CPX, IMM },
+		{ CPA, IMM },
+		{ CPX, DIR }, /* CXA */
+		{ CPA, DIR }, /* CAA */
+		{ CLC, NOM },
+		
+		{ JMP, IMM },
+		{ JLC, NOM },
+		{ JMS, NOM },
+		{ RET, NOM }
+};
 		
 
 ARP* initArp ( void )
@@ -102,14 +114,14 @@ void fDebug ( ARP* lnk, FILE* fp )
 /* Computation set */
 void step ( ARP* lnk )
 {
-	insFetch ();
+	insFetch ( lnk );
 	if ( iList[lnk -> CIR].addrMd == IMM )
 		immFetch ( lnk );
-	else if ( iList[lnk -> CIR].addrMr == DIR
+	else if ( iList[lnk -> CIR].addrMd == DIR )
 		dirFetch ( lnk );
-	else if ( iList[lnk -> CIR].addrMr == NOM
+	else if ( iList[lnk -> CIR].addrMd == NOM )
 		lnk -> PC++; /* do nothing */
-	iList[lnk -> CIR].inst ();
+	iList[lnk -> CIR].inst ( lnk );
 }
 
 void writeMem ( ARP* lnk, uint16_t addr, uint16_t opCode, int16_t operand )
