@@ -130,7 +130,7 @@ ARPv3.h
 * clock		Clock cycle execution
 * step		Step one cycle.
 * writeInst	Write into an address and opcode and operand
-* writeData	Write data into an address
+* writeData	Write data into an address 
 
 Buses
 ------------
