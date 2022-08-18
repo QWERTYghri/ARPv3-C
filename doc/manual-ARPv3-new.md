@@ -22,16 +22,16 @@ Architecture
 **Registers**
 Registers are the same as the original
 
-`Register's AC, X are 8 bits wide`
+`Register's AC, X are 8 bits wide with 16 bit word versions`
 `Stack register is 8 bits wide to keep a 255 wide stack space.`
 
-* AC : Accumulator registers to interract with arithematic operations
-* X  : Multi-purpose registers to store values to act with AC or use for incrementation
+* E/AC : Accumulator registers to interract with arithematic operations
+* E/X  : Multi-purpose registers to store values to act with AC or use for incrementation
 * SR : Stack register initializes to $000
 * PC : 16 bits wide
 
-* MBR : Memory buffer reg 8 bits for operand
-* CIR : Instruction register 8 bits
+* MBR : Memory buffer reg 16 bits for operand
+* CIR : Instruction register 16 bits
 
 
 **CPU Flags**
@@ -40,6 +40,7 @@ Flags have changes, OV/SK have been added
 * OV : Overflow of any register.
 * SK : Stack overflow flag
 * CM : Comparison Register Set when a comparison instruction sets it off, a branch clears it or a clc
+* BM : Bit size mode, Switches between normal function handlers and addressing modes for 16 bit and 8 bit mode.
 
 **Instructions**
 There are a multitude of instructions that are also set for different addressing modes.
@@ -48,9 +49,9 @@ There are a multitude of instructions that are also set for different addressing
 
 Addressing modes fetch data depending on the instruction demand which is defined in a struct with function pointer to it.
 
-* Immediate	: Fetch from register
-* Direct	: Fetch/Store from an address
-* Imp		: No data is being fetched
+* Immediate 8/16	: Fetch from register
+* Direct    8/16	: Fetch/Store from an address
+* Imp	    none	: No data is being fetched
 
 There exists two modes for these two modes that dictate for the varying sizes of the stored word. There can be direct 16 bit address or 8 bit.
 The 16 bit mode should fetch from the two cells containing the parts of the 16 bit value and then have it parse through the instructions.
@@ -116,6 +117,20 @@ Project Files
 * perph.h: Handles for peripherals that are set up in threads to interact with a specified `ARP`'s bus data.
 	
 These have their functions defs and other stuff in src/private
+
+
+ARPv3.h
+-----------------
+**Functions**
+* init:		Allocate space for ARP struct, call reset, then return pointer to
+* reset:	Reset the argument ARP to default values and set PC.
+* immFetch	Fetch a memory operand to mbr
+* dirFetch	Fetch the value at an address to mbr
+* fDebug	Output a debug string to a stream
+* clock		Clock cycle execution
+* step		Step one cycle.
+* writeInst	Write into an address and opcode and operand
+* writeData	Write data into an address
 
 Buses
 ------------

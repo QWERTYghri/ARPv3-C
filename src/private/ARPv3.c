@@ -8,7 +8,6 @@
 #include "../public/handler.h"
 
 /* Instruction init */
-
 i_set iList[ISAMAX] =
 	{
 		{ LDA, IMM },
@@ -102,25 +101,46 @@ void fDebug ( ARP* lnk, FILE* fp )
 		      lnk -> CIR, lnk -> flg.OV, lnk -> flg.SK, lnk -> flg.CM );
 }
 
+void clock ( ARP* lnk, uint16_t cyc )
+{
+	while ( cyc > 0 )
+	{
+		step ( lnk );
+		cyc--; //temp
+	}
+}
+
 /* Computation set */
 void step ( ARP* lnk )
 {
 	insFetch ( lnk );
-	int32_t jVar = ( lnk -> CIR == 0 ) ? 0 : ( lnk -> CIR-- );
+	int16_t vCIR = ( lnk -> CIR == 0 || lnk -> CIR > ISAMAX ) ? 0 : lnk -> CIR - 1;
 	
-	if ( iList[jVar].addrMd == IMM )
-		immFetch ( lnk );
-	else if ( iList[jVar].addrMd == DIR )
-		dirFetch ( lnk );
-	else if ( iList[jVar].addrMd == NOM )
-		lnk -> PC++; /* do nothing */
-	iList[jVar].inst ( lnk );
+	switch ( iList[vCIR].addrMd )
+	{
+		case NOM:
+			lnk -> PC++;
+			break;
+		case IMM:
+			immFetch ( lnk );
+			break;
+		case DIR:
+			dirFetch ( lnk );
+			break;
+	}
 	
 	lnk -> clkCnt++;
 }
 
-void writeMem ( ARP* lnk, uint16_t addr, uint16_t opCode, int16_t operand )
+void writeInst ( ARP* lnk, uint16_t addr, uint16_t opCode, int16_t operand )
 {
 	lnk -> Bus[addr] = opCode;
 	lnk -> Bus[addr + 1] = operand;
+}
+
+void writeData	( ARP* lnk, uint16_t addr, int16_t data ) { lnk -> Bus[addr] = data; }
+
+void loadFile	( ARP* lnk, FILE* fp, uint16_t stAddr )
+{
+
 }

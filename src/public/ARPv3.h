@@ -25,14 +25,10 @@ typedef struct ARP
                         X;
         
         uint16_t        PC;
-
         uint8_t         SR;
-        uint8_t		MBR, CIR;
-
-        /* Flag reg is set to struct three bits that represent the
-           individual flags.
-        */
-        uint8_t		Bus[0xffff];
+        
+        uint16_t	MBR, CIR;
+        int8_t		Bus[0xffff];
         uint64_t	clkCnt;
         
         s_flg flg;
@@ -60,10 +56,11 @@ void reset      ( ARP* lnk, uint16_t init );
 void immFetch   ( ARP* lnk );
 void dirFetch   ( ARP* lnk );
 void fDebug	( ARP* lnk, FILE* fp );
-
-//void clock	( ARP* lnk );
-//void setBus	( ARP* lnk, Bus* cBusLk );
+void clock	( ARP* lnk, uint16_t cyc );
 void step	( ARP* lnk );
-void writeMem ( ARP* lnk, uint16_t addr, uint16_t opCode, int16_t operand );
+void writeInst	( ARP* lnk, uint16_t addr, uint16_t opCode, int16_t operand );
+void writeData	( ARP* lnk, uint16_t addr, int16_t data );
+void loadFile	( ARP* lnk, FILE* fp, uint16_t stAddr );
+
 
 #endif /* end */

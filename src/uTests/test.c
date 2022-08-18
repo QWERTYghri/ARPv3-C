@@ -12,7 +12,7 @@ int main ( void )
 	
 	
 	writeMem ( cpu, 300, 0x01, 15 );
-	writeMem ( cpu, 302, 0x04, 16 );
+	writeMem ( cpu, 302, 0x011, 16 );
 	
 	while ( ( ch = getc ( stdin ) ) != 'Q' )
 	{
