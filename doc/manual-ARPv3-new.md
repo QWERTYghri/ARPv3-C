@@ -57,49 +57,45 @@ There exists two modes for these two modes that dictate for the varying sizes of
 The 16 bit mode should fetch from the two cells containing the parts of the 16 bit value and then have it parse through the instructions.
 
 **Register Loading**
-* 0x01	LDA Imm	Load the accumulator with memory operand
-* 0x02	STA Dir	Store accumulator value into the address memory operand
-* 0x03	GTA Dir	Get the value from address and store in Accumulator
-* 0x04	LDX Imm	Load the accumulator with memory operand
-* 0x05	STX Dir	Store the value in X into memory address operand
-* 0x06	GTX Dir	Get the value from address operand and store in X
+* 00	LDA Imm	Load the accumulator with memory operand
+* 01	STA Dir	Store accumulator value into the address memory operand
+* 02	GTA Dir	Get the value from address and store in Accumulator
+* 03	LDX Imm	Load the accumulator with memory operand
+* 04	STX Dir	Store the value in X into memory address operand
+* 05	GTX Dir	Get the value from address operand and store in X
 
 **Register Transfer**
-* 0x07	TAX	Load AC val to X reg
-* 0x08	TXA	Load X val to AC reg
-* 0x09	TSX	Load SR val to X
-* 0x0A	TXS	Load X to SR reg
+* 06	TAX	Load AC val to X reg
+* 07	TXA	Load X val to AC reg
+* 08	TSX	Load SR val to X
+* 09	TXS	Load X to SR reg
 
 **Stack Operations**
-* 0x0B	PHA	Push Accumulator into memory stack and increment SR
-* 0x0C	POA	Pop value in memory to accumulator and decrement SR
-* 0x0D	PSD 	Subtract the stack register by a value in AC register
-* 0x0E	PSA Imm Subtract the stack register by the MBR
-* 0x0F	PAD     Add the stack register by a value in AC register
-* 0x10	PAA Imm	Add the stack register by the MBR
+* 10	PHA	Push Accumulator into memory stack and increment SR
+* 11	POA	Pop value in memory to accumulator and decrement SR
 
 **Arithemetic Operations**
-* 0x11	ADD Imm	Add AC with memory operand val
-* 0x12	ADA Dir	Add AC val with val from memory address given by mem operand
-* 0x13	SUB Imm	Sub AC val with memory operand val
-* 0x14	SBA Dir	Sub AC val with value from memory address given by mem operand
-* 0x15	INX	Increment X register
-* 0x16	DEC	Decrement X register
-* 0x17	ADX	Add AC register with X
-* 0x18	SUX	Sub AC register with X
+* 12	ADD Imm	Add AC with memory operand val
+* 13	ADA Dir	Add AC val with val from memory address given by mem operand
+* 14	SUB Imm	Sub AC val with memory operand val
+* 15	SBA Dir	Sub AC val with value from memory address given by mem operand
+* 16	INX	Increment X register
+* 17	DEC	Decrement X register
+* 18	ADX	Add AC register with X
+* 19	SUX	Sub AC register with X
 
 **Comparison**
-* 0x19	CPX	Compare X reg val to memory operand
-* 0x1A	CPA	Compare AC reg val to memory operand
-* 0x1B	CXA	Compare X reg val to address operand val
-* 0x1C	CAA	Compare AC reg val to address operand val
-* 0x1D	CLC 	Clear CM val to 0
+* 20	CPX	Compare X reg val to memory operand
+* 21	CPA	Compare AC reg val to memory operand
+* 22	CXA	Compare X reg val to address operand val
+* 23	CAA	Compare AC reg val to address operand val
+* 24	CLC 	Clear CM val to 0
 
 **Functions and jumps**
-* 0x1E	JMP	Jump to address val
-* 0x1F	JLC	Jump when CM flag is 1
-* 0x20	JMS	Jump to address as subroutine / Store current PC val in stack and increment the SR
-* 0x21	RET	Return from Subroutine val    / Store popped val into PC as the address to go back to
+* 25	JMP	Jump to address val
+* 26	JLC	Jump when CM flag is 1
+* 27	JMS	Jump to address as subroutine / Store current PC val in stack and increment the SR
+* 28	RET	Return from Subroutine val    / Store popped val into PC as the address to go back to
 
 
 

@@ -24,10 +24,6 @@ i_set iList[ISAMAX] =
 		
 		{ PHA, NOM },
 		{ POA, NOM },
-		{ PSD, NOM },
-		{ PSA, IMM },
-		{ PAD, NOM }, 
-		{ PAA, IMM },
 		
 		{ ADD, IMM },
 		{ ADD, DIR }, /* ADA */
@@ -114,22 +110,24 @@ void clock ( ARP* lnk, uint16_t cyc )
 void step ( ARP* lnk )
 {
 	insFetch ( lnk );
-	int16_t vCIR = ( lnk -> CIR == 0 || lnk -> CIR > ISAMAX ) ? 0 : lnk -> CIR - 1;
 	
-	switch ( iList[vCIR].addrMd )
+	if ( lnk -> CIR <= ISAMAX )
 	{
-		case NOM:
-			lnk -> PC++;
-			break;
-		case IMM:
-			immFetch ( lnk );
-			break;
-		case DIR:
-			dirFetch ( lnk );
-			break;
-	}
-	
-	lnk -> clkCnt++;
+		switch ( iList[lnk -> CIR].addrMd )
+		{
+			case NOM:
+				lnk -> PC++;
+				break;
+			case IMM:
+				immFetch ( lnk );
+				break;
+			case DIR:
+				dirFetch ( lnk );
+				break;
+		}
+		lnk -> PC++;
+	} else
+		lnk -> PC++;
 }
 
 void writeInst ( ARP* lnk, uint16_t addr, uint16_t opCode, int16_t operand )
@@ -138,9 +136,25 @@ void writeInst ( ARP* lnk, uint16_t addr, uint16_t opCode, int16_t operand )
 	lnk -> Bus[addr + 1] = operand;
 }
 
-void writeData	( ARP* lnk, uint16_t addr, int16_t data ) { lnk -> Bus[addr] = data; }
+void writeData ( ARP* lnk, uint16_t addr, int16_t data ) { lnk -> Bus[addr] = data; }
 
-void loadFile	( ARP* lnk, FILE* fp, uint16_t stAddr )
+void loadFile ( ARP* lnk, FILE* fp, uint16_t stAddr )
 {
+	
+}
 
+void setFlag ( ARP* lnk, int32_t flg, int32_t val )
+{
+	switch ( flg )
+	{
+		case OV:
+			lnk -> flg.OV = val;
+			break;
+		case SK:
+			lnk -> flg.SK = val;
+			break;
+		case CM:
+			lnk -> flg.CM = val;
+			break;
+	}
 }

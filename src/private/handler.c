@@ -10,7 +10,7 @@
 /* Different functions are commented out because they'll be implemented using a function of same code but with different fetches */
 
 /* Register instructions */
-void LDA ( ARP* lnk ) { lnk -> AC =  lnk -> MBR; }
+void LDA ( ARP* lnk ) { lnk -> AC =  lnk -> MBR; setFlag ( lnk, OV, lnk -> AC < 0 ); }
 void STA ( ARP* lnk ) { lnk -> Bus[lnk -> MBR] = lnk -> AC; }
 
 void LDX ( ARP* lnk ) { lnk -> X =  lnk -> MBR; }
@@ -27,18 +27,15 @@ void TXS ( ARP* lnk ) { lnk -> SR = lnk -> X; }
 void PHA ( ARP* lnk ) { lnk -> Bus[lnk -> SR] = lnk -> AC; lnk -> SR++; }
 void POA ( ARP* lnk ) { lnk -> AC = lnk -> Bus[lnk -> SR]; lnk -> SR--; }
 
-void PSD ( ARP* lnk ) { lnk -> SR -= lnk -> AC; }
-void PSA ( ARP* lnk ) { lnk -> SR -= lnk -> MBR; }
-void PAD ( ARP* lnk ) { lnk -> SR += lnk -> AC; }
-void PAA ( ARP* lnk ) { lnk -> SR += lnk -> MBR; }
-
-/* Arithemetic */
-void ADD ( ARP* lnk ) { lnk -> AC += lnk -> MBR; }
-void SUB ( ARP* lnk ) { lnk -> AC -= lnk -> MBR; }
-void INX ( ARP* lnk ) { lnk -> X++; }
-void DEC ( ARP* lnk ) { lnk -> X--; }
-void ADX ( ARP* lnk ) { lnk -> AC += lnk -> X; }
-void SUX ( ARP* lnk ) { lnk -> AC -= lnk -> X; }
+/* Arithemetic 
+	Redundancy ew but I don't want to make a handler function just because of the flag changes
+*/
+void ADD ( ARP* lnk ) { lnk -> AC += lnk -> MBR; setFlag ( lnk, OV, lnk -> AC < 0 );}
+void SUB ( ARP* lnk ) { lnk -> AC -= lnk -> MBR; setFlag ( lnk, OV, lnk -> AC < 0 ); }
+void INX ( ARP* lnk ) { lnk -> X++; setFlag ( lnk, OV, lnk -> X < 0 ); }
+void DEC ( ARP* lnk ) { lnk -> X--; setFlag ( lnk, OV, lnk -> X < 0 ); }
+void ADX ( ARP* lnk ) { lnk -> AC += lnk -> X; setFlag ( lnk, OV, lnk -> X < 0 ); }
+void SUX ( ARP* lnk ) { lnk -> AC -= lnk -> X; setFlag ( lnk, OV, lnk -> X < 0 ); }
 
 /* Comparison */
 void CPX ( ARP* lnk ) { ( lnk -> X == lnk -> MBR ) ? lnk -> flg.CM = 1 : 0; }

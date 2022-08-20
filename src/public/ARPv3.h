@@ -41,7 +41,11 @@ typedef enum defList
         MAXADDR = 0xffff,
         NOM	= 0, /* No Mode */
         IMM	= 1,
-        DIR	= 2
+        DIR	= 2,
+        
+        OV	= 3,
+        SK	= 4,
+        CM	= 5
 } defList;
 
 typedef void ( *pFunc ) ( ARP* );
@@ -61,6 +65,7 @@ void step	( ARP* lnk );
 void writeInst	( ARP* lnk, uint16_t addr, uint16_t opCode, int16_t operand );
 void writeData	( ARP* lnk, uint16_t addr, int16_t data );
 void loadFile	( ARP* lnk, FILE* fp, uint16_t stAddr );
+void setFlag	( ARP* lnk, int32_t flg, int32_t val );
 
 
 #endif /* end */
