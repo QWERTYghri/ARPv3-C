@@ -63,7 +63,7 @@ void reset ( ARP* lnk, uint16_t initPc )
        	
         /* Temp bus stuff */
         for ( int32_t i = 0; i <= MAXADDR; i++ )
-        	lnk -> Bus[i] = 0;
+        	lnk -> Bus[i] = 100;
 }
 
 /* Fetch instruction */
@@ -125,9 +125,7 @@ void step ( ARP* lnk )
 				dirFetch ( lnk );
 				break;
 		}
-		lnk -> PC++;
-	} else
-		lnk -> PC++;
+	}
 }
 
 void writeInst ( ARP* lnk, uint16_t addr, uint16_t opCode, int16_t operand )

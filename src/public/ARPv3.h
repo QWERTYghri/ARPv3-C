@@ -39,13 +39,13 @@ typedef enum defList
 {
         ISAMAX  = 34,
         MAXADDR = 0xffff,
-        NOM	= 0, /* No Mode */
-        IMM	= 1,
-        DIR	= 2,
+        NOM	= 1, /* No Mode */
+        IMM	= 2,
+        DIR	= 3,
         
-        OV	= 3,
-        SK	= 4,
-        CM	= 5
+        OV	= 4,
+        SK	= 5,
+        CM	= 6
 } defList;
 
 typedef void ( *pFunc ) ( ARP* );
