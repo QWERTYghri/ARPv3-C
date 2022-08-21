@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include "../public/ARPv3.h"
 #include "../public/handler.h"
+#include "../public/bus.h"
 
 /* Instruction init */
 i_set iList[ISAMAX] =
@@ -61,15 +62,13 @@ void reset ( ARP* lnk, uint16_t initPc )
        	lnk -> clkCnt	= 0;
        	
        	
-        /* Temp bus stuff */
-        for ( int32_t i = 0; i <= MAXADDR; i++ )
-        	lnk -> Bus[i] = 0;
+	
 }
 
 /* Fetch instruction */
 void insFetch ( ARP* lnk )
 {
-	uint16_t vCIR = lnk -> Bus[lnk -> PC];
+	uint16_t vCIR = Read ( lnk -> mBus, lnk -> PC );
 
 	lnk -> CIR = ( vCIR > 0 && vCIR <= ISAMAX ) ? vCIR - 1 : NOP;
 	lnk -> PC++;
@@ -79,14 +78,14 @@ void insFetch ( ARP* lnk )
 /* Addressing modes for operands */
 void immFetch ( ARP* lnk )
 {
-	lnk -> MBR = lnk -> Bus[lnk -> PC];
+	lnk -> MBR = Read ( lnk -> mBus, lnk -> PC );
 	lnk -> PC++;
 }
 
 void dirFetch ( ARP* lnk )
 {
 	/* get value from operand and use it to address from Bus to store mbr MBR = bus[ bus[pc] ] */
-	lnk -> MBR = lnk -> Bus[ lnk -> Bus[lnk -> PC] ];
+	lnk -> MBR = Read ( lnk -> mBus, Read ( lnk -> mBus, lnk -> PC ) );
 	lnk -> PC++;
 }
 
@@ -135,11 +134,11 @@ void step ( ARP* lnk )
 
 void writeInst ( ARP* lnk, uint16_t addr, uint16_t opCode, int16_t operand )
 {
-	lnk -> Bus[addr] = opCode;
-	lnk -> Bus[addr + 1] = operand;
+	Write ( lnk -> mBus, addr, opCode );
+	Write ( lnk -> mBus, addr, operand );
 }
 
-void writeData ( ARP* lnk, uint16_t addr, int16_t data ) { lnk -> Bus[addr] = data; }
+void writeData ( ARP* lnk, uint16_t addr, int16_t data ) { Write ( lnk -> mBus, addr, data ); }
 
 void loadFile ( ARP* lnk, FILE* fp, uint16_t stAddr )
 {
@@ -147,7 +146,7 @@ void loadFile ( ARP* lnk, FILE* fp, uint16_t stAddr )
 	
 	while ( ( bIn = fgetc ( fp ) ) != EOF  )
 	{
-		lnk -> Bus[stAddr] = bIn;
+		Write ( lnk -> mBus, stAddr, bIn );
 		stAddr++;
 	}
 }

@@ -10,6 +10,7 @@
 
 #include <stdint.h>   
 #include <stdio.h>
+#include "bus.h"
 
 /* CPU DATA SECTION */
 typedef struct s_flg
@@ -28,7 +29,7 @@ typedef struct ARP
         uint8_t         SR;
         
         uint16_t	MBR, CIR;
-        int8_t		Bus[0xffff];
+        Bus*		mBus;
         uint64_t	clkCnt;
         
         s_flg flg;

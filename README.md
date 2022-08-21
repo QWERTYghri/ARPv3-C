@@ -12,8 +12,7 @@ The manual for the ARP is updated and support for peripherals would be added
 
 Other
 -------------
-* Two addressing modes exist. Indirect/Direct.
-* You can create your own "Peripheral" by defining a function where you can interact with the bus.
+* Three addressing modes exist. Indirect/Direct/NoMode.
 * The bus exists as a object defined in an `ARP` struct.
 * Compilation outputs a static archive.
 
