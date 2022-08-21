@@ -3,8 +3,6 @@
  */
 
 #include "../public/handler.h"
-#include "../public/ARPv3.h"
-#include "../public/bus.h"
 
 
 /* Redundancy is  pain */

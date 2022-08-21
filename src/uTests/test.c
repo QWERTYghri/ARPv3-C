@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../public/ARPv3.h"
-#include "../public/handler.h"
 
 int main ( void )
 {

@@ -4,8 +4,8 @@
 
 #include <stdint.h>
 #include <stdlib.h>
+
 #include "../public/ARPv3.h"
-#include "../public/handler.h"
 #include "../public/bus.h"
 
 /* Instruction init */
@@ -61,8 +61,7 @@ void reset ( ARP* lnk, uint16_t initPc )
         lnk -> flg.CM	= 0;
        	lnk -> clkCnt	= 0;
        	
-       	
-	
+       	lnk -> mBus = setMem (); /* TEMP */
 }
 
 /* Fetch instruction */

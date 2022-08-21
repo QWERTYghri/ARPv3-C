@@ -6,6 +6,13 @@
 #define BUS_H
 
 #include <stdint.h>
+#include <stdlib.h>
+
+typedef enum bSize
+{
+	CPUSIZE = 0x1FFF,
+	SCREEN	= 0x2000
+} bSize;
 
 typedef struct Bus
 {
@@ -15,5 +22,6 @@ typedef struct Bus
 
 void Write ( Bus* lnk, uint16_t addr, int8_t data);
 int8_t Read ( Bus* lnk, uint16_t addr );
+Bus* setMem ( void )
 
 #endif /* End */
