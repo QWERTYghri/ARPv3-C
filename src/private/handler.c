@@ -58,4 +58,3 @@ void RET ( ARP* lnk )
 	lnk -> PC = lnk -> Bus[lnk -> SR];
 }
 
-

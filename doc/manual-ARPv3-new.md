@@ -96,6 +96,7 @@ The 16 bit mode should fetch from the two cells containing the parts of the 16 b
 * 27	JLC	Jump when CM flag is 1
 * 28	JMS	Jump to address as subroutine / Store current PC val in stack and increment the SR
 * 29	RET	Return from Subroutine val    / Store popped val into PC as the address to go back to
+* 30	NOP	No operation / The CIR is put to NOP when a value isn't in the ISA range
 
 
 

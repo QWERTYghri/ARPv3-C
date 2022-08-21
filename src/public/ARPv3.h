@@ -46,7 +46,7 @@ typedef enum defList
         OV	= 4,
         SK	= 5,
         CM	= 6,
-        IL	= 31	/* Illegal Op */
+        NOP	= 30	/* Illegal Op */
 } defList;
 
 typedef void ( *pFunc ) ( ARP* );

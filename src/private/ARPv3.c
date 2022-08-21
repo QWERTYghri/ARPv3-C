@@ -71,7 +71,7 @@ void insFetch ( ARP* lnk )
 {
 	uint16_t vCIR = lnk -> Bus[lnk -> PC];
 
-	lnk -> CIR = ( vCIR > 0 && vCIR <= ISAMAX ) ? vCIR - 1 : IL;
+	lnk -> CIR = ( vCIR > 0 && vCIR <= ISAMAX ) ? vCIR - 1 : NOP;
 	lnk -> PC++;
 }
 
@@ -108,27 +108,29 @@ void clock ( ARP* lnk, uint16_t cyc )
 	}
 }
 
-/* Computation set */
+/* Computation set some boiler plate here but welp*/
 void step ( ARP* lnk )
 {
 	insFetch ( lnk );
 	
 	switch ( iList[lnk -> CIR].addrMd )
 	{
+		case NOP:
+			lnk -> PC++;
+			break;
 		case NOM:
 			lnk -> PC++;
+			iList[lnk -> CIR].inst ( lnk );
 			break;
 		case IMM:
 			immFetch ( lnk );
+			iList[lnk -> CIR].inst ( lnk );
 			break;
 		case DIR:
 			dirFetch ( lnk );
-			break;
-		case IL:
-			lnk -> PC++;
+			iList[lnk -> CIR].inst ( lnk );
 			break;
 	}
-	iList[lnk -> CIR].inst ( lnk );
 }
 
 void writeInst ( ARP* lnk, uint16_t addr, uint16_t opCode, int16_t operand )
@@ -141,7 +143,13 @@ void writeData ( ARP* lnk, uint16_t addr, int16_t data ) { lnk -> Bus[addr] = da
 
 void loadFile ( ARP* lnk, FILE* fp, uint16_t stAddr )
 {
+	int32_t bIn;
 	
+	while ( ( bIn = fgetc ( fp ) ) != EOF  )
+	{
+		lnk -> Bus[stAddr] = bIn;
+		stAddr++;
+	}
 }
 
 void setFlag ( ARP* lnk, int32_t flg, int32_t val )

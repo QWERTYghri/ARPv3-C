@@ -10,7 +10,9 @@ int main ( void )
 	ARP* cpu = calloc ( 1, sizeof ( ARP ) );
 	reset ( cpu, 298 );
 	
-	writeInst ( cpu, 300, 1, 53 );
+	FILE* fp = fopen ( "prog.bin", "r+" );
+	
+	loadFile ( cpu, fp, 300 );
 	
 	while ( ( ch = getc ( stdin ) ) != 'Q' )
 	{
