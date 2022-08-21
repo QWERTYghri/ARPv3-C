@@ -57,45 +57,45 @@ There exists two modes for these two modes that dictate for the varying sizes of
 The 16 bit mode should fetch from the two cells containing the parts of the 16 bit value and then have it parse through the instructions.
 
 **Register Loading**
-* 00	LDA Imm	Load the accumulator with memory operand
-* 01	STA Dir	Store accumulator value into the address memory operand
-* 02	GTA Dir	Get the value from address and store in Accumulator
-* 03	LDX Imm	Load the accumulator with memory operand
-* 04	STX Dir	Store the value in X into memory address operand
-* 05	GTX Dir	Get the value from address operand and store in X
+* 01	LDA Imm	Load the accumulator with memory operand
+* 02	STA Dir	Store accumulator value into the address memory operand
+* 03	GTA Dir	Get the value from address and store in Accumulator
+* 04	LDX Imm	Load the accumulator with memory operand
+* 05	STX Dir	Store the value in X into memory address operand
+* 06	GTX Dir	Get the value from address operand and store in X
 
 **Register Transfer**
-* 06	TAX	Load AC val to X reg
-* 07	TXA	Load X val to AC reg
-* 08	TSX	Load SR val to X
-* 09	TXS	Load X to SR reg
+* 07	TAX	Load AC val to X reg
+* 08	TXA	Load X val to AC reg
+* 09	TSX	Load SR val to X
+* 10	TXS	Load X to SR reg
 
 **Stack Operations**
-* 10	PHA	Push Accumulator into memory stack and increment SR
-* 11	POA	Pop value in memory to accumulator and decrement SR
+* 11	PHA	Push Accumulator into memory stack and increment SR
+* 12	POA	Pop value in memory to accumulator and decrement SR
 
 **Arithemetic Operations**
-* 12	ADD Imm	Add AC with memory operand val
-* 13	ADA Dir	Add AC val with val from memory address given by mem operand
-* 14	SUB Imm	Sub AC val with memory operand val
-* 15	SBA Dir	Sub AC val with value from memory address given by mem operand
-* 16	INX	Increment X register
-* 17	DEC	Decrement X register
-* 18	ADX	Add AC register with X
-* 19	SUX	Sub AC register with X
+* 13	ADD Imm	Add AC with memory operand val
+* 14	ADA Dir	Add AC val with val from memory address given by mem operand
+* 15	SUB Imm	Sub AC val with memory operand val
+* 16	SBA Dir	Sub AC val with value from memory address given by mem operand
+* 17	INX	Increment X register
+* 18	DEC	Decrement X register
+* 19	ADX	Add AC register with X
+* 20	SUX	Sub AC register with X
 
 **Comparison**
-* 20	CPX	Compare X reg val to memory operand
-* 21	CPA	Compare AC reg val to memory operand
-* 22	CXA	Compare X reg val to address operand val
-* 23	CAA	Compare AC reg val to address operand val
-* 24	CLC 	Clear CM val to 0
+* 21	CPX	Compare X reg val to memory operand
+* 22	CPA	Compare AC reg val to memory operand
+* 23	CXA	Compare X reg val to address operand val
+* 24	CAA	Compare AC reg val to address operand val
+* 25	CLC 	Clear CM val to 0
 
 **Functions and jumps**
-* 25	JMP	Jump to address val
-* 26	JLC	Jump when CM flag is 1
-* 27	JMS	Jump to address as subroutine / Store current PC val in stack and increment the SR
-* 28	RET	Return from Subroutine val    / Store popped val into PC as the address to go back to
+* 26	JMP	Jump to address val
+* 27	JLC	Jump when CM flag is 1
+* 28	JMS	Jump to address as subroutine / Store current PC val in stack and increment the SR
+* 29	RET	Return from Subroutine val    / Store popped val into PC as the address to go back to
 
 
 
@@ -113,6 +113,8 @@ Project Files
 * perph.h: Handles for peripherals that are set up in threads to interact with a specified `ARP`'s bus data.
 	
 These have their functions defs and other stuff in src/private
+
+Jump table is set to 0 - ISAMAX but takes from 1 - ISAMAX.
 
 
 ARPv3.h

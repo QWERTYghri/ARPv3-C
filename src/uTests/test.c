@@ -8,7 +8,9 @@ int main ( void )
 	int32_t ch;
 
 	ARP* cpu = calloc ( 1, sizeof ( ARP ) );
-	reset ( cpu, 300 );
+	reset ( cpu, 298 );
+	
+	writeInst ( cpu, 300, 1, 53 );
 	
 	while ( ( ch = getc ( stdin ) ) != 'Q' )
 	{
@@ -17,3 +19,4 @@ int main ( void )
 	}
 	return 0;
 }
+

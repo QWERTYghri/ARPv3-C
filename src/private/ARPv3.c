@@ -63,13 +63,15 @@ void reset ( ARP* lnk, uint16_t initPc )
        	
         /* Temp bus stuff */
         for ( int32_t i = 0; i <= MAXADDR; i++ )
-        	lnk -> Bus[i] = 100;
+        	lnk -> Bus[i] = 0;
 }
 
 /* Fetch instruction */
 void insFetch ( ARP* lnk )
 {
-	lnk -> CIR = lnk -> Bus[lnk -> PC];
+	uint16_t vCIR = lnk -> Bus[lnk -> PC];
+
+	lnk -> CIR = ( vCIR > 0 && vCIR <= ISAMAX ) ? vCIR - 1 : IL;
 	lnk -> PC++;
 }
 
@@ -111,21 +113,22 @@ void step ( ARP* lnk )
 {
 	insFetch ( lnk );
 	
-	if ( lnk -> CIR <= ISAMAX )
+	switch ( iList[lnk -> CIR].addrMd )
 	{
-		switch ( iList[lnk -> CIR].addrMd )
-		{
-			case NOM:
-				lnk -> PC++;
-				break;
-			case IMM:
-				immFetch ( lnk );
-				break;
-			case DIR:
-				dirFetch ( lnk );
-				break;
-		}
+		case NOM:
+			lnk -> PC++;
+			break;
+		case IMM:
+			immFetch ( lnk );
+			break;
+		case DIR:
+			dirFetch ( lnk );
+			break;
+		case IL:
+			lnk -> PC++;
+			break;
 	}
+	iList[lnk -> CIR].inst ( lnk );
 }
 
 void writeInst ( ARP* lnk, uint16_t addr, uint16_t opCode, int16_t operand )

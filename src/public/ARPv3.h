@@ -37,7 +37,7 @@ typedef struct ARP
 /* Data Stuff */
 typedef enum defList
 {
-        ISAMAX  = 34,
+        ISAMAX  = 29,
         MAXADDR = 0xffff,
         NOM	= 1, /* No Mode */
         IMM	= 2,
@@ -45,7 +45,8 @@ typedef enum defList
         
         OV	= 4,
         SK	= 5,
-        CM	= 6
+        CM	= 6,
+        IL	= 31	/* Illegal Op */
 } defList;
 
 typedef void ( *pFunc ) ( ARP* );
