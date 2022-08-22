@@ -12,6 +12,23 @@
 #include <stdio.h>
 #include "bus.h"
 
+/* Const Defs */
+#define ISAMAX 29
+#define MAXADDR ( ( uint16_t ) 0xFFFF )
+#define NOP 30
+
+enum ADDRMODE {
+        NOM	= 1, /* No Mode */
+        IMM	= 2,
+        DIR	= 3,
+};
+
+enum FLAGVAL {
+        OV	= 4,
+        SK	= 5,
+        CM	= 6,
+};
+
 /* CPU DATA SECTION */
 typedef struct s_flg
 {
@@ -36,24 +53,10 @@ typedef struct ARP
 } ARP;
 
 /* Data Stuff */
-typedef enum defList
-{
-        ISAMAX  = 29,
-        MAXADDR = 0xffff,
-        NOM	= 1, /* No Mode */
-        IMM	= 2,
-        DIR	= 3,
-        
-        OV	= 4,
-        SK	= 5,
-        CM	= 6,
-        NOP	= 30	/* Illegal Op */
-} defList;
-
-typedef void ( *pFunc ) ( ARP* );
+typedef void ( *p_Func ) ( ARP* );
 typedef struct i_set
 {
-	pFunc inst;
+	p_Func inst;
 	int32_t addrMd;
 } i_set;
 

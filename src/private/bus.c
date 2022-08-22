@@ -4,6 +4,7 @@
 
 #include <stdint.h>
 #include <stdlib.h>
+#include <stdarg.h>
 #include "../public/bus.h"
 
 void Write ( Bus* lnk, uint16_t addr, int8_t data)
@@ -24,8 +25,14 @@ int8_t Read ( Bus* lnk, uint16_t addr )
 	return 0;
 }
 
-Bus* setMem ( void )
+Bus* setMem ( uint16_t busSec, ... )
 {
-	Bus* ptr = calloc ( 1, sizeof ( Bus ) );
-	return ptr;
+	Bus* retBus = NULL;
+
+	va_list sec;
+	va_start ( sec, busSec );
+	
+	
+	
+	va_end ( sec );
 }

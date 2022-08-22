@@ -6,7 +6,7 @@
 #include <stdlib.h>
 
 #include "../public/ARPv3.h"
-#include "../public/bus.h"
+#include "../public/handler.h"
 
 /* Instruction init */
 i_set iList[ISAMAX] =
@@ -45,7 +45,7 @@ i_set iList[ISAMAX] =
 		{ JLC, NOM },
 		{ JMS, NOM },
 		{ RET, NOM }
-};
+	};
 
 void reset ( ARP* lnk, uint16_t initPc )
 {

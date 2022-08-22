@@ -7,21 +7,17 @@
 
 #include <stdint.h>
 #include <stdlib.h>
+#include <stdarg.h>
 
-typedef enum bSize
-{
-	CPUSIZE = 0x1FFF,
-	SCREEN	= 0x2000
-} bSize;
+#define MAXADDR ( ( uint16_t ) 0xffff )
 
 typedef struct Bus
 {
-	int8_t cBus[0x1FFF];
-	int8_t sBus[0x2000];
+	int8_t* memSecs[MAXADDR];
 } Bus;
 
 void Write ( Bus* lnk, uint16_t addr, int8_t data);
 int8_t Read ( Bus* lnk, uint16_t addr );
-Bus* setMem ( void )
+Bus* setMem ( uint16_t busSec, ... );
 
 #endif /* End */
