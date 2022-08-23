@@ -9,14 +9,14 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
-#define MAXADDR ( ( uint16_t ) 0xffff )
+#define MAXADDR ( ( uint16_t ) 1024 * 64 )
 
 typedef struct Bus
 {
 	int8_t* memSecs[MAXADDR];
 } Bus;
 
-void Write ( Bus* lnk, uint16_t addr, int8_t data);
+void Write ( Bus* lnk, uint16_t addr, int8_t data );
 int8_t Read ( Bus* lnk, uint16_t addr );
 Bus* setMem ( uint16_t busSec, ... );
 

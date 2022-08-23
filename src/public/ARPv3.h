@@ -14,7 +14,7 @@
 
 /* Const Defs */
 #define ISAMAX 29
-#define MAXADDR ( ( uint16_t ) 0xFFFF )
+#define MAXADDR ( ( uint16_t ) 1024 * 64 )
 #define NOP 30
 
 enum ADDRMODE {

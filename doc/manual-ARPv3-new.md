@@ -136,7 +136,8 @@ Buses
 Bus.h is used to set a module to create buses. A `Bus` type is used to set up a address space for a Cpu.
 In ARPv3.h, the setBus function is used to alter an argument `ARP` struct that contains a Bus type that the functions map out to.
 
-
+A bus struct contains a set of pointers that can contain a sector of bytes that all max out to 0xFFFF bytes. It's set up to setMem to alloc the memory sectors in the Bus* map. The Read/Write is set to
+allocate to those different sectors.
 
 
 

@@ -7,6 +7,10 @@
 #include <stdarg.h>
 #include "../public/bus.h"
 
+/* NOTE HERE: Fix Read/Write to interface with mem sections */
+/* Also think of a better way to set up bus sections */
+
+/*
 void Write ( Bus* lnk, uint16_t addr, int8_t data)
 {
 	if ( addr <= 0x1FFF )
@@ -24,15 +28,17 @@ int8_t Read ( Bus* lnk, uint16_t addr )
 		
 	return 0;
 }
+*/
 
 Bus* setMem ( uint16_t busSec, ... )
 {
-	Bus* retBus = NULL;
-
-	va_list sec;
-	va_start ( sec, busSec );
+	va_list cBus;
+	int32_t mCnt = 0;
 	
+	while ( mCnt <= MAXADDR )
+	{
 	
+	}
 	
-	va_end ( sec );
+	va_end ( cBus );
 }

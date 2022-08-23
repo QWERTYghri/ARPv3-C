@@ -2,6 +2,7 @@
  * Function definitions for ARPv3
  */
 
+#include "../public/ARPv3.h"
 #include "../public/handler.h"
 
 

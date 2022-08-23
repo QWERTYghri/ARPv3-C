@@ -60,8 +60,6 @@ void reset ( ARP* lnk, uint16_t initPc )
         lnk -> flg.SK	= 0;
         lnk -> flg.CM	= 0;
        	lnk -> clkCnt	= 0;
-       	
-       	lnk -> mBus = setMem (); /* TEMP */
 }
 
 /* Fetch instruction */
