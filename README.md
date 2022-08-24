@@ -26,8 +26,9 @@ Binaries are compiled into a `bin` directory
 
 Compiled in C99 Standard `-std=gnu99`
 
+Run `make` to output a `bin` directory which stores object files and a static archive file
+
 ```
 clean: Remove ./bin and object files in proj directory.
-lib: Compile a static library of the module
 uTest: Compile executables for unit tests
 ```
