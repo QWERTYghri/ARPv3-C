@@ -63,4 +63,6 @@ void JLC ( ARP* lnk );
 void JMS ( ARP* lnk );
 void RET ( ARP* lnk );
 
+void NOP ( ARP* lnk );
+
 #endif /* HANDLER_H */

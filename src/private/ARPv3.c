@@ -44,7 +44,9 @@ i_set iList[ISAMAX] =
 		{ JMP, IMM },
 		{ JLC, NOM },
 		{ JMS, NOM },
-		{ RET, NOM }
+		{ RET, NOM },
+		
+		{ NOP, NOM }
 	};
 
 void reset ( ARP* lnk, uint16_t initPc )
@@ -67,7 +69,7 @@ void insFetch ( ARP* lnk )
 {
 	uint16_t vCIR = Read ( lnk -> mBus, lnk -> PC );
 
-	lnk -> CIR = ( vCIR > 0 && vCIR <= ISAMAX ) ? vCIR - 1 : NOP;
+	lnk -> CIR = ( vCIR > 0 && vCIR <= ISAMAX ) ? vCIR - 1 : NOPC;
 	lnk -> PC++;
 }
 
@@ -111,9 +113,6 @@ void step ( ARP* lnk )
 	
 	switch ( iList[lnk -> CIR].addrMd )
 	{
-		case NOP:
-			lnk -> PC++;
-			break;
 		case NOM:
 			lnk -> PC++;
 			iList[lnk -> CIR].inst ( lnk );

@@ -13,9 +13,10 @@
 #include "bus.h"
 
 /* Const Defs */
-#define ISAMAX 29
+#define ISAMAX	30
 #define MAXADDR ( ( uint16_t ) 1024 * 64 )
-#define NOP 30
+#define NOPC	30
+
 
 enum ADDRMODE {
         NOM	= 1, /* No Mode */

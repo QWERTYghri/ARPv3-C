@@ -59,3 +59,5 @@ void RET ( ARP* lnk )
 	lnk -> PC = Read ( lnk -> mBus, lnk -> SR );
 }
 
+
+void NOP ( ARP* lnk ) { /* NOP is just here as a no instruction, also to satisfy the step */ }
