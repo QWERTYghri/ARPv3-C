@@ -7,6 +7,8 @@
 
 #include "../public/ARPv3.h"
 #include "../public/handler.h"
+#include "../public/bus.h"
+
 
 /* Instruction init */
 i_set iList[ISAMAX] =
@@ -62,7 +64,12 @@ void reset ( ARP* lnk, uint16_t initPc )
         lnk -> flg.SK	= 0;
         lnk -> flg.CM	= 0;
        	lnk -> clkCnt	= 0;
+       	
+       	/* Make edit for setMem bus */
 }
+
+/* Free ARP struct */
+void fReset ( ARP* lnk ) { free ( lnk ); };
 
 /* Fetch instruction */
 void insFetch ( ARP* lnk )

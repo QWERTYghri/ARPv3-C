@@ -63,6 +63,7 @@ typedef struct i_set
 
 /* Function definitions for system */
 void reset      ( ARP* lnk, uint16_t init );
+void fReset	( ARP* lnk );
 void immFetch   ( ARP* lnk );
 void dirFetch   ( ARP* lnk );
 void fDebug	( ARP* lnk, FILE* fp );
