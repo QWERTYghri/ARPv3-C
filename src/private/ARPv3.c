@@ -2,6 +2,7 @@
  * Function definitions for ARPv3
  */
 
+#include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
 
@@ -50,6 +51,8 @@ i_set iList[ISAMAX] =
 		
 		{ NOP, NOM }
 	};
+ 
+/*----------------------------------------------------------------------*/
 
 void reset ( ARP* lnk, uint16_t initPc )
 {
@@ -67,9 +70,20 @@ void reset ( ARP* lnk, uint16_t initPc )
        	
        	/* Make edit for setMem bus */
 }
+void arpInit ( uint16_t initPc, uint16_t secBus, ... )
+{
+	ARP* lnk = calloc ( 1, sizeof ( ARP ) );
+	reset ( lnk, initPc );
+	
+	lnk -> mBus = /* shit */
+}
 
 /* Free ARP struct */
-void fReset ( ARP* lnk ) { free ( lnk ); }
+void arpDel ( ARP* lnk ) {
+	free ( lnk );
+}
+
+/*----------------------------------------------------------------------*/
 
 /* Fetch instruction */
 void insFetch ( ARP* lnk )
@@ -94,6 +108,8 @@ void dirFetch ( ARP* lnk )
 	lnk -> MBR = Read ( lnk -> mBus, Read ( lnk -> mBus, lnk -> PC ) );
 	lnk -> PC++;
 }
+
+/*----------------------------------------------------------------------*/
 
 /* Pain */
 void fDebug ( ARP* lnk, FILE* fp )
@@ -135,6 +151,8 @@ void step ( ARP* lnk )
 	}
 }
 
+/*----------------------------------------------------------------------*/
+
 void writeInst ( ARP* lnk, uint16_t addr, uint16_t opCode, int16_t operand )
 {
 	Write ( lnk -> mBus, addr, opCode );
@@ -153,6 +171,8 @@ void loadFile ( ARP* lnk, FILE* fp, uint16_t stAddr )
 		stAddr++;
 	}
 }
+
+/*----------------------------------------------------------------------*/
 
 void setFlag ( ARP* lnk, int32_t flg, int32_t val )
 {

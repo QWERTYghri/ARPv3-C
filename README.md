@@ -9,6 +9,15 @@ processor. It exists as a header module to be included with a main program.
 
 The manual for the ARP is updated and support for peripherals would be added
 
+Header Interface
+----------------
+Interfacing with the data structures and instructions is done primarily through functions declared
+in `ARPv3.h`. Most functions require the argument of an `ARP` struct to be used as to allow a sort of
+object view for the CPU. And also to set up multiple different cores for some stuff.
+
+Example Prog:
+
+	
 
 Other
 -------------

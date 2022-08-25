@@ -60,17 +60,31 @@ typedef struct i_set
 	int32_t addrMd;
 } i_set;
 
-/* Function definitions for system */
-void reset      ( ARP* lnk, uint16_t init );
-void fReset	( ARP* lnk );
+/* 
+ * Function definitions for interacing with ARP 
+ */
+ 
+/* Initialization functions */
+void reset      ( ARP* lnk, uint16_t initPc );
+void arpInit	( uint16_t initPc, uint16_t secBus, ... ); /* Function to calloc an ARP and call variadic bus.h function to set memory */
+void arpDel	( ARP* lnk );
+
+/* Fetch modes NOM not included and just done in step ()*/
+void insFetch ( ARP* lnk );
 void immFetch   ( ARP* lnk );
 void dirFetch   ( ARP* lnk );
+
+/* Computation functions */
 void fDebug	( ARP* lnk, FILE* fp );
 void clock	( ARP* lnk, uint16_t cyc );
 void step	( ARP* lnk );
+
+/* Write data to bus */
 void writeInst	( ARP* lnk, uint16_t addr, uint16_t opCode, int16_t operand );
 void writeData	( ARP* lnk, uint16_t addr, int16_t data );
 void loadFile	( ARP* lnk, FILE* fp, uint16_t stAddr );
+
+/* Misc */
 void setFlag	( ARP* lnk, int32_t flg, int32_t val );
 
 
