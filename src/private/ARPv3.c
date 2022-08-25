@@ -69,7 +69,7 @@ void reset ( ARP* lnk, uint16_t initPc )
 }
 
 /* Free ARP struct */
-void fReset ( ARP* lnk ) { free ( lnk ); };
+void fReset ( ARP* lnk ) { free ( lnk ); }
 
 /* Fetch instruction */
 void insFetch ( ARP* lnk )

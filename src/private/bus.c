@@ -32,6 +32,8 @@ int8_t Read ( Bus* lnk, uint16_t addr )
 
 Bus* setMem ( uint16_t busSec, ... )
 {
+	Bus* setBus = calloc ( 1, sizeof ( Bus ) );
+	
 	va_list cBus;
 	int32_t mCnt = 0;
 	
@@ -41,4 +43,6 @@ Bus* setMem ( uint16_t busSec, ... )
 	}
 	
 	va_end ( cBus );
+	
+	return setBus;
 }

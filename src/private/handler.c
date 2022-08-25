@@ -60,4 +60,5 @@ void RET ( ARP* lnk )
 }
 
 
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 void NOP ( ARP* lnk ) { /* NOP is just here as a no instruction, also to satisfy the step */ }
