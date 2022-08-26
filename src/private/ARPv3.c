@@ -2,6 +2,7 @@
  * Function definitions for ARPv3
  */
 
+#include <string.h>
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -56,20 +57,10 @@ i_set iList[ISAMAX] =
 
 void reset ( ARP* lnk, uint16_t initPc )
 {
-        lnk -> AC	= 0;
-        lnk -> X 	= 0;
-        lnk -> SR	= 0;
-
-        lnk -> PC	= initPc;
-	lnk -> MBR	= 0;
-	lnk -> CIR	= 0;
-        lnk -> flg.OV	= 0;
-        lnk -> flg.SK	= 0;
-        lnk -> flg.CM	= 0;
-       	lnk -> clkCnt	= 0;
-       	
-       	/* Make edit for setMem bus */
+	memset ( lnk, 0, sizeof ( ARP ) );
+       	lnk -> PC = initPc;
 }
+
 void arpInit ( uint16_t initPc, uint16_t secBus, ... )
 {
 	ARP* lnk = calloc ( 1, sizeof ( ARP ) );

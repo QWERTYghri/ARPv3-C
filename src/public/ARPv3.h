@@ -70,7 +70,7 @@ void arpInit	( uint16_t initPc, uint16_t secBus, ... ); /* Function to calloc an
 void arpDel	( ARP* lnk );
 
 /* Fetch modes NOM not included and just done in step ()*/
-void insFetch ( ARP* lnk );
+void insFetch	( ARP* lnk );
 void immFetch   ( ARP* lnk );
 void dirFetch   ( ARP* lnk );
 

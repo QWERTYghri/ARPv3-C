@@ -8,6 +8,8 @@ ARPv3 is a recreation of ARPv2 that I used for Roblox development in making a so
 It existed to have it's own architecture against the original PDP-8. This is a recreation of the project
 in C in order to have some correlation to the PDP-8 without the restrictions in Luau.
 
+This is a 16-bit cpu.
+
 This will allow for the creation of peripherals that act on the CPU bus. The peripherals are built on a handler.h decleration with
 functions working in threads to run the peripheral parallel to the cpu.
 
@@ -18,6 +20,8 @@ Peripherals can be made to preform other tasks such as using the values sent in 
 
 Architecture
 -------------------
+
+16-bit cpu
 
 **Registers**
 Registers are the same as the original
@@ -55,6 +59,8 @@ Addressing modes fetch data depending on the instruction demand which is defined
 
 There exists two modes for these two modes that dictate for the varying sizes of the stored word. There can be direct 16 bit address or 8 bit.
 The 16 bit mode should fetch from the two cells containing the parts of the 16 bit value and then have it parse through the instructions.
+
+% : Also specifies an 8 bit / 16 bit
 
 **Register Loading**
 * 01	LDA Imm	Load the accumulator with memory operand
@@ -104,6 +110,9 @@ The 16 bit mode should fetch from the two cells containing the parts of the 16 b
 Design Stuff
 ============
 I might intend to add Interrupts but welp
+
+Most of the functions are state-based rather than returning a value that gets used to edit a set. They're typically accepting an ARP struct as an arg and then edits the state
+of the struct.
 
 Project Files
 -------------------
