@@ -20,8 +20,10 @@
 
 enum ADDRMODE {
         NOM	= 1, /* No Mode */
-        IMM	= 2,
-        DIR	= 3,
+        B_IMM	= 2,
+        B_DIR	= 3,
+        W_IMM	= 4,
+        W_DIR	= 5
 };
 
 enum FLAGVAL {
@@ -40,7 +42,9 @@ typedef struct ARP
         uint16_t        PC;
         uint8_t         SR;
         
-        uint16_t	MBR, CIR;
+        uint16_t	MBR;
+        uint8_t		CIR;
+        
         Bus*		mBus;
         uint64_t	clkCnt;
         
@@ -65,27 +69,36 @@ typedef struct i_set
  */
  
 /* Initialization functions */
-void reset      ( ARP* lnk, uint16_t initPc );
-void arpInit	( uint16_t initPc, uint16_t secBus, ... ); /* Function to calloc an ARP and call variadic bus.h function to set memory */
-void arpDel	( ARP* lnk );
+void	reset		( ARP* lnk, uint16_t initPc );
+void	arpInit		( uint16_t initPc, uint16_t secBus, ... );
+void	arpDel		( ARP* lnk );
 
 /* Fetch modes NOM not included and just done in step ()*/
-void insFetch	( ARP* lnk );
-void immFetch   ( ARP* lnk );
-void dirFetch   ( ARP* lnk );
+void	insFetch	( ARP* lnk );
+
+void	immBFetch	( ARP* lnk );
+void	dirBFetch	( ARP* lnk );
+
+void	immWFetch	( ARP* lnk );
+void	dirWFetch	( ARP* lnk );
 
 /* Computation functions */
-void fDebug	( ARP* lnk, FILE* fp );
-void clock	( ARP* lnk, uint16_t cyc );
-void step	( ARP* lnk );
+void	fDebug		( ARP* lnk, FILE* fp );
+void	clock		( ARP* lnk, uint16_t cyc );
+void	step		( ARP* lnk );
 
-/* Write data to bus */
-void writeInst	( ARP* lnk, uint16_t addr, uint16_t opCode, int16_t operand );
-void writeData	( ARP* lnk, uint16_t addr, int16_t data );
-void loadFile	( ARP* lnk, FILE* fp, uint16_t stAddr );
+/* Write data to bus instructions should be 8 bits wide*/
+void	writeBInst	( ARP* lnk, uint16_t addr, uint16_t opCode, int16_t operand );
+void	writeWInst	( ARP* lnk, uint16_t addr, uint16_t opCode, int16_t operand );
+
+/* 16 bit mem assignment */
+void	writeWord	( ARP* lnk, uint16_t addr, uint16_t data );
+int16_t	readWord	( ARP* lnk, uint16_t addr );
+/* 8 bit mem assignment is handled by bus.h write and read*/
+
+void	loadFile	( ARP* lnk, FILE* fp, uint16_t stAddr );
 
 /* Misc */
-void setFlag	( ARP* lnk, int32_t flg, int32_t val );
-
+void	setFlag		( ARP* lnk, int32_t flg, int32_t val );
 
 #endif /* end */

@@ -8,19 +8,18 @@
 #include <stdlib.h>
 
 #include "../public/ARPv3.h"
-#include "../public/handler.h"
 #include "../public/bus.h"
-
+#include "../public/handler.h"
 
 /* Instruction init */
 i_set iList[ISAMAX] =
 	{
-		{ LDA, IMM },
-		{ STA, IMM },
-		{ LDA, DIR }, /* GTA */	
-		{ LDX, IMM },
-		{ STX, IMM },
-		{ LDX, DIR }, /* GTX */
+		{ LDA, B_DIR },
+		{ STA, B_DIR },
+		{ LDA, B_DIR }, /* GTA */	
+		{ LDX, B_DIR },
+		{ STX, B_DIR },
+		{ LDX, B_DIR }, /* GTX */
 		
 		{ TAX, NOM },
 		{ TXA, NOM },
@@ -30,22 +29,22 @@ i_set iList[ISAMAX] =
 		{ PHA, NOM },
 		{ POA, NOM },
 		
-		{ ADD, IMM },
-		{ ADD, DIR }, /* ADA */
-		{ SUB, IMM },
-		{ SUB, DIR }, /* SBA */
+		{ ADD, B_DIR },
+		{ ADD, B_DIR }, /* ADA */
+		{ SUB, B_DIR },
+		{ SUB, B_DIR }, /* SBA */
 		{ INX, NOM },
 		{ DEC, NOM },
 		{ ADX, NOM },
 		{ SUX, NOM },
 		
-		{ CPX, IMM },
-		{ CPA, IMM },
-		{ CPX, DIR }, /* CXA */
-		{ CPA, DIR }, /* CAA */
+		{ CPX, B_DIR },
+		{ CPA, B_DIR },
+		{ CPX, B_DIR }, /* CXA */
+		{ CPA, B_DIR }, /* CAA */
 		{ CLC, NOM },
 		
-		{ JMP, IMM },
+		{ JMP, B_DIR },
 		{ JLC, NOM },
 		{ JMS, NOM },
 		{ RET, NOM },
@@ -65,8 +64,6 @@ void arpInit ( uint16_t initPc, uint16_t secBus, ... )
 {
 	ARP* lnk = calloc ( 1, sizeof ( ARP ) );
 	reset ( lnk, initPc );
-	
-	lnk -> mBus = /* shit */
 }
 
 /* Free ARP struct */
@@ -79,7 +76,7 @@ void arpDel ( ARP* lnk ) {
 /* Fetch instruction */
 void insFetch ( ARP* lnk )
 {
-	uint16_t vCIR = Read ( lnk -> mBus, lnk -> PC );
+	uint16_t vCIR = read ( lnk -> mBus, lnk -> PC );
 
 	lnk -> CIR = ( vCIR > 0 && vCIR <= ISAMAX ) ? vCIR - 1 : NOPC;
 	lnk -> PC++;
@@ -87,17 +84,30 @@ void insFetch ( ARP* lnk )
 
 
 /* Addressing modes for operands */
-void immFetch ( ARP* lnk )
+void immBFetch ( ARP* lnk )
 {
-	lnk -> MBR = Read ( lnk -> mBus, lnk -> PC );
+	lnk -> MBR = read ( lnk -> mBus, lnk -> PC );
 	lnk -> PC++;
 }
 
-void dirFetch ( ARP* lnk )
+/* Get 8 bit val at specified 16 bit addr */
+void dirBFetch ( ARP* lnk )
 {
-	/* get value from operand and use it to address from Bus to store mbr MBR = bus[ bus[pc] ] */
-	lnk -> MBR = Read ( lnk -> mBus, Read ( lnk -> mBus, lnk -> PC ) );
-	lnk -> PC++;
+	lnk -> MBR = read ( lnk -> mBus, readWord ( lnk, lnk -> PC ) );
+	lnk -> PC += 2;
+}
+
+void immWFetch   ( ARP* lnk )
+{
+	
+	lnk -> MBR = readWord ( lnk, lnk -> PC );
+	lnk -> PC += 2;
+}
+
+void dirWFetch   ( ARP* lnk )
+{
+	lnk -> MBR = readWord ( lnk, readWord ( lnk, lnk -> PC ) );
+	lnk -> PC += 2;
 }
 
 /*----------------------------------------------------------------------*/
@@ -131,12 +141,12 @@ void step ( ARP* lnk )
 			lnk -> PC++;
 			iList[lnk -> CIR].inst ( lnk );
 			break;
-		case IMM:
-			immFetch ( lnk );
+		case B_IMM:
+			immBFetch ( lnk );
 			iList[lnk -> CIR].inst ( lnk );
 			break;
-		case DIR:
-			dirFetch ( lnk );
+		case B_DIR:
+			dirBFetch ( lnk );
 			iList[lnk -> CIR].inst ( lnk );
 			break;
 	}
@@ -144,13 +154,27 @@ void step ( ARP* lnk )
 
 /*----------------------------------------------------------------------*/
 
-void writeInst ( ARP* lnk, uint16_t addr, uint16_t opCode, int16_t operand )
+void writeBInst ( ARP* lnk, uint16_t addr, uint16_t opCode, int16_t operand )
 {
-	Write ( lnk -> mBus, addr, opCode );
-	Write ( lnk -> mBus, addr, operand );
+	write ( lnk -> mBus, addr, opCode );
+	write ( lnk -> mBus, addr++, operand );
 }
 
-void writeData ( ARP* lnk, uint16_t addr, int16_t data ) { Write ( lnk -> mBus, addr, data ); }
+void writeWInst ( ARP* lnk, uint16_t addr, uint16_t opCode, int16_t operand )
+{
+	write ( lnk -> mBus, addr, opCode );
+	writeWord ( lnk, addr++, operand );
+}
+
+void writeWord	( ARP* lnk, uint16_t addr, uint16_t data )
+{
+	write ( lnk -> mBus, addr, ( data & 0xFF ) );
+	write ( lnk -> mBus, addr++, ( data >> 8 ) );
+}
+
+int16_t	readWord ( ARP* lnk, uint16_t addr ) {
+	return read ( lnk -> mBus, addr ) | ( read ( lnk -> mBus, addr + 1 ) << 8 );
+}
 
 void loadFile ( ARP* lnk, FILE* fp, uint16_t stAddr )
 {
@@ -158,7 +182,7 @@ void loadFile ( ARP* lnk, FILE* fp, uint16_t stAddr )
 	
 	while ( ( bIn = fgetc ( fp ) ) != EOF  )
 	{
-		Write ( lnk -> mBus, stAddr, bIn );
+		write ( lnk -> mBus, stAddr, bIn );
 		stAddr++;
 	}
 }

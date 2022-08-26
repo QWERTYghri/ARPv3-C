@@ -1,0 +1,7 @@
+**Register Load**
+* 0	NOP	NON	No instruction
+* 1	LDA	IMM	Load 8 bit value into AC
+* 2	LDA	IMM%	Load 16 bit value into AC
+* 3	STA	DIR	Store 8 bit val to addr
+* 4	STA	DIR%	Store 16 bit val to addr
+* 5	

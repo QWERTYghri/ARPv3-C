@@ -12,10 +12,10 @@
 
 /* Register instructions */
 void LDA ( ARP* lnk ) { lnk -> AC =  lnk -> MBR; setFlag ( lnk, OV, lnk -> AC < 0 ); }
-void STA ( ARP* lnk ) { Write ( lnk -> mBus, lnk -> MBR, lnk -> AC ); }
+void STA ( ARP* lnk ) { write ( lnk -> mBus, lnk -> MBR, lnk -> AC ); }
 
 void LDX ( ARP* lnk ) { lnk -> X =  lnk -> MBR; }
-void STX ( ARP* lnk ) { Write ( lnk -> mBus, lnk -> MBR, lnk -> X ); }
+void STX ( ARP* lnk ) { write ( lnk -> mBus, lnk -> MBR, lnk -> X ); }
 
 /* Register Transfer */
 void TAX ( ARP* lnk ) { lnk -> X = lnk -> AC; }
@@ -25,8 +25,8 @@ void TSX ( ARP* lnk ) { lnk -> X = lnk -> SR; }
 void TXS ( ARP* lnk ) { lnk -> SR = lnk -> X; }
 
 /* Stack operations */
-void PHA ( ARP* lnk ) { Write ( lnk -> mBus, lnk -> SR, lnk -> AC ); lnk -> SR++; }
-void POA ( ARP* lnk ) { lnk -> AC = Read ( lnk -> mBus, lnk -> SR ); lnk -> SR--; }
+void PHA ( ARP* lnk ) { write ( lnk -> mBus, lnk -> SR, lnk -> AC ); lnk -> SR++; }
+void POA ( ARP* lnk ) { lnk -> AC = read ( lnk -> mBus, lnk -> SR ); lnk -> SR--; }
 
 /* Arithemetic 
 	Redundancy ew but I don't want to make a handler function just because of the flag changes
@@ -48,7 +48,7 @@ void JMP ( ARP* lnk ) { lnk -> PC = lnk -> MBR; }
 void JLC ( ARP* lnk ) { ( lnk -> flg.CM == 1 ) ? lnk -> PC = lnk -> MBR : 0; }
 void JMS ( ARP* lnk )
 {
-	Write ( lnk -> mBus, lnk -> SR, lnk -> PC );
+	write ( lnk -> mBus, lnk -> SR, lnk -> PC );
 	lnk -> SR++;
 	lnk -> PC = lnk -> MBR;
 }
@@ -56,7 +56,7 @@ void JMS ( ARP* lnk )
 void RET ( ARP* lnk )
 {
 	lnk -> SR--;
-	lnk -> PC = Read ( lnk -> mBus, lnk -> SR );
+	lnk -> PC = read ( lnk -> mBus, lnk -> SR );
 }
 
 

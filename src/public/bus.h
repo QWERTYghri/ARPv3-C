@@ -16,8 +16,8 @@ typedef struct Bus
 	int8_t* memSecs[MAXADDR];
 } Bus;
 
-void Write ( Bus* lnk, uint16_t addr, int8_t data );
-int8_t Read ( Bus* lnk, uint16_t addr );
+void write ( Bus* lnk, uint16_t addr, int8_t data );
+int8_t read ( Bus* lnk, uint16_t addr );
 Bus* setMem ( uint16_t busSec, ... );
 
 #endif /* End */

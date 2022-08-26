@@ -64,7 +64,7 @@ The 16 bit mode should fetch from the two cells containing the parts of the 16 b
 
 **Register Loading**
 * 01	LDA Imm	Load the accumulator with memory operand
-* 02	STA Dir	Store accumulator value into the address memory operand
+* 02	STA Imm	Store accumulator value into the address memory operand
 * 03	GTA Dir	Get the value from address and store in Accumulator
 * 04	LDX Imm	Load the accumulator with memory operand
 * 05	STX Dir	Store the value in X into memory address operand
@@ -102,7 +102,6 @@ The 16 bit mode should fetch from the two cells containing the parts of the 16 b
 * 27	JLC	Jump when CM flag is 1
 * 28	JMS	Jump to address as subroutine / Store current PC val in stack and increment the SR
 * 29	RET	Return from Subroutine val    / Store popped val into PC as the address to go back to
-* 30	NOP	No operation / The CIR is put to NOP when a value isn't in the ISA range
 
 
 
