@@ -14,42 +14,15 @@
 /* Instruction init */
 i_set iList[ISAMAX] =
 	{
+		{ NOP, NON },
+		
+		{ LDA, B_IMM },
+		{ LDA, W_IMM },
+		
 		{ LDA, B_DIR },
-		{ STA, B_DIR },
-		{ LDA, B_DIR }, /* GTA */	
-		{ LDX, B_DIR },
-		{ STX, B_DIR },
-		{ LDX, B_DIR }, /* GTX */
+		{ LDA, W_DIR },
 		
-		{ TAX, NOM },
-		{ TXA, NOM },
-		{ TSX, NOM },
-		{ TXS, NOM },
-		
-		{ PHA, NOM },
-		{ POA, NOM },
-		
-		{ ADD, B_DIR },
-		{ ADD, B_DIR }, /* ADA */
-		{ SUB, B_DIR },
-		{ SUB, B_DIR }, /* SBA */
-		{ INX, NOM },
-		{ DEC, NOM },
-		{ ADX, NOM },
-		{ SUX, NOM },
-		
-		{ CPX, B_DIR },
-		{ CPA, B_DIR },
-		{ CPX, B_DIR }, /* CXA */
-		{ CPA, B_DIR }, /* CAA */
-		{ CLC, NOM },
-		
-		{ JMP, B_DIR },
-		{ JLC, NOM },
-		{ JMS, NOM },
-		{ RET, NOM },
-		
-		{ NOP, NOM }
+		{ 
 	};
  
 /*----------------------------------------------------------------------*/
@@ -137,7 +110,7 @@ void step ( ARP* lnk )
 	
 	switch ( iList[lnk -> CIR].addrMd )
 	{
-		case NOM:
+		case NON:
 			lnk -> PC++;
 			iList[lnk -> CIR].inst ( lnk );
 			break;
@@ -145,8 +118,16 @@ void step ( ARP* lnk )
 			immBFetch ( lnk );
 			iList[lnk -> CIR].inst ( lnk );
 			break;
+		case W_IMM:
+			immWFetch ( lnk );
+			iList[lnk -> CIR].inst ( lnk );
+			break;
 		case B_DIR:
 			dirBFetch ( lnk );
+			iList[lnk -> CIR].inst ( lnk );
+			break;
+		case B_DIR:
+			dirWFetch ( lnk );
 			iList[lnk -> CIR].inst ( lnk );
 			break;
 	}
@@ -188,19 +169,3 @@ void loadFile ( ARP* lnk, FILE* fp, uint16_t stAddr )
 }
 
 /*----------------------------------------------------------------------*/
-
-void setFlag ( ARP* lnk, int32_t flg, int32_t val )
-{
-	switch ( flg )
-	{
-		case OV:
-			lnk -> flg.OV = val;
-			break;
-		case SK:
-			lnk -> flg.SK = val;
-			break;
-		case CM:
-			lnk -> flg.CM = val;
-			break;
-	}
-}

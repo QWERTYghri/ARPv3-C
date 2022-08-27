@@ -13,13 +13,13 @@
 #include "bus.h"
 
 /* Const Defs */
-#define ISAMAX	30
+#define ISAMAX	49
 #define MAXADDR ( ( uint16_t ) 1024 * 64 )
-#define NOPC	30
+#define NOPC	0
 
 
 enum ADDRMODE {
-        NOM	= 1, /* No Mode */
+        NON	= 1, /* No Mode */
         B_IMM	= 2,
         B_DIR	= 3,
         W_IMM	= 4,
@@ -52,7 +52,7 @@ typedef struct ARP
 	{
         	uint8_t OV : 1;
         	uint8_t SK : 1;
-        	uint8_t CM : 1;
+        	uint8_t CM : 3; /* 0 - 7 */
 	} flg;
 } ARP;
 
@@ -99,6 +99,5 @@ int16_t	readWord	( ARP* lnk, uint16_t addr );
 void	loadFile	( ARP* lnk, FILE* fp, uint16_t stAddr );
 
 /* Misc */
-void	setFlag		( ARP* lnk, int32_t flg, int32_t val );
 
 #endif /* end */
