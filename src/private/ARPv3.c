@@ -91,7 +91,7 @@ void fDebug ( ARP* lnk, FILE* fp )
 	fprintf ( fp, "CYC: %ld\n\tAC: %d\n\tX: %d\n\tSR: %d\n\tPC: $%d\n\tMBR: %d\n\t"
 		      "CIR: %d\n\nFlags:\n\t\tOV: %d\n\t\tSK: %d\n\t\tCM: %d\n\n\n",
 		      lnk -> clkCnt, lnk -> AC, lnk -> X, lnk -> SR, lnk -> PC, lnk -> MBR,
-		      lnk -> CIR, lnk -> flg.OV, lnk -> flg.SK, lnk -> flg.CM );
+		      lnk -> CIR, lnk -> flg.NV, lnk -> flg.SK, lnk -> flg.CM );
 }
 
 void clock ( ARP* lnk, uint16_t cyc )

@@ -15,12 +15,43 @@
  *
  * GTA
  * GTX
- * ADAg
+ * ADA
  * SBA
  * CXA
  * CAA
  */
 
-/* Register Instructions */
+/* misc */
+void NOP ( ARP* lnk );
+
+/*
+ * Register Instructions 
+ */
+void LDA ( ARP* lnk );
+
+void bSTA ( ARP* lnk );
+void wSTA ( ARP* lnk );
+
+/* X equivalent */
+void LDX ( ARP* lnk );
+
+void bSTX ( ARP* lnk );
+void wSTX ( ARP* lnk );
+
+/* 
+ *Register Transfers 
+ */
+void bTAX ( ARP* lnk );
+void wTAX ( ARP* lnk );
+
+void bTXA ( ARP* lnk );
+void wTXA ( ARP* lnk );
+
+void TSX ( ARP* lnk );
+void TXS ( ARP* lnk );
+
+/*
+ * Stack Operations
+ */
 
 #endif /* HANDLER_H */

@@ -27,7 +27,7 @@ enum ADDRMODE {
 };
 
 enum FLAGVAL {
-        OV	= 4,
+        NV	= 4,
         SK	= 5,
         CM	= 6,
 };
@@ -50,7 +50,7 @@ typedef struct ARP
         
         struct flg
 	{
-        	uint8_t OV : 1;
+        	uint8_t NV : 1;
         	uint8_t SK : 1;
         	uint8_t CM : 3; /* 0 - 7 */
 	} flg;
