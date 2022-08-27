@@ -69,7 +69,7 @@ It's repetitive but I just want to specify_
 
 `^`: 16 bit usage
 
-'val1/val2': Means a combination of two similiar acting instructions, but on affecting different things such as bit size
+`val1 / val2`: Means a combination of two similiar acting instructions, but on affecting different things such as bit size
 
 The first instruction in a % instruction is the 8 bit verision the next is the 16 bit
 
