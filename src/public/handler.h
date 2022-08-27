@@ -7,7 +7,7 @@
 
 #include "ARPv3.h"
 
-/* Redundancy is  pain */
+/* Redundancy is  pain, I would rather rewrite everything than read my shitty code */
 
 
 /* Note that some instructions are missing because they're similiar to an immediate
@@ -15,7 +15,7 @@
  *
  * GTA
  * GTX
- * ADA
+ * ADAg
  * SBA
  * CXA
  * CAA
