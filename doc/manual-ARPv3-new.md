@@ -78,59 +78,58 @@ The first instruction in a % instruction is the 8 bit verision the next is the 1
 * `1/2		LDA	IMM%	Load 8/16 bit value into AC`
 * `3/4		LDA	DIR%	Load value in the addr specified by 8/16 bits to ac`
 
-* `5		STA	IMM^	Store AC val to addr`
-* `6/7		GTA	IMM^	Get 8/16 bit val from addr to AC`
+* `5/6		STA	IMM%^	Store AC 8 or 16 bit val to addr`
+* `8/8		GTA	IMM^	Get 8/16 bit val from addr to AC`
 
-* `8/9		LDX	IMM%	Load 8/16 bit value into X`
-* `10/11	LDX	DIR%	Load 8/16 bit val from addr to X`
+* `9/10		LDX	IMM%	Load 8/16 bit value into X`
+* `11/12	LDX	DIR%	Load 8/16 bit val from addr to X`
 
-* `12		STX	IMM%	Store 8/16 bit val to addr from X`
-* `13/14	GTX	IMM%	Get 8/16 bit val from addr to X`
+* `13/14	STX	IMM%^	Store 8/16 bit val to addr from X`
+* `14/15	GTX	IMM%	Get 8/16 bit val from addr to X`
 
 **Register Transfers**
-* `15/16	TAX	NON%	Load AC to the X reg 8/16`
-* `17/18	TXA	NON%	Load X to the AC 8/16`
-* `19		TSX	NON	Load SR to X | Clears X in process`
-* `20		TXS	NON	Load X to SR | R side of 16 bit reg is removed.`
+* `16/17	TAX	NON%	Load AC to the X reg 8/16`
+* `18/19	TXA	NON%	Load X to the AC 8/16`
+* `20		TSX	NON	Load SR to X | Clears X in process`
+* `21		TXS	NON	Load X to SR | R side of 16 bit reg is removed.`
 
 **Stack Operations**
-* `21/22	PHA	NON%	Push the 8/16 bit LVal in AC to the memory pointed by SR`
-* `23/24	POA	NON%	Pop the SR pointed 8/16 bit val to AC and decrement the SR`
+* `22/23	PHA	NON%	Push the 8/16 bit LVal in AC to the memory pointed by SR`
+* `24/25	POA	NON%	Pop the SR pointed 8/16 bit val to AC and decrement the SR`
 
 **Arithemetic Operations**
-* `25/26	ADD	IMM%	Add AC with 8/16 bit mem operand`
-* `27/28	ADA	DIR%	Add AC with an 8/16 bit val from the addr`
+* `26/27	ADD	IMM%	Add AC with 8/16 bit mem operand`
+* `28/29	ADA	DIR%	Add AC with an 8/16 bit val from the addr`
 
-* `29/30	SUB	IMM	Sub AC with 8/16 bit mem operand`
-* `31/32	SBA	DIR	Sub AC with an 8/16 bit val from the addr`
+* `30/31	SUB	IMM	Sub AC with 8/16 bit mem operand`
+* `32/33	SBA	DIR	Sub AC with an 8/16 bit val from the addr`
 
-* `33		INX	NON	Increment the X register`
-* `34		DEX	NON	Decrement X register`
+* `34		INX	NON	Increment the X register`
+* `35		DEX	NON	Decrement X register`
 
-* `35		ADX	NON	Add AC by X reg`
-* `36		SUX	NON	Sub AC by X reg`
+* `36		ADX	NON	Add AC by X reg`
+* `37		SUX	NON	Sub AC by X reg`
 
 **Branching**
 Use AC as the first comparison operand
 `AC (OP) ImmVal`
 
 Branch instructions are dependent on CMP
-* `37		JE	IMM^	jmp if AC == Op`
-* `38		JNE	IMM^	jmp if AC != Op`
-* `39		JG	IMM^	jmp if AC > Op`
-* `40		JGE	IMM^	jmp if AC >= Op`
-* `41		JL	IMM^	jmp if AC < Op`
-* `42		JLE	IMM^	jmp if AC <= Op`
+* `38		JE	IMM^	jmp if AC == Op`
+* `39		JNE	IMM^	jmp if AC != Op`
+* `40		JG	IMM^	jmp if AC > Op`
+* `41		JGE	IMM^	jmp if AC >= Op`
+* `42		JL	IMM^	jmp if AC < Op`
+* `43		JLE	IMM^	jmp if AC <= Op`
 
-* `43		JMP	IMM^	jmp to addr`
-* `44		CMC	NON	Clear CM flag`
+* `44		JMP	IMM^	jmp to addr`
+* `45		CMC	NON	Clear CM flag`
 
-* `45		CMP	IMM%	Use to compare the AC to the operand, and set a val in CM that allows for a jmp`
+* `46		CMP	IMM%	Use to compare the AC to the operand, and set a val in CM that allows for a jmp`
 
 **Functions**
-* `46		CALL	IMM^	Call to an addr, push PC and then jump to operand addr`
-* `47		RET	NON	Pop the stored PC to the PC and return to control flow`
-
+* `47		CALL	IMM^	Call to an addr, push PC and then jump to operand addr`
+* `48		RET	NON	Pop the stored PC to the PC and return to control flow`
 
 
 
