@@ -21,13 +21,12 @@ Peripherals can be made to preform other tasks such as using the values sent in 
 Architecture
 -------------------
 
-16-bit cpu
-
 **Registers**
+
 Registers are the same as the original
 
-`Register's AC, X are 8 bits wide with 16 bit word versions`
-`Stack register is 8 bits wide to keep a 255 wide stack space.`
+_Register's AC, X are 8 bits wide with 16 bit word versions_
+_Stack register is 8 bits wide to keep a 255 wide stack space._
 
 * E/AC : Accumulator registers to interract with arithematic operations
 * E/X  : Multi-purpose registers to store values to act with AC or use for incrementation
@@ -39,6 +38,7 @@ Registers are the same as the original
 
 
 **CPU Flags**
+
 Flags have changes, OV/SK have been added
 
 * OV : Overflow of any register.
@@ -47,6 +47,7 @@ Flags have changes, OV/SK have been added
 * BM : Bit size mode, Switches between normal function handlers and addressing modes for 16 bit and 8 bit mode.
 
 **Instructions**
+
 There are a multitude of instructions that are also set for different addressing modes.
 
 **Addressing modes**
@@ -60,72 +61,75 @@ Addressing modes fetch data depending on the instruction demand which is defined
 There exists two modes for these two modes that dictate for the varying sizes of the stored word. There can be direct 16 bit address or 8 bit.
 The 16 bit mode should fetch from the two cells containing the parts of the 16 bit value and then have it parse through the instructions.
 
-Note the instructions are going to be abstracted from
+_Note the instructions are going to be abstracted from
 Some instructions that write to memory may have to be duplicated
-It's repetitive but I just want to specify
+It's repetitive but I just want to specify_
 
 `%`: Means there's a 8/16 bit version of the instruction
+
 `^`: 16 bit usage
+
+'val1/val2': Means a combination of two similiar acting instructions, but on affecting different things such as bit size
 
 The first instruction in a % instruction is the 8 bit verision the next is the 16 bit
 
 **Register Load**
-* 0	NOP	NON	No instruction
-* 1/2	LDA	IMM%	Load 8/16 bit value into AC
-* 3/4	LDA	DIR%	Load value in the addr specified by 8/16 bits to ac
+* `0	NOP	NON	No instruction`
+* `1/2	LDA	IMM%	Load 8/16 bit value into AC`
+* `3/4	LDA	DIR%	Load value in the addr specified by 8/16 bits to ac`
 
-* 5/6	STA	IMM%	Store 8/16 bit val to addr from AC
-* 7/8	GTA	IMM%	Get 8/16 bit val from addr to AC
+* `5/6	STA	IMM%	Store 8/16 bit val to addr from AC`
+* `7/8	GTA	IMM%	Get 8/16 bit val from addr to AC`
 
-* 9/10	LDX	IMM%	Load 8/16 bit value into X
-* 11/12	LDX	DIR%	Load 8/16 bit val from addr to X
+* `9/10	LDX	IMM%	Load 8/16 bit value into X`
+* `11/12	LDX	DIR%	Load 8/16 bit val from addr to X`
 
-* 13/14	STX	IMM%	Store 8/16 bit val to addr from X
-* 15/16	GTX	IMM%	Get 8/16 bit val from addr to X
+* `13/14	STX	IMM%	Store 8/16 bit val to addr from X`
+* `15/16	GTX	IMM%	Get 8/16 bit val from addr to X`
 
 **Register Transfers**
-* 17/18	TAX	NON%	Load AC to the X reg 8/16
-* 19/20	TXA	NON%	Load X to the AC 8/16
-* 21	TSX	NON	Load SR to X | Clears X in process
-* 22	TXS	NON	Load X to SR | R side of 16 bit reg is removed.
+* `17/18	TAX	NON%	Load AC to the X reg 8/16`
+* `19/20	TXA	NON%	Load X to the AC 8/16`
+* `21	TSX	NON	Load SR to X | Clears X in process`
+* `22	TXS	NON	Load X to SR | R side of 16 bit reg is removed.`
 
 **Stack Operations**
-* 23/24	PHA	NON%	Push the 8/16 bit LVal in AC to the memory pointed by SR
-* 25/26	POA	NON%	Pop the SR pointed 8/16 bit val to AC and decrement the SR
+* `23/24	PHA	NON%	Push the 8/16 bit LVal in AC to the memory pointed by SR`
+* `25/26	POA	NON%	Pop the SR pointed 8/16 bit val to AC and decrement the SR`
 
 **Arithemetic Operations**
-* 27/28	ADD	IMM%	Add AC with 8/16 bit mem operand
-* 29/30	ADA	DIR%	Add AC with an 8/16 bit val from the addr
+* `27/28	ADD	IMM%	Add AC with 8/16 bit mem operand`
+* `29/30	ADA	DIR%	Add AC with an 8/16 bit val from the addr`
 
-* 31/32	SUB	IMM	Sub AC with 8/16 bit mem operand
-* 33/34	SBA	DIR	Sub AC with an 8/16 bit val from the addr
+* `31/32	SUB	IMM	Sub AC with 8/16 bit mem operand`
+* `33/34	SBA	DIR	Sub AC with an 8/16 bit val from the addr`
 
-* 35	INX	NON	Increment the X register
-* 36	DEX	NON	Decrement X register
+* `35	INX	NON	Increment the X register`
+* `36	DEX	NON	Decrement X register`
 
-* 37	ADX	NON	Add AC by X reg
-* 38	SUX	NON	Sub AC by X reg
+* `37	ADX	NON	Add AC by X reg`
+* `38	SUX	NON	Sub AC by X reg`
 
 **Branching**
 Use AC as the first comparison operand
 `AC (OP) ImmVal`
 
 Branch instructions are dependent on CMP
-* 39	JE	IMM^	jmp if AC == Op
-* 40	JNE	IMM^	jmp if AC != Op
-* 41	JG	IMM^	jmp if AC > Op
-* 42	JGE	IMM^	jmp if AC >= Op
-* 43	JL	IMM^	jmp if AC < Op
-* 44	JLE	IMM^	jmp if AC <= Op
+* `39	JE	IMM^	jmp if AC == Op`
+* `40	JNE	IMM^	jmp if AC != Op`
+* `41	JG	IMM^	jmp if AC > Op`
+* `42	JGE	IMM^	jmp if AC >= Op`
+* `43	JL	IMM^	jmp if AC < Op`
+* `44	JLE	IMM^	jmp if AC <= Op`
 
-* 45	JMP	IMM^	jmp to addr
-* 46	CMC	NON	Clear CM flag
+* `45	JMP	IMM^	jmp to addr`
+* `46	CMC	NON	Clear CM flag`
 
-* 47	CMP	IMM%	Use to compare the AC to the operand, and set a val in CM that allows for a jmp
+* `47	CMP	IMM%	Use to compare the AC to the operand, and set a val in CM that allows for a jmp`
 
 **Functions**
-* 48	CALL	IMM^	Call to an addr, push PC and then jump to operand addr
-* 49	RET	NON	Pop the stored PC to the PC and return to control flow
+* `48	CALL	IMM^	Call to an addr, push PC and then jump to operand addr`
+* `49	RET	NON	Pop the stored PC to the PC and return to control flow`
 
 
 
