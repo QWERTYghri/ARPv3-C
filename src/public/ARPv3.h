@@ -1,10 +1,3 @@
-/*
- *
- * Header file to contain functions
- * and data structures for ARPv3
- *
- */
-
 #ifndef ARP_H
 #define ARP_H
 
@@ -13,9 +6,9 @@
 #include "bus.h"
 
 /* Const Defs */
-#define ISAMAX	49
-#define MAXADDR ( ( uint16_t ) 1024 * 64 )
-#define NOPC	0
+#define ISAMAX          49
+#define MAXADDR         ( ( uint16_t ) 1024 * 64 )
+#define NOPC            0
 
 
 enum ADDRMODE {
@@ -51,22 +44,19 @@ typedef struct ARP
         struct flg
 	{
         	uint8_t NV : 1;
-        	uint8_t SK : 1;
+        	uint8_t OV : 1;
+                uint8_t CF : 1;
         	uint8_t CM : 3; /* 0 - 7 */
 	} flg;
 } ARP;
 
 /* Data Stuff */
-typedef void ( *p_Func ) ( ARP* );
+typedef void ( *p_Func ) ( ARP* ); /* Might need later */
 typedef struct i_set
 {
 	p_Func inst;
 	int32_t addrMd;
 } i_set;
-
-/* 
- * Function definitions for interacing with ARP 
- */
  
 /* Initialization functions */
 void	reset		( ARP* lnk, uint16_t initPc );
@@ -84,7 +74,7 @@ void	dirWFetch	( ARP* lnk );
 
 /* Computation functions */
 void	fDebug		( ARP* lnk, FILE* fp );
-void	clock		( ARP* lnk, uint16_t cyc );
+int     simulate        ( ARP* lnk, uint64_t hz );
 void	step		( ARP* lnk );
 
 /* Write data to bus instructions should be 8 bits wide*/

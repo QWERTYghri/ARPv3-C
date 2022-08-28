@@ -57,28 +57,24 @@ void insFetch ( ARP* lnk )
 
 
 /* Addressing modes for operands */
-void immBFetch ( ARP* lnk )
-{
+void immBFetch ( ARP* lnk ) {
 	lnk -> MBR = read ( lnk -> mBus, lnk -> PC );
 	lnk -> PC++;
 }
 
 /* Get 8 bit val at specified 16 bit addr */
-void dirBFetch ( ARP* lnk )
-{
+void dirBFetch ( ARP* lnk ) {
 	lnk -> MBR = read ( lnk -> mBus, readWord ( lnk, lnk -> PC ) );
 	lnk -> PC += 2;
 }
 
-void immWFetch   ( ARP* lnk )
-{
+void immWFetch   ( ARP* lnk ) {
 	
 	lnk -> MBR = readWord ( lnk, lnk -> PC );
 	lnk -> PC += 2;
 }
 
-void dirWFetch   ( ARP* lnk )
-{
+void dirWFetch   ( ARP* lnk ) {
 	lnk -> MBR = readWord ( lnk, readWord ( lnk, lnk -> PC ) );
 	lnk -> PC += 2;
 }
@@ -94,15 +90,10 @@ void fDebug ( ARP* lnk, FILE* fp )
 		      lnk -> CIR, lnk -> flg.NV, lnk -> flg.SK, lnk -> flg.CM );
 }
 
-void clock ( ARP* lnk, uint16_t cyc )
+int simulate ( ARP* lnk, uint64_t hz )
 {
-	while ( cyc > 0 )
-	{
-		step ( lnk );
-		cyc--; //temp
-	}
+        
 }
-
 /* Computation set some boiler plate here but welp*/
 void step ( ARP* lnk )
 {

@@ -16,7 +16,6 @@ void NOP ( ARP* lnk ) { /* NOP is just here as a no instruction, also to satisfy
 /* Match to OP 1 - 4, change for addr modes*/
 void LDA ( ARP* lnk ) {
 	lnk -> AC = lnk -> MBR;
-	lnk -> flg.NV = ( lnk -> AC < 0 ) ? 1 : 0;
 }
 
 void bSTA ( ARP* lnk ) { write ( lnk -> mBus, lnk -> MBR, ( lnk -> AC & 0xFF ) ); }
@@ -25,7 +24,6 @@ void wSTA ( ARP* lnk ) { writeWord ( lnk, lnk -> MBR, lnk -> AC ); }
 /* X Reg equivalent */
 void LDX ( ARP* lnk ) {
 	lnk -> AC = lnk -> X;
-	lnk -> flg.NV = ( lnk -> AC < 0 ) ? 1 : 0;
 }
 
 void bSTX ( ARP* lnk ) { write ( lnk -> mBus, lnk -> MBR, ( lnk -> X & 0xFF ) ); }
@@ -69,4 +67,6 @@ void wPOA ( ARP* lnk ) {
 /*
  * Arithemetic
  */
-void ADD
+void ADD ( ARP* lnk ) {
+        lnk -> AC += lnk -> MBR;
+}
