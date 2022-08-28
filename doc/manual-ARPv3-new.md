@@ -21,12 +21,13 @@ Peripherals can be made to preform other tasks such as using the values sent in 
 Architecture
 -------------------
 
-**Registers**
+16-bit cpu
 
+**Registers**
 Registers are the same as the original
 
-_Register's AC, X are 8 bits wide with 16 bit word versions_
-_Stack register is 8 bits wide to keep a 255 wide stack space._
+`Register's AC, X are 8 bits wide with 16 bit word versions`
+`Stack register is 8 bits wide to keep a 255 wide stack space.`
 
 * E/AC : Accumulator registers to interract with arithematic operations
 * E/X  : Multi-purpose registers to store values to act with AC or use for incrementation
@@ -38,16 +39,13 @@ _Stack register is 8 bits wide to keep a 255 wide stack space._
 
 
 **CPU Flags**
-
 Flags have changes, OV/SK have been added
 
-* OV : Overflow of any register.
-* SK : Stack overflow flag
-* CM : A register to match 6 branch instructions, the branches check the CM to check how the comparison worked.
-* BM : Bit size mode, Switches between normal function handlers and addressing modes for 16 bit and 8 bit mode.
+* NV : Flag dictating a negative register
+* OV : Overflow of a register
+* CM : Comparison Register Set when a comparison instruction sets it off, a branch clears it or a clc
 
 **Instructions**
-
 There are a multitude of instructions that are also set for different addressing modes.
 
 **Addressing modes**
@@ -61,75 +59,50 @@ Addressing modes fetch data depending on the instruction demand which is defined
 There exists two modes for these two modes that dictate for the varying sizes of the stored word. There can be direct 16 bit address or 8 bit.
 The 16 bit mode should fetch from the two cells containing the parts of the 16 bit value and then have it parse through the instructions.
 
-_Note the instructions are going to be abstracted from
-Some instructions that write to memory may have to be duplicated
-It's repetitive but I just want to specify_
+% : Also specifies an 8 bit / 16 bit
 
-`%`: Means there's a 8/16 bit version of the instruction
+**Register Loading**
+* 01	LDA Imm	Load the accumulator with memory operand
+* 02	STA Dir	Store accumulator value into the address memory operand
+* 03	GTA Dir	Get the value from address and store in Accumulator
+* 04	LDX Imm	Load the accumulator with memory operand
+* 05	STX Dir	Store the value in X into memory address operand
+* 06	GTX Dir	Get the value from address operand and store in X
 
-`^`: 16 bit usage
-
-`val1 / val2`: Means a combination of two similiar acting instructions, but on affecting different things such as bit size
-
-The first instruction in a % instruction is the 8 bit verision the next is the 16 bit
-
-**Register Load**
-* `0		NOP	NON	No instruction`
-* `1/2		LDA	IMM%	Load 8/16 bit value into AC`
-* `3/4		LDA	DIR%	Load value in the addr specified by 8/16 bits to ac`
-
-* `5/6		STA	IMM%^	Store AC 8 or 16 bit val to addr`
-* `8/8		GTA	IMM^	Get 8/16 bit val from addr to AC`
-
-* `9/10		LDX	IMM%	Load 8/16 bit value into X`
-* `11/12	LDX	DIR%	Load 8/16 bit val from addr to X`
-
-* `13/14	STX	IMM%^	Store 8/16 bit val to addr from X`
-* `14/15	GTX	IMM%	Get 8/16 bit val from addr to X`
-
-**Register Transfers**
-* `16/17	TAX	NON%	Load AC to the X reg 8/16`
-* `18/19	TXA	NON%	Load X to the AC 8/16`
-* `20		TSX	NON	Load SR to X | Clears X in process`
-* `21		TXS	NON	Load X to SR | R side of 16 bit reg is removed.`
+**Register Transfer**
+* 07	TAX	Load AC val to X reg
+* 08	TXA	Load X val to AC reg
+* 09	TSX	Load SR val to X
+* 10	TXS	Load X to SR reg
 
 **Stack Operations**
-* `22/23	PHA	NON%	Push the 8/16 bit LVal in AC to the memory pointed by SR`
-* `24/25	POA	NON%	Pop the SR pointed 8/16 bit val to AC and decrement the SR`
+* 11	PHA	Push Accumulator into memory stack and increment SR
+* 12	POA	Pop value in memory to accumulator and decrement SR
 
 **Arithemetic Operations**
-* `26/27	ADD	IMM%	Add AC with 8/16 bit mem operand`
-* `28/29	ADA	DIR%	Add AC with an 8/16 bit val from the addr`
+* 13	ADD Imm	Add AC with memory operand val
+* 14	ADA Dir	Add AC val with val from memory address given by mem operand
+* 15	SUB Imm	Sub AC val with memory operand val
+* 16	SBA Dir	Sub AC val with value from memory address given by mem operand
+* 17	INX	Increment X register
+* 18	DEC	Decrement X register
+* 19	ADX	Add AC register with X
+* 20	SUX	Sub AC register with X
 
-* `30/31	SUB	IMM	Sub AC with 8/16 bit mem operand`
-* `32/33	SBA	DIR	Sub AC with an 8/16 bit val from the addr`
+**Comparison**
+* 21	CPX	Compare X reg val to memory operand
+* 22	CPA	Compare AC reg val to memory operand
+* 23	CXA	Compare X reg val to address operand val
+* 24	CAA	Compare AC reg val to address operand val
+* 25	CLC 	Clear CM val to 0
 
-* `34		INX	NON	Increment the X register`
-* `35		DEX	NON	Decrement X register`
+**Functions and jumps**
+* 26	JMP	Jump to address val
+* 27	JLC	Jump when CM flag is 1
+* 28	JMS	Jump to address as subroutine / Store current PC val in stack and increment the SR
+* 29	RET	Return from Subroutine val    / Store popped val into PC as the address to go back to
+* 30	NOP	No operation / The CIR is put to NOP when a value isn't in the ISA range
 
-* `36		ADX	NON	Add AC by X reg`
-* `37		SUX	NON	Sub AC by X reg`
-
-**Branching**
-Use AC as the first comparison operand
-`AC (OP) ImmVal`
-
-Branch instructions are dependent on CMP
-* `38		JE	IMM^	jmp if AC == Op`
-* `39		JNE	IMM^	jmp if AC != Op`
-* `40		JG	IMM^	jmp if AC > Op`
-* `41		JGE	IMM^	jmp if AC >= Op`
-* `42		JL	IMM^	jmp if AC < Op`
-* `43		JLE	IMM^	jmp if AC <= Op`
-
-* `44		JMP	IMM^	jmp to addr`
-* `45		CMC	NON	Clear CM flag`
-
-* `46		CMP	IMM%	Use to compare the AC to the operand, and set a val in CM that allows for a jmp`
-
-**Functions**
-* `47		CALL	IMM^	Call to an addr, push PC and then jump to operand addr`
-* `48		RET	NON	Pop the stored PC to the PC and return to control flow`
 
 
 
