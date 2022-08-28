@@ -53,5 +53,11 @@ void TXS ( ARP* lnk );
 /*
  * Stack Operations
  */
+void bPHA ( ARP* lnk );
+void wPHA ( ARP* lnk );
+
+void bPOA ( ARP* lnk );
+void wPOA ( ARP* lnk );
+
 
 #endif /* HANDLER_H */

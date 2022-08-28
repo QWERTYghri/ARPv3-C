@@ -47,17 +47,24 @@ void TXS ( ARP* lnk ) { lnk -> SR = ( lnk -> X & 0xFF ); }
  * Stack Operations
  */
 void bPHA ( ARP* lnk ) {
-	lnk -> SR++;
 	write ( lnk -> mBus, lnk -> SR, lnk -> AC & 0xFF );
+        lnk -> SR++;
 } 
 
-void bPHA ( ARP* lnk ) {
-	lnk -> SR += 2;
-	writeWord ( lnk, lnk -> SR, lnk -> AC & 0xFF );
+void wPHA ( ARP* lnk ) {
+	writeWord ( lnk, lnk -> SR, lnk -> AC );
+        lnk -> SR += 2;
 }
 
 void bPOA ( ARP* lnk ) {
 	read ( lnk -> mBus, lnk -> SR );
+        lnk -> SR--;
+}
+
+void wPOA ( ARP* lnk ) {
+        lnk -> AC = readWord ( lnk, lnk -> SR );
+        lnk -> SR++;
+}
 
 /*
  * Arithemetic
