@@ -19,7 +19,7 @@
  * SBA
  * CXA
  * CAA
- */
+*/
 
 /* misc */
 void NOP ( ARP* lnk );
@@ -58,6 +58,11 @@ void wPHA ( ARP* lnk );
 
 void bPOA ( ARP* lnk );
 void wPOA ( ARP* lnk );
+
+/*
+ * Arithemetic Operations
+ */
+void ADD ( ARP* lnk );
 
 
 #endif /* HANDLER_H */

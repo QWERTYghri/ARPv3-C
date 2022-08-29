@@ -113,6 +113,7 @@ The first instruction in a % instruction is the 8 bit verision the next is the 1
 **Branching**
 Use AC as the first comparison operand
 `AC (OP) ImmVal`
+Each branch instruction clears the CM flag.
 
 Branch instructions are dependent on CMP
 * `37		JE	IMM^	jmp if AC == Op`
@@ -125,11 +126,12 @@ Branch instructions are dependent on CMP
 * `43		JMP	IMM^	jmp to addr`
 * `44		CMC	NON	Clear CM flag`
 
-* `45		CMP	IMM%	Use to compare the AC to the operand, and set a val in CM that allows for a jmp`
+* `45/46	CMP	IMM%	Use to compare the AC to the operand, and set a val in CM that allows for a jmp`
+* `47/48	CMP	DIR%	Use to compare the AC to the address in memory, and set a val in CM that allows for a jmp`
 
 **Functions**
-* `46		CALL	IMM^	Call to an addr, push PC and then jump to operand addr`
-* `47		RET	NON	Pop the stored PC to the PC and return to control flow`
+* `47		CALL	IMM^	Call to an addr, push PC and then jump to operand addr`
+* `48		RET	NON	Pop the stored PC to the PC and return to control flow`
 
 
 

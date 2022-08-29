@@ -15,7 +15,8 @@ void write ( Bus* lnk, uint16_t addr, int8_t data )
 
 int8_t read ( Bus* lnk, uint16_t addr )
 {
-	
+        
+        return
 }
 
 Bus* setMem ( uint16_t busSec, ... )

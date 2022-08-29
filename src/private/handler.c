@@ -1,5 +1,5 @@
 /*
- * Function definitions for ARPv3
+ *  Function definitions for ARPv3
  */
 
 #include "../public/ARPv3.h"
@@ -15,7 +15,7 @@ void NOP ( ARP* lnk ) { /* NOP is just here as a no instruction, also to satisfy
 
 /* Match to OP 1 - 4, change for addr modes*/
 void LDA ( ARP* lnk ) {
-	lnk -> AC = lnk -> MBR;
+	lnk -> AC |= lnk -> MBR;
 }
 
 void bSTA ( ARP* lnk ) { write ( lnk -> mBus, lnk -> MBR, ( lnk -> AC & 0xFF ) ); }
@@ -23,7 +23,7 @@ void wSTA ( ARP* lnk ) { writeWord ( lnk, lnk -> MBR, lnk -> AC ); }
 
 /* X Reg equivalent */
 void LDX ( ARP* lnk ) {
-	lnk -> AC = lnk -> X;
+	lnk -> AC |= lnk -> X;
 }
 
 void bSTX ( ARP* lnk ) { write ( lnk -> mBus, lnk -> MBR, ( lnk -> X & 0xFF ) ); }
@@ -67,6 +67,31 @@ void wPOA ( ARP* lnk ) {
 /*
  * Arithemetic
  */
-void ADD ( ARP* lnk ) {
-        lnk -> AC += lnk -> MBR;
-}
+void bADD ( ARP* lnk ) { lnk -> AC |= ( lnk -> AC & 0xFF ) + lnk -> MBR; }
+void wADD ( ARP* lnk ) { lnk -> AC += lnk -> MBR; }
+
+void bSUB ( ARP* lnk ) { lnk -> AC |= ( lnk -> AC & 0xFF ) + lnk -> MBR; }
+void wSUB ( ARP* lnk ) { lnk -> AC += lnk -> MBR; }
+
+void INX ( ARP* lnk ) { lnk -> X++; }
+void DEX ( ARP* lnk ) { lnk -> X--; }
+
+void bADX ( ARP* lnk ) { lnk -> AC = ( lnk -> AC & 0xFF ) + ( lnk -> X & 0xFF ); }
+void wADX ( ARP* lnk ) { lnk -> AC += lnk -> X; }
+
+void bSUX ( ARP* lnk ) { lnk -> AC = ( lnk -> AC & 0xFF ) + ( lnk -> AC & 0xFF ); }
+void wSUX ( ARP* lnk ) { lnk -> AC -= lnk -> X; }
+
+/*
+ * Branching Instructions
+ */
+
+/* 
+ * Wtf am I gonna do for this? It's gonna become boiler plate but I need
+ * to get the comparison flag for this shit
+ */
+void bCMP ( ARP* lnk )
+{
+        if ( ( lnk -> AC & 0xFF ) == lnk -> MBR )
+                lnk -> flg.OV = 1;
+        else if 
