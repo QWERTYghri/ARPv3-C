@@ -62,7 +62,41 @@ void wPOA ( ARP* lnk );
 /*
  * Arithemetic Operations
  */
-void ADD ( ARP* lnk );
+void bADD ( ARP* lnk );
+void wADD ( ARP* lnk );
 
+void bSUB ( ARP* lnk );
+void wSUB ( ARP* lnk );
+
+void INX ( ARP* lnk );
+void DEX ( ARP* lnk );
+
+void bADX ( ARP* lnk );
+void wADX ( ARP* lnk );
+
+void bSUX ( ARP* lnk );
+void wSUX ( ARP* lnk );
+
+/*
+ * Branching
+ */
+void JE ( ARP* lnk );
+void JNE ( ARP* lnk );
+void JG ( ARP* lnk );
+void JGE ( ARP* lnk );
+void JL ( ARP* lnk );
+void JLE ( ARP* lnk );
+
+void JMP ( ARP* lnk );
+void CMC ( ARP* lnk );
+
+void bCMP ( ARP* lnk );
+void wCMP ( ARP* lnk );
+
+/*
+ * Subroutines
+ */
+void CALL ( ARP* lnk );
+void RET ( ARP* lnk );
 
 #endif /* HANDLER_H */

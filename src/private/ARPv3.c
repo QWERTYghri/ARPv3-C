@@ -14,16 +14,84 @@
 /* Instruction init */
 i_set iList[ISAMAX] =
 	{
-		{ NOP, NON },
-		
-		{ LDA, B_IMM },
-		{ LDA, W_IMM },
-		
-		{ LDA, B_DIR },
-		{ LDA, W_DIR },
-		
-		{ 
-	};
+                /* AC Reg */
+                { NOP, NON },
+
+                { LDA, B_IMM },
+                { LDA, W_IMM },
+
+                { bSTA, NON },
+                { wSTA, NON },
+
+                { LDA, B_DIR }, /* GTA */
+                { LDA, B_IMM },
+
+                /* X Reg */
+                { LDX, B_IMM },
+                { LDX, W_IMM },
+
+                { bSTX, NON },
+                { wSTX, NON },
+
+                { LDX, B_DIR }, /* GTX */
+                { LDX, W_DIR },
+
+                /* Reg Transfer */
+                { bTAX, NON },
+                { wTAX, NON },
+                
+                { bTXA, NON },
+                { wTXA, NON },
+                
+                { TSX, NON },
+                { TXS, NON },
+
+                /* Stack Operations */
+                { bPHA, B_IMM },
+                { wPHA, W_IMM },
+
+                { bPOA, NON },
+                { wPOA, NON },
+
+                /* Arithemetic */
+                { bADD, B_IMM },
+                { wADD, W_IMM },
+
+                { bADD, B_DIR }, /* ada */
+                { wADD, W_DIR },
+
+                { bSUB, B_IMM },
+                { wSUB, W_IMM },
+
+                { bSUB, B_DIR }, /* sba */
+                { wSUB, W_DIR },
+
+                { INX, NON },
+                { DEX, NON },
+
+                { bADX, NON },
+                { wADX, NON },
+
+                { bSUX, NON },
+                { wSUX, NON },
+
+                /* Branching */
+                { JE, W_IMM },
+                { JNE, W_IMM },
+                { JG, W_IMM },
+                { JGE, W_IMM },
+                { JL, W_IMM },
+                { JLE, W_IMM },
+
+                { JMP, W_IMM },
+                { CMC, NON },
+
+                { bCMP, B_IMM },
+                { wCMP, W_IMM },
+
+                { CALL, W_IMM },
+                { RET, NON }
+        };
  
 /*----------------------------------------------------------------------*/
 
@@ -85,9 +153,9 @@ void dirWFetch   ( ARP* lnk ) {
 void fDebug ( ARP* lnk, FILE* fp )
 {
 	fprintf ( fp, "CYC: %ld\n\tAC: %d\n\tX: %d\n\tSR: %d\n\tPC: $%d\n\tMBR: %d\n\t"
-		      "CIR: %d\n\nFlags:\n\t\tOV: %d\n\t\tSK: %d\n\t\tCM: %d\n\n\n",
+		      "CIR: %d\n\nFlags:\n\t\tNV: %d\n\t\tOV: %d\n\n\t\tCF: %d\n\t\tCM: %d\n\n\n",
 		      lnk -> clkCnt, lnk -> AC, lnk -> X, lnk -> SR, lnk -> PC, lnk -> MBR,
-		      lnk -> CIR, lnk -> flg.NV, lnk -> flg.SK, lnk -> flg.CM );
+		      lnk -> CIR, lnk -> flg.NV, lnk -> flg.OV, lnk -> flg.CF, lnk -> flg.CM );
 }
 
 int simulate ( ARP* lnk, uint64_t hz )
@@ -117,7 +185,7 @@ void step ( ARP* lnk )
 			dirBFetch ( lnk );
 			iList[lnk -> CIR].inst ( lnk );
 			break;
-		case B_DIR:
+		case W_DIR:
 			dirWFetch ( lnk );
 			iList[lnk -> CIR].inst ( lnk );
 			break;

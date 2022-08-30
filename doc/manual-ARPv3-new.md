@@ -41,10 +41,10 @@ _Stack register is 8 bits wide to keep a 255 wide stack space._
 
 Flags have changes, OV/SK have been added
 
+* NV : Bit sign for value
 * OV : Overflow of any register.
 * SK : Stack overflow flag
 * CM : A register to match 6 branch instructions, the branches check the CM to check how the comparison worked.
-* BM : Bit size mode, Switches between normal function handlers and addressing modes for 16 bit and 8 bit mode.
 
 **Instructions**
 
@@ -101,8 +101,8 @@ The first instruction in a % instruction is the 8 bit verision the next is the 1
 * `25/26	ADD	IMM%	Add AC with 8/16 bit mem operand`
 * `27/28	ADA	DIR%	Add AC with an 8/16 bit val from the addr`
 
-* `29/30	SUB	IMM	Sub AC with 8/16 bit mem operand`
-* `31/32	SBA	DIR	Sub AC with an 8/16 bit val from the addr`
+* `29/30	SUB	IMM%	Sub AC with 8/16 bit mem operand`
+* `31/32	SBA	DIR%	Sub AC with an 8/16 bit val from the addr`
 
 * `33		INX	NON	Increment the X register`
 * `34		DEX	NON	Decrement X register`

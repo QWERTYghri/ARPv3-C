@@ -25,6 +25,15 @@ enum FLAGVAL {
         CM	= 6,
 };
 
+enum JMPCODES {
+        nJE      = 1,
+        nJNE     = 2,
+        nJG      = 3,
+        nJGE     = 4,
+        nJL      = 5,
+        nJLE     = 6
+};
+
 /* CPU DATA SECTION */
 
 typedef struct ARP
