@@ -4,12 +4,15 @@
 
 int main ( void )
 {
-	ARP* cpu = arpInit ( 255 );
+	ARP* cpu = arpInit ( 254 );
 
-        writeBInst ( cpu, 256, 1, 30 );
-        step ( cpu );
+        for ( int i = 255; i <= 260; i++ )
+                writeBInst ( cpu, i, i - 255, i - 43 );
         
-        fDebug ( cpu, stdout );
+        while ( getc ( stdin ) != 'Q' ) {
+                step ( cpu );
+                fDebug ( cpu, stdout );
+        }
 
         arpDel ( cpu );
 

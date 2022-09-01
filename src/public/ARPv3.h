@@ -84,7 +84,7 @@ void	dirWFetch	( ARP* lnk );
 /* Computation functions */
 void	fDebug		( ARP* lnk, FILE* fp );
 //int     simulate        ( ARP* lnk, uint64_t hz );
-void	step		( ARP* lnk );
+int	step		( ARP* lnk );
 
 /* Write data to bus instructions should be 8 bits wide*/
 void	writeBInst	( ARP* lnk, uint16_t addr, uint8_t opCode, int8_t operand );

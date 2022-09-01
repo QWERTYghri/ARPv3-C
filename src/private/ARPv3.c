@@ -106,6 +106,8 @@ ARP* arpInit ( uint16_t initPc )
 	ARP* lnk = calloc ( 1, sizeof ( ARP ) );
 	reset ( lnk, initPc );
 
+        lnk -> mBus = calloc ( 1, MAXADDR ); //Temp
+
         return lnk;
 }
 
@@ -119,9 +121,7 @@ void arpDel ( ARP* lnk ) {
 /* Fetch instruction */
 void insFetch ( ARP* lnk )
 {
-	uint16_t vCIR = read ( lnk -> mBus, lnk -> PC );
-
-	lnk -> CIR = ( vCIR > 0 && vCIR <= ISAMAX ) ? vCIR - 1 : NOPC;
+	lnk -> CIR = read ( lnk -> mBus, lnk -> PC );
 	lnk -> PC++;
 }
 
@@ -161,10 +161,13 @@ void fDebug ( ARP* lnk, FILE* fp )
 }
 
 /* Computation set some boiler plate here but welp*/
-void step ( ARP* lnk )
+int step ( ARP* lnk )
 {
 	insFetch ( lnk );
 	
+        if ( lnk -> CIR == NOPC )
+                return -1;
+
 	switch ( iList[lnk -> CIR].addrMd )
 	{
 		case NON:
@@ -188,6 +191,7 @@ void step ( ARP* lnk )
 			iList[lnk -> CIR].inst ( lnk );
 			break;
 	}
+        return 0;
 }
 
 /*----------------------------------------------------------------------*/
