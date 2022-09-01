@@ -36,6 +36,7 @@ _Stack register is 8 bits wide to keep a 255 wide stack space._
 * MBR : Memory buffer reg 16 bits for operand
 * CIR : Instruction register 16 bits
 
+The cycle time for the instructions can max out to 128 mHz. The clockrate can be set in the simulate function.
 
 **CPU Flags**
 
@@ -130,8 +131,8 @@ Branch instructions are dependent on CMP
 * `47/48	CMP	DIR%	Use to compare the AC to the address in memory, and set a val in CM that allows for a jmp`
 
 **Functions**
-* `47		CALL	IMM^	Call to an addr, push PC and then jump to operand addr`
-* `48		RET	NON	Pop the stored PC to the PC and return to control flow`
+* `49		CALL	IMM^	Call to an addr, push PC and then jump to operand addr`
+* `50		RET	NON	Pop the stored PC to the PC and return to control flow`
 
 
 

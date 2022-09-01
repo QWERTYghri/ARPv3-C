@@ -4,20 +4,15 @@
 
 int main ( void )
 {
-	int32_t ch;
+	ARP* cpu = arpInit ( 255 );
 
-	ARP* cpu = calloc ( 1, sizeof ( ARP ) );
-	reset ( cpu, 298 );
-	
-	FILE* fp = fopen ( "prog.bin", "r+" );
-	
-	loadFile ( cpu, fp, 300 );
-	
-	while ( ( ch = getc ( stdin ) ) != 'Q' )
-	{
-		fDebug ( cpu, stdout );
-		step ( cpu );
-	}
-	return 0;
+        writeBInst ( cpu, 256, 1, 30 );
+        step ( cpu );
+        
+        fDebug ( cpu, stdout );
+
+        arpDel ( cpu );
+
+        return 0;
 }
 

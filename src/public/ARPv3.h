@@ -9,7 +9,7 @@
 #define ISAMAX          49
 #define MAXADDR         ( ( uint16_t ) 1024 * 64 )
 #define NOPC            0
-
+#define MAX
 
 enum ADDRMODE {
         NON	= 1, /* No Mode */
@@ -49,9 +49,9 @@ typedef struct ARP
         
         Bus*		mBus;
         uint64_t	clkCnt;
-        
-        struct flg
-	{
+	
+        struct
+        {
         	uint8_t NV : 1;
         	uint8_t OV : 1;
                 uint8_t CF : 1;
@@ -69,7 +69,7 @@ typedef struct i_set
  
 /* Initialization functions */
 void	reset		( ARP* lnk, uint16_t initPc );
-void	arpInit		( uint16_t initPc, uint16_t secBus, ... );
+ARP*	arpInit		( uint16_t initPc );
 void	arpDel		( ARP* lnk );
 
 /* Fetch modes NOM not included and just done in step ()*/
@@ -83,12 +83,12 @@ void	dirWFetch	( ARP* lnk );
 
 /* Computation functions */
 void	fDebug		( ARP* lnk, FILE* fp );
-int     simulate        ( ARP* lnk, uint64_t hz );
+//int     simulate        ( ARP* lnk, uint64_t hz );
 void	step		( ARP* lnk );
 
 /* Write data to bus instructions should be 8 bits wide*/
-void	writeBInst	( ARP* lnk, uint16_t addr, uint16_t opCode, int16_t operand );
-void	writeWInst	( ARP* lnk, uint16_t addr, uint16_t opCode, int16_t operand );
+void	writeBInst	( ARP* lnk, uint16_t addr, uint8_t opCode, int8_t operand );
+void	writeWInst	( ARP* lnk, uint16_t addr, uint8_t opCode, int16_t operand );
 
 /* 16 bit mem assignment */
 void	writeWord	( ARP* lnk, uint16_t addr, uint16_t data );

@@ -14,7 +14,7 @@ lib: $(PUBLIC)/*.h $(PRIVATE)/*.c
 mvAll:
 	-mv *.o *.a $(OUTDIR)
 
-uTest: $(PUBLIC)/*.h ./src/uTests/* $(OUTDIR)/*.a
+uTest: $(PUBLIC)/*.h ./src/uTests/*.c $(OUTDIR)/*.a
 	$(CC) $(CFLAGS) $(OFLAGS) -o exec.out $^
 
 clean:

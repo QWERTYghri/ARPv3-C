@@ -101,10 +101,12 @@ void reset ( ARP* lnk, uint16_t initPc )
        	lnk -> PC = initPc;
 }
 
-void arpInit ( uint16_t initPc, uint16_t secBus, ... )
+ARP* arpInit ( uint16_t initPc )
 {
 	ARP* lnk = calloc ( 1, sizeof ( ARP ) );
 	reset ( lnk, initPc );
+
+        return lnk;
 }
 
 /* Free ARP struct */
@@ -158,10 +160,6 @@ void fDebug ( ARP* lnk, FILE* fp )
 		      lnk -> CIR, lnk -> flg.NV, lnk -> flg.OV, lnk -> flg.CF, lnk -> flg.CM );
 }
 
-int simulate ( ARP* lnk, uint64_t hz )
-{
-        
-}
 /* Computation set some boiler plate here but welp*/
 void step ( ARP* lnk )
 {
@@ -194,13 +192,13 @@ void step ( ARP* lnk )
 
 /*----------------------------------------------------------------------*/
 
-void writeBInst ( ARP* lnk, uint16_t addr, uint16_t opCode, int16_t operand )
+void writeBInst ( ARP* lnk, uint16_t addr, uint8_t opCode, int8_t operand )
 {
 	write ( lnk -> mBus, addr, opCode );
 	write ( lnk -> mBus, addr++, operand );
 }
 
-void writeWInst ( ARP* lnk, uint16_t addr, uint16_t opCode, int16_t operand )
+void writeWInst ( ARP* lnk, uint16_t addr, uint8_t opCode, int16_t operand )
 {
 	write ( lnk -> mBus, addr, opCode );
 	writeWord ( lnk, addr++, operand );
