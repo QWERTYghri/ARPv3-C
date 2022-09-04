@@ -2,14 +2,16 @@
 
 include conf.mk
 
-all: binDir lib mvAll
+all: binDir slib mvAll
 
 binDir:
 	-mkdir $(OUTDIR)
 
-lib: $(PUBLIC)/*.h $(PRIVATE)/*.c
+#Static Lib
+slib: $(PUBLIC)/*.h $(PRIVATE)/*.c
 	$(CC) $(CFLAGS) $(OFLAGS) -c $^
 	$(ARCHIVE) $(ARFLG) $(SOUT) *.o
+
 
 mvAll:
 	-mv *.o *.a $(OUTDIR)

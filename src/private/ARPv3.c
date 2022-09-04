@@ -107,7 +107,7 @@ ARP* arpInit ( uint16_t initPc )
 	reset ( lnk, initPc );
 
         lnk -> mBus = calloc ( 1, MAXADDR ); //Temp
-
+        
         return lnk;
 }
 
@@ -138,13 +138,12 @@ void dirBFetch ( ARP* lnk ) {
 	lnk -> PC += 2;
 }
 
-void immWFetch   ( ARP* lnk ) {
-	
+void immWFetch ( ARP* lnk ) {
 	lnk -> MBR = readWord ( lnk, lnk -> PC );
 	lnk -> PC += 2;
 }
 
-void dirWFetch   ( ARP* lnk ) {
+void dirWFetch ( ARP* lnk ) {
 	lnk -> MBR = readWord ( lnk, readWord ( lnk, lnk -> PC ) );
 	lnk -> PC += 2;
 }
