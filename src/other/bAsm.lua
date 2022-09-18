@@ -18,8 +18,13 @@ local function mTree ( str )
         local curTab    = {}
         local cnt       = 0
 
+        local 
+
         for i, _ in string.gmatch ( "%S+" ) do
-                if ( i == "org" 
+                if ( i == "org" ) then
+                        
+                end
+
 
                 if ( cnt == 0 ) then
                         table.insert ( curTab, inst_t[i] )

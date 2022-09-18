@@ -4,12 +4,12 @@
 
 int main ( void )
 {
-	ARP* cpu = arpInit ( 254 );
+        ARP* cpu = arpInit ( 255 );
 
-        for ( int i = 255; i <= 260; i++ )
-                writeBInst ( cpu, i, i - 255, i - 43 );
+        writeBInst ( cpu, 257, 1, 16 );
         
-        while ( getc ( stdin ) != 'Q' ) {
+        while ( fgetc ( stdin )  )
+        {
                 step ( cpu );
                 fDebug ( cpu, stdout );
         }
