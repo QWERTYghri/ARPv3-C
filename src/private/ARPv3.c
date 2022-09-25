@@ -106,7 +106,7 @@ ARP* arpInit ( uint16_t initPc )
 	ARP* lnk = calloc ( 1, sizeof ( ARP ) );
 	reset ( lnk, initPc );
 
-        lnk -> mBus = calloc ( 1, MAXADDR ); //Temp
+        lnk -> mBus = calloc ( 1, sizeof ( Bus ) );
         
         return lnk;
 }

@@ -15,6 +15,8 @@ Interfacing with the data structures and instructions is done primarily through 
 in `ARPv3.h`. Most functions require the argument of an `ARP` struct to be used as to allow a sort of
 object view for the CPU. And also to set up multiple different cores for some stuff.
 
+Been lazy lately
+
 Example Prog:
 [Example.c](src/uTests/example.c)
 
@@ -32,7 +34,7 @@ Use Makefile to output binaries for it given the flags
 To make edits to config in makefile use `Conf.mk`
 Binaries are compiled into a `bin` directory
 
-Compiled in C99 Standard `-std=gnu99`
+Compiled in gnu99 Standard `-std=gnu99`
 
 Run `make` to output a `bin` directory which stores object files and a static archive file
 
