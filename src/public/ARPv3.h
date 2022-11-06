@@ -9,7 +9,6 @@
 #define ISAMAX          49
 #define MAXADDR         ( ( uint16_t ) 1024 * 64 )
 #define NOPC            0
-#define MAX
 
 enum ADDRMODE {
         NON	= 1, /* No Mode */
@@ -93,8 +92,8 @@ void	writeWInst	( ARP* lnk, uint16_t addr, uint8_t opCode, int16_t operand );
 /* 16 bit mem assignment */
 void	writeWord	( ARP* lnk, uint16_t addr, uint16_t data );
 int16_t	readWord	( ARP* lnk, uint16_t addr );
-/* 8 bit mem assignment is handled by bus.h write and read*/
 
+/* 8 bit mem assignment is handled by bus.h write and read*/
 void	loadFile	( ARP* lnk, FILE* fp, uint16_t stAddr );
 
 /* Misc */

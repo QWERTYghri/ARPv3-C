@@ -4,16 +4,19 @@
 
 int main ( void )
 {
+        FILE* set = fopen ( "out.log", "w+" );
+
         ARP* cpu = arpInit ( 255 );
 
-        writeBInst ( cpu, 257, 1, 16 );
-        
-        while ( fgetc ( stdin )  )
-        {
+        writeBInst ( cpu, 258, 1, 14 );
+        writeWInst ( cpu, 301, 2, 1434 );
+
+        while ( getchar () != 'Q' ) {
                 step ( cpu );
                 fDebug ( cpu, stdout );
         }
 
+        fclose ( set );
         arpDel ( cpu );
 
         return 0;

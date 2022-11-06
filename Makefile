@@ -20,5 +20,5 @@ uTest: $(PUBLIC)/*.h ./src/uTests/*.c $(OUTDIR)/*.a
 	$(CC) $(CFLAGS) $(OFLAGS) -o exec.out $^
 
 clean:
-	-rm -r *.o $(OUTDIR) *.a *.out
+	-rm -r *.o $(OUTDIR) *.a *.out *.log
 
