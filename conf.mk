@@ -9,3 +9,7 @@ CPPFLAGS	:= -D_POSIX_C_SOURCE=200809L
 #Optimization
 OFLAGS		:= -g -O0
 #OFLAGS		:= -0s
+
+#Installation
+LNAME		:= libarp.so
+PREFIX		:= /usr/local/lib

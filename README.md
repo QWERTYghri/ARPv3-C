@@ -12,7 +12,7 @@ The manual for the ARP is updated and support for peripherals would be added
 Header Interface
 ----------------
 Interfacing with the data structures and instructions is done primarily through functions declared
-in `ARPv3.h`. Most functions require the argument of an `ARP` struct to be used as to allow a sort of
+in `arp.h`. Most functions require the argument of an `ARP` struct to be used as to allow a sort of
 object view for the CPU. And also to set up multiple different cores for some stuff.
 
 Been lazy lately
@@ -30,15 +30,12 @@ Other
 Compilation
 -------------
 Use Makefile to output binaries for it given the flags
-
 To make edits to config in makefile use `Conf.mk`
-Binaries are compiled into a `bin` directory
-
 Compiled in gnu99 Standard `-std=gnu99`
 
-Run `make` to output a `bin` directory which stores object files and a static archive file
-
+Compilation outputs a shared library
 ```
-clean: Remove ./bin and object files in proj directory.
-uTest: Compile executables for unit tests
+install: Install to lib path
+uninstall: Remove from lib path
+
 ```

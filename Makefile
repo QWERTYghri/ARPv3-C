@@ -6,6 +6,8 @@
 
 include conf.mk
 
+.PHONY: all extra install uninstall clean uTest
+
 all: extra libarp.so install
 
 extra:
@@ -20,9 +22,10 @@ libarp.so: ./src/public/*.h ./src/private/*.c
 	$(CC) $(CFLAGS) $(OFLAGS) -fPIC -shared -lc -o $@ $^
 
 install:
-	
+	mkdir -p $(DESTDIR) $(PREFIX)
+	cp -f libarp.so $(DESTDIR) $(PREFIX)
+
 uninstall:
-
+	-rm -f $(DESTDIR) $(PREFIX)/libarp.so
 clean:
-
-.PHONY: all extra install uninstall clean uTest
+	-rm -f *.o *.out *.so
