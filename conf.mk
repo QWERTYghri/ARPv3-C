@@ -1,19 +1,11 @@
-CC      := gcc
-CFLAGS  := -std=gnu99 -Wpedantic -Wall -Wextra -pipe
+# Compilation flags and other stuff
+# QWERTY
 
+#Compilation
+CC		?= gcc
+CFLAGS 		:= -std=gnu99 -Wpedantic -Wall -Wextra -pipe
+CPPFLAGS	:= -D_POSIX_C_SOURCE=200809L
 
-#optimizaation flags
-OFLAGS  := -g -O0
-#OFLAGS  := -0s
-
-
-#DIRS
-OUTDIR  := ./bin
-PUBLIC  := ./src/public
-PRIVATE := ./src/private
-
-ARCHIVE := ar
-ARFLG   := -rcs
-
-#Static library name output
-SOUT	:= libarp.a
+#Optimization
+OFLAGS		:= -g -O0
+#OFLAGS		:= -0s

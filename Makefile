@@ -1,24 +1,28 @@
-#Makefile to compile objects to static library
+# Makefile for ARP
+#
+# Compiles to shared library or static if specified
+# Use install to install it to the usr lib path
+#
 
 include conf.mk
 
-all: binDir slib mvAll
+all: extra libarp.so install
 
-binDir:
-	-mkdir $(OUTDIR)
-
-#Static Lib
-slib: $(PUBLIC)/*.h $(PRIVATE)/*.c
-	$(CC) $(CFLAGS) $(OFLAGS) -c $^
-	$(ARCHIVE) $(ARFLG) $(SOUT) *.o
+extra:
+	@echo -e "\033[32;1mARPv3-C\033[0m"
+	@echo -e "\033[5;1mReady to launch missile\033[0m"
+	@sleep 2
+	@echo -e "\033[31;1mLAUNCHED!!!\033[0m"
 
 
-mvAll:
-	-mv *.o *.a $(OUTDIR)
 
-uTest: $(PUBLIC)/*.h ./src/uTests/*.c $(OUTDIR)/*.a
-	$(CC) $(CFLAGS) $(OFLAGS) -o exec.out $^
+libarp.so: ./src/public/*.h ./src/private/*.c
+	$(CC) $(CFLAGS) $(OFLAGS) -fPIC -shared -lc -o $@ $^
+
+install:
+	
+uninstall:
 
 clean:
-	-rm -r *.o $(OUTDIR) *.a *.out *.log
 
+.PHONY: all extra install uninstall clean uTest
