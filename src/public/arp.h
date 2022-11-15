@@ -17,32 +17,25 @@ extern "C" {
 
 /* Local */
 #include "./bus.h"
-#include "./def.h"
+#include "./util.h"
 #include "./dev.h"
 
 typedef struct Arp {
-        struct reg {
-                int16_t R0, R1, R2, R3;
-                uint16_t PC, SP, SBP, MBR;
+        /* Registers */
+        int16_t R0, R1, R2, R3;
+        uint16_t PC, SP, SBP, MBR;
 
-                uint8_t flg;
-        } reg;
-
-        struct util {
-                
-        } util;
+        uint8_t flg;
+        
+        Bus* mBus;
 } Arp;
 
+/* Functions */
 Arp*
-newArp ( void )
-{
-        Arp* lnk = malloc ( sizeof ( Arp ) );
-
-        lnk -> reg.R0 = 0;
-
+newArp ( uint16_t PC,  );
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif
+#endif /* END */

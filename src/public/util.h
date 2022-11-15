@@ -7,18 +7,15 @@
 #ifndef UTIL_H
 #define UTIL_H
 
-/* Lib includes */
 #include <stdint.h>
-
-/* Local Include */
 #include "./arp.h"
+
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /* Enums */
-
 enum INST {
         
 };
@@ -28,6 +25,7 @@ enum INST {
 #define 
 
 /* < Types > */
+typedef void ( *pFunc ) ( Arp* ) 
 
 /* < Funcs > */
 
