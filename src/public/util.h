@@ -11,10 +11,6 @@
 #include "./arp.h"
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 /* Enums */
 enum INST {
         
@@ -27,7 +23,13 @@ enum INST {
 /* < Types > */
 typedef void ( *pFunc ) ( Arp* ) 
 
+
+
 /* < Funcs > */
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 
 #ifdef __cplusplus
 }

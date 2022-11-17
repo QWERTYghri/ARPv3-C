@@ -7,9 +7,7 @@
 #ifndef ARP_H
 #define ARP_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+
 
 /* Libc / POSIX */
 #include <time.h>
@@ -29,6 +27,11 @@ typedef struct Arp {
         
         Bus* mBus;
 } Arp;
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /* Functions */
 Arp*

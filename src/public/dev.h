@@ -10,15 +10,14 @@
 #include <stdint.h>
 #include "./bus.h"
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 typedef struct Dev
 {
         
 };
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #ifdef __cplusplus
 }

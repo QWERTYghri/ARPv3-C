@@ -9,16 +9,15 @@
 
 #include "./dev.h"
 
-#ifndef __cplusplus
-extern "C" {
-#endif
-
 typedef struct Bus
 {
         
 } Bus;
 
 
+#ifndef __cplusplus
+extern "C" {
+#endif
 
 #ifndef __cplusplus
 }
