@@ -7,18 +7,17 @@
 #ifndef ARP_H
 #define ARP_H
 
-
-
-/* Libc / POSIX */
-#include <time.h>
 #include <stdlib.h>
+#include <time.h>
 
-/* Local */
 #include "./bus.h"
-#include "./util.h"
 #include "./dev.h"
 
-typedef struct Arp {
+/* Defs */
+#define MAXADDR ( ( unsigned ) 1024 * 64 )
+
+/* Types */
+typedef struct {
         /* Registers */
         int16_t R0, R1, R2, R3;
         uint16_t PC, SP, SBP, MBR;
@@ -28,14 +27,18 @@ typedef struct Arp {
         Bus* mBus;
 } Arp;
 
+typedef void ( *handler ) ( void );
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/* Functions */
-Arp*
-newArp ( uint16_t PC,  );
+/* **Functions** */
+
+/* Note* if busArg is NULL, it'll use a 16-bit memory bus*/
+Arp* newArp ( uint16_t PC, Bus* busArg ); 
+void delArp ( void );
+
 
 #ifdef __cplusplus
 }

@@ -1,9 +1,20 @@
-#include <stdint.h>
+/* ARP.c
+ *
+ * C file for arp.h
+ */
 
-Arp*
-newArp ( uint16_t PC, )
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#include "../public/arp.h"
+#include "../public/bus.h"
+
+
+Arp* newArp ( uint16_t PC, Bus* busArg )
 {
-        Arp* lnk = calloc ( 1, sizeof ( Arp ) ); /* Should init all to 0 */
-        
-        lnk -> PC = PC;
-}
+        Bus* mem;
+
+        if ( busArg == NULL )
+                mem = 
+
