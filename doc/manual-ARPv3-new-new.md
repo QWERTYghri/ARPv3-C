@@ -45,7 +45,7 @@ NA := Not accessible
 * SP  [u16]          : Stack pointer
 * SBP [u16]          : Stack Base pointer for stack frames
 * MBR [u16 NA]       : Data register for memory
-* CIR [u16 NA]       : Instruction register
+* CIR [u8 NA]       : Instruction register
 * MBA [u8]           : Memory banking info. Value specifies a memory bank from the Bus.
 * FLG [u8]           : Flag register
 
@@ -73,12 +73,25 @@ FLG [u8]
 **Memory layout**
 
 The CPU has an addressable range of 16-bits ( 65,536 ). Each memory location can store a 8-bit word.
+An instruction is fetched as an 8-bit value which contains data on stuff like address mode or the word type.
+It then takes the second byte or takes two bytes if a 16-bit word is specified.
 
-#
+The 5th bit is representative of the B/W bit to specify the word.
+Different opcodes require different memory instruction layouts.
 
+#### Double Reg Instruction ####
+`[1 B/W][3 OPC][2 dReg][2 sReg]`
+
+#### Single Reg Instruction ####
+`[1 B/W][3 OPC][2 reg][2 offset]`
+
+#### Single arg Instruction ####
+`[1 B/W][3 OPC][4 bit offset]`
+
+Instructions
 ------------
-* `MOVB 10001, reg, mm
-* `MOV  00001, reg, imm8/16
+`MOV 0001 
+
 
 Devices
 -------------------
