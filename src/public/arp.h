@@ -20,9 +20,10 @@
 typedef struct {
         /* Registers */
         int16_t R0, R1, R2, R3;
-        uint16_t PC, SP, SBP, MBR;
+        uint16_t PC, SP, SBP, CIR, MBR;
 
         uint8_t flg;
+        uint8_t MBA;
         
         Bus* mBus;
 } Arp;
@@ -36,8 +37,8 @@ extern "C" {
 /* **Functions** */
 
 /* Note* if busArg is NULL, it'll use a 16-bit memory bus*/
-Arp* newArp ( uint16_t PC, Bus* busArg ); 
-void delArp ( void );
+Arp* newArp     ( uint16_t PC, Bus* busArg ); 
+void delArp     ( Arp* lnk );
 
 
 #ifdef __cplusplus
