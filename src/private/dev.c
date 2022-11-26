@@ -17,7 +17,10 @@ Dev* newDev ( uint16_t devId,
         Dev* obj = calloc ( 0, sizeof ( dev ) );
         
         obj -> devId = devId;
-        snprintf ( obj -> desc, MAXDESC, "%s", 
+        snprintf ( obj -> desc, MAXDESC, "%s" desc );
+        obj -> tick = tick;
+
+        return obj;
 }
 
 void delDev ( Dev* lnk ) {
