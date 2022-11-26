@@ -15,10 +15,10 @@ Dev* newDev ( uint16_t devId,
               char* desc,
               void ( *tick ) ( Arp* lnk, Dev* ref ) )
 {
-        Dev* obj = calloc ( 0, sizeof ( dev ) );
+        Dev* obj = calloc ( 0, sizeof ( Dev ) );
         
         obj -> devId = devId;
-        snprintf ( obj -> desc, MAXDESC, "%s" desc );
+        snprintf ( obj -> desc, MAXDESC, "%s", desc );
         obj -> tick = tick;
 
         return obj;

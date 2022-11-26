@@ -19,9 +19,9 @@
 typedef struct {
         /* Preferable data */
         uint16_t devId;
-        char* desc[MAXDESC];
+        char desc[MAXDESC];
 
-        void (*tick) ( Arp* lnk, Dev* ref );
+        void ( *tick ) ( Arp* lnk, Dev* ref );
 } Dev;
 
 /* Functions */
