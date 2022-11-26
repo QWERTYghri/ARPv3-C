@@ -24,18 +24,11 @@ typedef struct {
         void (*tick) ( Arp* lnk, Dev* ref );
 } Dev;
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
+/* Functions */
 Dev* newDev ( uint16_t devId,
-              char* desc
+              char* desc,
               void ( *tick ) ( Arp* lnk, Dev* ref ) );
 
 void delDev ( Dev* lnk );
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif /* End dev_h */

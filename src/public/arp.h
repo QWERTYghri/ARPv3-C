@@ -27,19 +27,10 @@ typedef struct {
         Bus* mBus;
 } Arp;
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 /* **Functions** */
 
 /* Note* if busArg is NULL, it'll use a 16-bit memory bus*/
 Arp* newArp     ( uint16_t PC, Bus* busArg ); 
 void delArp     ( Arp* lnk );
-
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif /* END */

@@ -23,7 +23,7 @@ libarp.so: ./src/public/*.h ./src/private/*.c
 
 install:
 	mkdir -p $(DESTDIR) $(PREFIX)
-	cp -f libarp.so $(DESTDIR) $(PREFIX)
+	cp -f ./src/public/*.h libarp.so $(DESTDIR) $(PREFIX)
 
 uninstall:
 	-rm -f $(DESTDIR) $(PREFIX)/libarp.so

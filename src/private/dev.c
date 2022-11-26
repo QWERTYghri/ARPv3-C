@@ -8,10 +8,11 @@
 #include <stdlib.h>
 #include <stdint.h>
 
+#include "../public/arp.h"
 #include "../public/dev.h"
 
 Dev* newDev ( uint16_t devId,
-              char* desc
+              char* desc,
               void ( *tick ) ( Arp* lnk, Dev* ref ) )
 {
         Dev* obj = calloc ( 0, sizeof ( dev ) );
@@ -24,5 +25,5 @@ Dev* newDev ( uint16_t devId,
 }
 
 void delDev ( Dev* lnk ) {
-        free ( Dev );
+        free ( lnk );
 }

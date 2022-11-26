@@ -12,18 +12,10 @@
 #include "./arp.h"
 #include "./dev.h"
 
-typedef struct Bus
-{
-        uint8_t buf
+typedef struct {
+        uint8_t buf;
 } Bus;
 
 
-#ifndef __cplusplus
-extern "C" {
-#endif
-
-#ifndef __cplusplus
-}
-#endif
 
 #endif /* END */
