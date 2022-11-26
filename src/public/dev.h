@@ -30,13 +30,9 @@ extern "C" {
 
 Dev* newDev ( uint16_t devId,
               char* desc
-              void ( *tick ) ( Arp* lnk, Dev* ref ) )
-{
-        Dev* obj = calloc ( 0, sizeof ( dev ) );
-        
-        obj -> devId = devId;
-        snprintf ( obj -> desc, MAXDESC, "%s", 
-}
+              void ( *tick ) ( Arp* lnk, Dev* ref ) );
+
+void delDev ( Dev* lnk );
 
 #ifdef __cplusplus
 }
