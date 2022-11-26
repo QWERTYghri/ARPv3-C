@@ -79,18 +79,41 @@ It then takes the second byte or takes two bytes if a 16-bit word is specified.
 The 5th bit is representative of the B/W bit to specify the word.
 Different opcodes require different memory instruction layouts.
 
-#### Double Reg Instruction ####
-`[1 B/W][3 OPC][2 dReg][2 sReg]`
 
-#### Single Reg Instruction ####
-`[1 B/W][3 OPC][2 reg][2 offset]`
+#### Instruction layout ####
 
-#### Single arg Instruction ####
-`[1 B/W][3 OPC][4 bit offset]`
+`[1 B/W OPC][5 OPC][2 AM]`
+
+* 1 B/W : Actually part of opcode and to use a word or byte.
+* 5 OPC : Specify the operation part.
+* 2 AM  : Specify the address mode whether it be Implied ( 0 ), Immediate ( 1 ), Direct ( 2 ).
 
 Instructions
 ------------
-`MOV 0001 
+
+#### Misc ####
+`NOP  : 0|00000 : NAN := `
+
+#### Register Moving ####
+`MOV  : 0|00001 : dir:16:reg, imm:dir:16:reg  := ` WTF I NEED TO FIX THIS
+`MOVB : 1|00001 : dir:8:reg, imm:dir:8:reg    := `
+
+#### Stack Pushing ####
+`PSH  : 0|00010 : imm:dir:16:reg  := `
+`PSHB : 1|00010 : imm:dir:8:reg   := `
+
+`POP  : 0|00011 : imm:dir:16:reg  := `
+`POPB : 1|00011 : imm:dir:8:reg   := `
+
+#### Operators ####
+`ADD  : 0|00100 : reg, := `
+`ADDB : 1|00100 : reg,  := `
+
+`SUB  : 0|00101 : reg, := `
+`SUBB : 1|00101 : reg, := `
+
+`INC  : 0|00110 : dir:reg := `
+`DEC  : 0|00111 : dir:reg :=
 
 
 Devices

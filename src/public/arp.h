@@ -20,15 +20,12 @@
 typedef struct {
         /* Registers */
         int16_t R0, R1, R2, R3;
-        uint16_t PC, SP, SBP, CIR, MBR;
+        uint16_t PC, SP, SBP, MBR;
 
-        uint8_t flg;
-        uint8_t MBA;
-        
+        uint8_t CIR, FLG, MBA;
+
         Bus* mBus;
 } Arp;
-
-typedef void ( *handler ) ( void );
 
 #ifdef __cplusplus
 extern "C" {
