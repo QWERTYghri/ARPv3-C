@@ -21,14 +21,16 @@ typedef struct {
         uint16_t devId;
         char desc[MAXDESC];
 
-        void ( *tick ) ( Arp* lnk, Dev* ref );
+        void ( *tick ) ( Bus* lnk, Dev* ref ); 
+        uint16_t rng1, rng2; /* rng1 must be less than rng2 otherwise it'll fail */
 } Dev;
 
 /* Functions */
 Dev* newDev ( uint16_t devId,
               char* desc,
-              void ( *tick ) ( Arp* lnk, Dev* ref ) );
+              void ( *tick ) ( Arp* lnk, Dev* ref ),
+              uint16_t rng1,
+              uint16_t rng2 );
 
-void delDev ( Dev* lnk );
-
+void delDev     ( Dev* lnk );
 #endif /* End dev_h */

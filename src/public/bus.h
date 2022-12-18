@@ -12,8 +12,12 @@
 #include "./arp.h"
 #include "./dev.h"
 
+#define MAX_DEV ( 255 )
+
 typedef struct {
-        uint8_t buf;
+        uint16_t addr;
+
+        Dev devices[MAX_DEV];
 } Bus;
 
 
