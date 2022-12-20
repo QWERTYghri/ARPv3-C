@@ -28,7 +28,7 @@ Architecture
 * 16/8-bit Data Word
 * Memory banking to 255
 * mHz clock is not restricted however realism makes me want it to 3 mHz
-* Memory-mapped IO because I'm Based
+* Memory-mapped I/O cuz based
 
 #### Registers ####
 
@@ -45,7 +45,7 @@ NA := Not accessible
 * SP  [u16]          : Stack pointer
 * SBP [u16]          : Stack Base pointer for stack frames
 * MBR [u16 NA]       : Data register for memory
-* CIR [u8 NA]       : Instruction register
+* CIR [u8 NA]        : Instruction register
 * MBA [u8]           : Memory banking info. Value specifies a memory bank from the Bus.
 * FLG [u8]           : Flag register
 
@@ -73,20 +73,20 @@ FLG [u8]
 **Memory layout**
 
 The CPU has an addressable range of 16-bits ( 65,536 ). Each memory location can store a 8-bit word.
-An instruction is fetched as an 8-bit value which contains data on stuff like address mode or the word type.
-It then takes the second byte or takes two bytes if a 16-bit word is specified.
+An instruction is fetched as an 16-bit value which contains data on stuff like address mode or the word type.
+It then can fetch a `byte` or `short` as an operand.
 
-The 5th bit is representative of the B/W bit to specify the word.
-Different opcodes require different memory instruction layouts.
+#### Addressing Modes ####
+* Implied
+* Immediate
+* Direct
+* Register
+* Register Indirect
 
+#### Instruction Layout ####
 
-#### Instruction layout ####
-
-`[1 B/W OPC][5 OPC][2 AM]`
-
-* 1 B/W : Actually part of opcode and to use a word or byte.
-* 5 OPC : Specify the operation part.
-* 2 AM  : Specify the address mode whether it be Implied ( 0 ), Immediate ( 1 ), Direct ( 2 ).
+##### Inst Normal #####
+`[1][--5--][-3-][offset]`
 
 Instructions
 ------------
@@ -95,25 +95,25 @@ Instructions
 `NOP  : 0|00000 : NAN := `
 
 #### Register Moving ####
-`MOV  : 0|00001 : dir:16:reg, imm:dir:16:reg  := ` WTF I NEED TO FIX THIS
-`MOVB : 1|00001 : dir:8:reg, imm:dir:8:reg    := `
+`MOV  : 0|00001 : imm:dir:16:reg
+`MOVB : 1|00001 : imm:dir:8:reg
 
 #### Stack Pushing ####
-`PSH  : 0|00010 : imm:dir:16:reg  := `
-`PSHB : 1|00010 : imm:dir:8:reg   := `
+`PSH  : 0|00010 : imm:dir:16:reg`
+`PSHB : 1|00010 : imm:dir:8:reg`
 
-`POP  : 0|00011 : imm:dir:16:reg  := `
-`POPB : 1|00011 : imm:dir:8:reg   := `
+`POP  : 0|00011 : imm:dir:16:reg`
+`POPB : 1|00011 : imm:dir:8:reg`
 
 #### Operators ####
-`ADD  : 0|00100 : reg, := `
-`ADDB : 1|00100 : reg,  := `
+`ADD  : 0|00100 : reg:`
+`ADDB : 1|00100 : reg`
 
-`SUB  : 0|00101 : reg, := `
-`SUBB : 1|00101 : reg, := `
+`SUB  : 0|00101 : reg`
+`SUBB : 1|00101 : reg`
 
-`INC  : 0|00110 : dir:reg := `
-`DEC  : 0|00111 : dir:reg :=
+`INC  : 0|00110 : dir:reg`
+`DEC  : 0|00111 : dir:reg`
 
 
 Devices
