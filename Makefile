@@ -19,7 +19,7 @@ extra:
 
 
 libarp.so: ./src/public/*.h ./src/private/*.c
-	$(CC) $(CFLAGS) $(OFLAGS) -fPIC -shared -lc -o $@ $^
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(OFLAGS) -fPIC -shared -lc -o $@ $^
 
 install:
 	mkdir -p $(DESTDIR) $(PREFIX)
