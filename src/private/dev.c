@@ -14,6 +14,8 @@
 
 Dev* newDev ( uint16_t devId,
               char* desc,
+              uint16_t rng1,
+              uint16_t rng2
               void ( *tick ) ( Bus* lnk, Dev* ref ) )
 {
         Dev* obj = calloc ( 0, sizeof ( Dev ) );
@@ -23,10 +25,10 @@ Dev* newDev ( uint16_t devId,
         obj -> tick = tick;
 
         if ( rng1 > rng2 ) 
-                return -1
+                return NULL;
 
         obj -> rng1 = rng1;
-        obj -> rng2 = rng2
+        obj -> rng2 = rng2;
 
         return obj;
 }
