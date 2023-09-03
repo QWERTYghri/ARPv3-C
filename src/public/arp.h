@@ -9,6 +9,8 @@
 #include <stdlib.h>
 #include <stdint.h>
 
+#include "./bus.h"
+
 typedef struct
 {
 	int16_t 	r0,
@@ -23,7 +25,9 @@ typedef struct
 			
 	uint8_t		cir,
 			mba;
-			
+	
+	Bus*		memory;
+	
 	struct Flag
 	{
 		uint8_t	Z : 1,
@@ -33,7 +37,7 @@ typedef struct
 	} Flag;
 } Arp;
 
-Arp* newArp ( uint16_t pc );
+Arp* newArp ( uint16_t pc, Bus* obj );
 void delArp ( Arp* obj );
 
 #endif /* END */
