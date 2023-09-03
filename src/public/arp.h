@@ -1,36 +1,39 @@
-/* 
- * arp.h
- *
- * Holds the interface for the cpu
+/*
+ * ARPv3 main header
+ * Contains CPU data struct
  */
 
 #ifndef ARP_H
 #define ARP_H
 
 #include <stdlib.h>
-#include <time.h>
+#include <stdint.h>
 
-#include "./bus.h"
-#include "./dev.h"
-
-/* Defs */
-#define MAXADDR ( ( unsigned ) 1024 * 64 )
-
-/* Types */
-typedef struct {
-        /* Registers */
-        int16_t R0, R1, R2, R3;
-        uint16_t PC, SP, SBP, MBR;
-
-        uint8_t CIR, FLG, MBA;
-
-        Bus* mBus;
+typedef struct
+{
+	int16_t 	r0,
+			r1,
+			r2,
+			r3;
+	
+	uint16_t	pc,
+			sp,
+			sbp,
+			mbr;
+			
+	uint8_t		cir,
+			mba;
+			
+	struct Flag
+	{
+		uint8_t	Z : 1,
+			N : 1,
+			V : 1,
+			cmp : 3;
+	} Flag;
 } Arp;
 
-/* **Functions** */
-
-/* Note* if busArg is NULL, it'll use a 16-bit memory bus*/
-Arp* newArp     ( uint16_t PC, Bus* busArg ); 
-void delArp     ( Arp* lnk );
+Arp* newArp ( uint16_t pc );
+void delArp ( Arp* obj );
 
 #endif /* END */

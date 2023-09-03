@@ -28,7 +28,7 @@ Architecture
 * 16/8-bit Data Word
 * Memory banking to 255
 * mHz clock is not restricted however realism makes me want it to 3 mHz
-* Memory-mapped I/O cuz based
+* port mapped I/O, 255 ports which can send a `byte` or `short` from register R0 and receive to register R0
 
 #### Registers ####
 

@@ -1,20 +1,27 @@
-/* ARP.c
- *
- * C file for arp.h
+/*
+ *	C File for arp.h
+ *	
+ *	Contains program data for arp
  */
 
-#include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
-
 #include "../public/arp.h"
-#include "../public/bus.h"
 
-
-Arp* newArp ( uint16_t PC, Bus* busArg )
+Arp*
+newArp ( uint16_t pc )
 {
-        Bus* mem;
+	Arp* obj = calloc ( 1, sizeof ( Arp ) );
+	
+	if ( obj == NULL )
+		return NULL;
+	
+	obj -> pc = pc;	
+	
+	return obj;
+}
 
-        if ( busArg == NULL )
-                mem = 
-
+void
+delArp ( Arp* obj )
+{
+	free ( obj );
+}

@@ -12,4 +12,6 @@ OFLAGS		:= -g -O0
 
 #Installation
 LNAME		:= libarp.so
-PREFIX		:= /usr/local/lib
+LIB_PREFIX	:= /usr/local/lib
+INCLUDE_PREFIX	:= /usr/local/include
+HEADER_FOLDER	:= arp

@@ -1,25 +1,22 @@
 /*
- * bus.h
+ * Bus file
  *
- * Header file for bus set
+ * Used to segment the CPU's address bus
  */
-
+ 
 #ifndef BUS_H
 #define BUS_H
 
 #include <stdint.h>
+#include "./define.h"
 
-#include "./arp.h"
-#include "./dev.h"
-
-#define MAX_DEV ( 255 )
-
-typedef struct {
-        uint16_t addr;
-
-        Dev devices[MAX_DEV];
+typedef struct
+{
+	int8_t* memGroup;
+	int8_t ioPort[MAXPORT];
 } Bus;
 
-
+Bus*	newBus ( uint16_t maxMem );
+void	delBus ( Bus* obj );
 
 #endif /* END */
