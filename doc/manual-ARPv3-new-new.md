@@ -26,7 +26,6 @@ Architecture
 #### Info ####
 * 16-bit Address Width / Memory is 1-byte per addr
 * 16/8-bit Data Word
-* Memory banking to 255
 * mHz clock is not restricted however realism makes me want it to 3 mHz
 * port mapped I/O, 255 ports which can send a `byte` or `short` from register R0 and receive to register R0
 
@@ -46,7 +45,6 @@ NA := Not accessible
 * SBP [u16]          : Stack Base pointer for stack frames
 * MBR [u16 NA]       : Data register for memory
 * CIR [u8 NA]        : Instruction register
-* MBA [u8]           : Memory banking info. Value specifies a memory bank from the Bus.
 * FLG [u8]           : Flag register
 
 Some Explanation

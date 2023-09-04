@@ -11,6 +11,7 @@ int main ( void )
 	obj -> memory -> memGroup[1] = 10;
 	
 	printf ( "%d\n", obj -> memory -> memGroup[1] );
+	reset ( obj );
 	
 	return 0;
 }

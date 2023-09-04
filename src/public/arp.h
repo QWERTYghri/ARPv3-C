@@ -23,8 +23,7 @@ typedef struct
 			sbp,
 			mbr;
 			
-	uint8_t		cir,
-			mba;
+	uint8_t		cir;
 	
 	Bus*		memory;
 	
@@ -39,5 +38,8 @@ typedef struct
 
 Arp* newArp ( uint16_t pc, Bus* obj );
 void delArp ( Arp* obj );
+
+/* Methods */
+void reset ( Arp* obj );
 
 #endif /* END */
