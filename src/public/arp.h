@@ -20,10 +20,11 @@ typedef struct
 	
 	uint16_t	pc,
 			sp,
-			sbp,
-			mbr;
+			sbp;
 			
-	uint8_t		cir;
+	int16_t		mbr;
+			
+	int8_t		cir;
 	
 	Bus*		memory;
 	
@@ -36,10 +37,20 @@ typedef struct
 	} Flag;
 } Arp;
 
+/* Constructors */
 Arp* newArp ( uint16_t pc, Bus* obj );
 void delArp ( Arp* obj );
 
+/* Read Write */
+void writeByte ( Arp* obj, uint8_t value );
+void writeWord ( Arp* obj, uint16_t value );
+
+uint8_t readByte ( Arp* obj );
+uint16_t readWord ( Arp* obj );
+
 /* Methods */
 void reset ( Arp* obj );
+void addressData ( Arp* obj );
+void simulate ( Arp* obj, uint32_t cycles );
 
 #endif /* END */

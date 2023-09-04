@@ -1,4 +1,4 @@
-/*
+ /*
  * Bus file
  *
  * Used to segment the CPU's address bus
@@ -12,8 +12,8 @@
 
 typedef struct
 {
-	int8_t* memGroup;
-	int8_t ioPort[MAXPORT];
+	uint8_t* memGroup;
+	uint8_t ioPort[MAXPORT];
 } Bus;
 
 Bus*	newBus ( uint16_t maxMem );

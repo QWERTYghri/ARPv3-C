@@ -7,11 +7,9 @@ int main ( void )
 	Bus* mem = newBus ( 0xFFFF );
 	Arp* obj = newArp ( 16, mem );
 	
-	printf ( "%d\n", obj -> pc );
-	obj -> memory -> memGroup[1] = 10;
+	obj -> memory -> memGroup[1] = 0b11111111;
 	
-	printf ( "%d\n", obj -> memory -> memGroup[1] );
-	reset ( obj );
+	simulate ( obj, 2 );
 	
 	return 0;
 }
