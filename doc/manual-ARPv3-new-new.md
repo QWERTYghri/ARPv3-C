@@ -88,14 +88,16 @@ Note that the `1_bw` specifies whether or not it takes a short or byte.
 #### Single Operand ####
 Takes either short or byte value depending on `1_BW`. Uses the above addressing modes for getting the value
 
-`[1_BW][3_AM][5_OPC][7_OFFSET]`
+`[1_BW][3_AM][4_OPC]`
 
 * `1_BW`: Specifies if the operand is taken as a `byte` or `word`
 * `3_AM` : Specifies Addressing mode
-* `5_OPC`: Specifes Operation
+* `4_OPC`: Specifes Operation
 
 The address mode specifies how data is fetched, register mode uses the operand to
 index a register 1 - 4 ( 0 - 3 ).
+
+#### Double Operand Operand ####
 
 Instructions
 ------------
@@ -104,28 +106,17 @@ Instructions
 `NOP  : 0|00000 : imp := signify no OP `
 
 #### Register Moving ####
-`MOV  : 0|00001 : imm:dir:16:regImm:regDir, Reg/Addr`: Moves values fetched from address modes and stores in a register or address
-`MOVB : 1|00001 : imm:dir:8:regImm:regDir, Reg/Addr`: Same as the top but for byte values
+`MOV
 
-#### Stack Pushing ####
-`PSH  : 0|00010 : imm:dir:16:regImm:regDir`: Gets a single operand to store on the stack
-`PSHB : 1|00010 : imm:dir:8:regImm:regDir`: Same as top but for bytes
+#### Stack Operations ####
 
-`POP  : 0|00011 : imm:dir:16:regImm:regDir`: Pop a value from the stack into an address specified by the Address mode
-`POPB : 1|00011 : imm:dir:8:regImm:regDir`: Same as top but for bytes
+#### Arithemetic Operations ####
 
-#### Operators ####
-`ADD  : 0|00100 : imm:dir:16:regImm:regDir, Reg:Addr`: Adds a value from the source and destination and store into the destination
-`ADDB : 1|00100 : imm:dir:8:regImm:regDir, Reg:Addr`: Same as top but for bytes
+#### Branching ####
 
-`SUB  : 0|00101 : imm:dir:16:regImm:regDir, Reg:Addr`: Subtracts the source from the destination and store in destination.
-`SUBB : 1|00101 : imm:dir:8:regImm:regDir, Reg:Addr`: Same as top but for bytes
+#### Subroutines ####
 
-`INC  : 0|00110 : dir`: Increment register or address`: Increments the value in an address
-`INCB : 1|00110 : dir`: Increment register or address`: Same as top but for bytes
-
-`DEC  : 0|00111 : dir`: Decrement register or address`: Decrements the value in an address
-`DECB : 1|00111 : dir`: Decrement register or address`: Same as top but for bytes
+#### Input Output ####
 
 Devices
 -------------------
