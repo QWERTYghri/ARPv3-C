@@ -3,7 +3,8 @@
 
 #Compilation
 CC		?= gcc
-CFLAGS 		:= -std=gnu99 -Wpedantic -Wall -Wextra -pipe
+# Note, removed -std=gnu99 and -Wpedantic in order to use binary literals for now
+CFLAGS 		:= -Wall -Wextra -pipe
 CPPFLAGS	:= -D_POSIX_C_SOURCE=200809L
 
 #Optimization

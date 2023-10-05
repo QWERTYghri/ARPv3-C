@@ -42,15 +42,15 @@ Arp* newArp ( uint16_t pc, Bus* obj );
 void delArp ( Arp* obj );
 
 /* Read Write */
-void writeByte ( Arp* obj, uint8_t value );
-void writeWord ( Arp* obj, uint16_t value );
+void writeByte ( Arp* obj, uint16_t addr, int8_t value );
+void writeWord ( Arp* obj, uint16_t addr, int16_t value );
 
-uint8_t readByte ( Arp* obj );
-uint16_t readWord ( Arp* obj );
+int8_t readByte ( Arp* obj, uint16_t addr );
+int16_t readWord ( Arp* obj, uint16_t addr );
 
 /* Methods */
 void reset ( Arp* obj );
-void addressData ( Arp* obj );
+void fetchData ( Arp* obj );
 void simulate ( Arp* obj, uint32_t cycles );
 
 #endif /* END */

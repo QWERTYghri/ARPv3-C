@@ -33,40 +33,32 @@ delArp ( Arp* obj )
 
 /* read write data */
 void
-writeByte ( Arp* obj, uint8_t value )
+writeByte ( Arp* obj, uint16_t addr, int8_t value )
 {
-	obj -> memory -> memGroup[obj -> pc] = value;
-	obj -> pc++;
+	obj -> memory -> memGroup[addr] = value;
 }
 
 void
-writeWord ( Arp* obj, uint16_t value )
+writeWord ( Arp* obj, uint16_t addr, int16_t value )
 {
 	/* Remove high 8 bits */
-	obj -> memory -> memGroup[obj -> pc] = ( uint8_t ) ( value & 0xFF );
-	obj -> pc++;
-	
-	obj -> memory -> memGroup[obj -> pc] = ( uint8_t ) ( value >> 8 );
-	obj -> pc++;
+	obj -> memory -> memGroup[addr] = ( int8_t ) ( value & 0xFF );
+	obj -> memory -> memGroup[addr + 1] = ( int8_t ) ( value >> 8 );
 }
 
-uint8_t
-readByte ( Arp* obj )
+int8_t
+readByte ( Arp* obj, uint16_t addr )
 {
-	uint8_t data = obj -> memory -> memGroup[obj -> pc];
-	obj -> pc++;
-	
+	uint8_t data = obj -> memory -> memGroup[addr];
+
 	return data;
 }
 
-uint16_t
-readWord ( Arp* obj )
+int16_t
+readWord ( Arp* obj, uint16_t addr )
 {
 	/* Get two bytes to merge into a word to return */
-	uint8_t low	= readByte ( obj );
-	uint8_t high	= readByte ( obj );
-	
-	return low | ( high << 8 );
+	return readByte ( obj, addr ) | ( readByte ( obj, addr + 1 ) << 8 );
 }
 
 /* Methods */
@@ -95,31 +87,9 @@ reset ( Arp* obj )
  * create a path for fetch memory data or register data
  */
 void
-addressData ( Arp* obj )
+fetchData ( Arp* obj )
 {
-	if ( obj -> cir >> 7 != 0 )
-	{
-		switch ()
-		{
-			case IMPLIED:
-			
-				break;
-			case IMMEDIATE:
-				
-				break;
-			case DIRECT:
-			
-				break;
-			case REGISTER_DIR:
-			
-				break;
-			case REGISTER_DIR:
-			
-				break;
-			default:
-				break;
-		}
-	}
+	
 }
 
 void
@@ -127,7 +97,6 @@ simulate ( Arp* obj, uint32_t cycles )
 {
 	while ( cycles > 0 )
 	{
-		obj -> cir = readByte ( obj );
-		addressData ( obj );
+		
 	}
 }

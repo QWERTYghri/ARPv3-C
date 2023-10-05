@@ -85,33 +85,17 @@ Note that the `1_bw` specifies whether or not it takes a short or byte.
 * Register Imm  : Use the value in a register as operand
 * Register dir  : Specified Register contains address of operand
 
-#### Double Operand Operation ####
-Value before letters represents bits
-
-`[1_BW][5_OPC][3_S/AM][1_R/A][8_OFFSET]`
-
-* `1_BW`: Part of operand just specifies whether it wants a `byte` or `word`
-* `5_OPC`: Specifies Opcode
-* `3_S/AM`: Specifies the Addressing mode for source value
-* `1_R/A`: Specifies whether the operand is a register value or address.
-* `8_OFFSET`: Just a filler, OR it can be used to reference registers if `1_R/A` is 1.
-
-**NOTE**
-`1_R/A` field can specify whether or not to use a register as a destination. If it is 1, then it'll
-write the value to that register. The reference for the variable would then be stored in offset field.
-
-If it's 0, it just uses a `short` operand to write to an address specified in operand.
-In the arithematic operations, it'll add the source and destination and write to the destination.
-
 #### Single Operand ####
 Takes either short or byte value depending on `1_BW`. Uses the above addressing modes for getting the value
 
-`[1_BW][5_OPC][3_AM][7_OFFSET]`
+`[1_BW][3_AM][5_OPC][7_OFFSET]`
 
 * `1_BW`: Specifies if the operand is taken as a `byte` or `word`
-* `5_OPC`: Specifes Operation
 * `3_AM` : Specifies Addressing mode
-* `7_offset` : Offset values
+* `5_OPC`: Specifes Operation
+
+The address mode specifies how data is fetched, register mode uses the operand to
+index a register 1 - 4 ( 0 - 3 ).
 
 Instructions
 ------------
