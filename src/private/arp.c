@@ -8,7 +8,6 @@
 #include <stdlib.h>
 
 #include "../public/arp.h"
-#include "../public/bus.h"
 
 /* Constructors */
 Arp*
@@ -76,7 +75,7 @@ reset ( Arp* obj )
 	memset ( &obj -> Flag, 0, sizeof ( obj -> Flag ) );
 	
 	/* clean memory */
-	for ( uint32_t i = 0; i <= MAXADDR; i++ )
+	for ( uint32_t i = 0; i <= obj -> memory -> maxAddress; i++ )
 		obj -> memory -> memGroup[i] = 0;
 }
 
@@ -90,9 +89,23 @@ reset ( Arp* obj )
 void
 fetchData ( Arp* obj )
 {
-	Bus* memory = obj -> memory -> memGroup;
+	obj -> cir = obj -> memory -> memGroup[obj -> pc];
+
+	/*
+	  if word/byte flag is on then read word otherwise read byte 
+	  increment afterwards to go to next opcode set.
+	*/
+	if ( data >> 7 ) {
+		// 
+		obj -> mbr = readWord ( obj, ++obj -> pc ); 
+		obj -> pc += 2;
+	} else {
+		obj -> mbr = readByte ( obj, ++obj -> pc );
+		obj -> pc++;
+	}
 	
-	printf ( "%d\n", memory[1] );
+	
+	
 }
 
 void

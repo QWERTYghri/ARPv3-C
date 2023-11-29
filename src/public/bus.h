@@ -14,6 +14,8 @@ typedef struct
 {
 	uint8_t* memGroup;
 	uint8_t ioPort[MAXPORT];
+	
+	uint64_t maxAddress;
 } Bus;
 
 Bus*	newBus ( uint16_t maxMem );

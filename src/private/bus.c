@@ -18,9 +18,11 @@ newBus ( uint16_t maxMem )
 	
 	/* Allocate bytes for memory
 	   No need to compare for MAXADDR, uint16_t already maxed */
-	if ( maxMem > 0 )
-		memObj -> memGroup = calloc ( maxMem, sizeof ( uint8_t ) );
-	
+	if ( maxMem > 0 ) {
+		memObj -> memGroup	= calloc ( maxMem, sizeof ( uint8_t ) );
+		memObj -> maxAddress	= maxMem;
+	} else
+		return NULL;
 	return memObj;
 }
 
