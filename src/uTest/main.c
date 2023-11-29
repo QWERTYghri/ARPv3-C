@@ -7,9 +7,9 @@ int main ( void )
 	Bus* mem = newBus ( 0xFFFF );
 	Arp* obj = newArp ( 16, mem );
 	
-	obj -> memory -> memGroup[1] = 0b11111111;
+	obj -> memory -> memGroup[1] = 10;
 	
-	simulate ( obj, 2 );
+	fetchData ( obj );
 	
 	return 0;
 }

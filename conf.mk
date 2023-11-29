@@ -2,7 +2,7 @@
 # QWERTY
 
 #Compilation
-CC		?= gcc
+CC		:= gcc
 # Note, removed -std=gnu99 and -Wpedantic in order to use binary literals for now
 CFLAGS 		:= -Wall -Wextra -pipe
 CPPFLAGS	:= -D_POSIX_C_SOURCE=200809L

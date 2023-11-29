@@ -8,6 +8,7 @@
 #include <stdlib.h>
 
 #include "../public/arp.h"
+#include "../public/bus.h"
 
 /* Constructors */
 Arp*
@@ -89,7 +90,9 @@ reset ( Arp* obj )
 void
 fetchData ( Arp* obj )
 {
+	Bus* memory = obj -> memory -> memGroup;
 	
+	printf ( "%d\n", memory[1] );
 }
 
 void
