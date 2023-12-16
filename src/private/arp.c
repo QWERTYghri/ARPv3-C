@@ -9,6 +9,13 @@
 
 #include "../public/arp.h"
 
+/* Macros */
+#define BW_BIT_SHIFT ( 7 )
+#define AM_BIT_SHIFT ( 4 )
+
+#define AM_BIT_CLEAR ( 0x70 )
+#define OP_BIT_CLEAR ( 0xF )
+
 /* Constructors */
 Arp*
 newArp ( uint16_t pc, Bus* memObj )
@@ -86,26 +93,72 @@ reset ( Arp* obj )
  * Then find a way to not repeat code while still using the branches to
  * create a path for fetch memory data or register data
  */
-void
-fetchData ( Arp* obj )
+ 
+static int16_t
+wordOrByteFetch ( Arp* obj )
 {
-	obj -> cir = obj -> memory -> memGroup[obj -> pc];
+	int16_t returnVal;
 
-	/*
-	  if word/byte flag is on then read word otherwise read byte 
-	  increment afterwards to go to next opcode set.
-	*/
-	if ( data >> 7 ) {
-		// 
-		obj -> mbr = readWord ( obj, ++obj -> pc ); 
+	printf ( "Word/byte: %d\n", obj -> cir >> BW_BIT_SHIFT );
+	if ( obj -> cir >> BW_BIT_SHIFT ) {
+		/* Return if the option is to read a word */
+		returnVal = readWord ( obj, ++obj -> pc );
 		obj -> pc += 2;
 	} else {
-		obj -> mbr = readByte ( obj, ++obj -> pc );
+		/* Return if the option is to read a byte */
+		returnVal = readByte ( obj, ++obj -> pc );
 		obj -> pc++;
 	}
 	
+	return returnVal;
+}
+ 
+static void
+addressModeFetch ( Arp* obj )
+{
+	/* Get data from address mode */
+	printf ( "Address Mode: %d\n", ( obj -> cir & AM_BIT_CLEAR ) >> AM_BIT_SHIFT );
 	
+	switch ( ( obj -> cir & AM_BIT_CLEAR ) >> AM_BIT_SHIFT )
+	{
+		/* Memory based */
+		case IMP:
+			/* Do nothing */
+			
+			break;
+		case IMM:
+			obj -> mbr = wordOrByteFetch ( obj );
+			
+			break;
+		case DIR:
+			uint16_t address = ( uint16_t ) wordOrByteFetch ( obj );
+			obj -> mbr = obj -> memory -> memGroup[address];
+
+			break;
+	}
+}
+
+static void
+executeInstruction ( Arp* obj )
+{
+	printf ( "Operand: %d\n", obj -> cir & OP_BIT_CLEAR );
 	
+	/* Get Opcode */
+	switch ( obj -> cir & OP_BIT_CLEAR )
+	{
+		
+	}
+}
+
+void
+step ( Arp* obj )
+{
+ 	/* Get current instruction */
+ 	printf ( "test\n" );
+ 	
+	obj -> cir = obj -> memory -> memGroup[obj -> pc];	
+	addressModeFetch ( obj );
+	executeInstruction ( obj );
 }
 
 void
@@ -113,6 +166,7 @@ simulate ( Arp* obj, uint32_t cycles )
 {
 	while ( cycles > 0 )
 	{
-		
+		step ( obj );
+		cycles--;
 	}
 }

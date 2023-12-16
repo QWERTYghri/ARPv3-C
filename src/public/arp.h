@@ -37,6 +37,13 @@ typedef struct
 	} Flag;
 } Arp;
 
+/* Address Modes */
+enum {
+	IMP,
+	IMM,
+	DIR
+};
+
 /* Constructors */
 Arp* newArp ( uint16_t pc, Bus* obj );
 void delArp ( Arp* obj );
@@ -50,7 +57,7 @@ int16_t readWord ( Arp* obj, uint16_t addr );
 
 /* Methods */
 void reset ( Arp* obj );
-void fetchData ( Arp* obj );
+void step ( Arp* obj );
 void simulate ( Arp* obj, uint32_t cycles );
 
 #endif /* END */

@@ -7,8 +7,8 @@ int main ( void )
 	Bus* mem = newBus ( 0xFFFF );
 	Arp* obj = newArp ( 16, mem );
 	
-	obj -> memory -> memGroup[obj -> pc] = 0b10000000;
-	fetchData ( obj );
+	obj -> memory -> memGroup[obj -> pc] = 0b00011111;
+	step ( obj );
 	
 	return 0;
 }
