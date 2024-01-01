@@ -97,16 +97,14 @@ Takes either short or byte value depending on `1_BW`. Uses the above addressing 
 The address mode specifies how data is fetched, register mode uses the operand to
 index a register 1 - 4 ( 0 - 3 ).
 
-#### Double Operand Operand ####
-
 Instructions
 ------------
 
 #### Misc ####
-`NOP  : 0|00000 : imp := signify no OP `
+
 
 #### Register Moving ####
-`MOV
+
 
 #### Stack Operations ####
 

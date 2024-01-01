@@ -112,7 +112,29 @@ wordOrByteFetch ( Arp* obj )
 	
 	return returnVal;
 }
- 
+
+static void
+assignRegister ( Arp* obj, int32_t reg )
+{
+	
+
+	switch ( reg )
+	{
+		case 0:
+			
+			break;
+		case 1:
+		
+			break;
+		case 2:
+		
+			break;
+		case 3:
+		
+			break;
+	}
+}
+
 static void
 addressModeFetch ( Arp* obj )
 {
@@ -135,13 +157,19 @@ addressModeFetch ( Arp* obj )
 			obj -> mbr = obj -> memory -> memGroup[address];
 
 			break;
+		case RIMM:
+			
+			break;
+		case RDIR:
+		
+			break;
 	}
 }
 
 static void
 executeInstruction ( Arp* obj )
 {
-	printf ( "Operand: %d\n", obj -> cir & OP_BIT_CLEAR );
+	printf ( "Opcode: %d\n", obj -> cir & OP_BIT_CLEAR );
 	
 	/* Get Opcode */
 	switch ( obj -> cir & OP_BIT_CLEAR )

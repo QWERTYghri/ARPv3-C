@@ -23,7 +23,6 @@ typedef struct
 			sbp;
 			
 	int16_t		mbr;
-			
 	int8_t		cir;
 	
 	Bus*		memory;
@@ -38,10 +37,20 @@ typedef struct
 } Arp;
 
 /* Address Modes */
-enum {
+enum
+{
 	IMP,
 	IMM,
-	DIR
+	DIR,
+	RIMM,
+	RDIR
+};
+
+/* Instructions */
+enum
+{
+	NOP,
+	MOV
 };
 
 /* Constructors */
@@ -55,7 +64,9 @@ void writeWord ( Arp* obj, uint16_t addr, int16_t value );
 int8_t readByte ( Arp* obj, uint16_t addr );
 int16_t readWord ( Arp* obj, uint16_t addr );
 
-/* Methods */
+void writeInst
+
+/* Methods for executing */
 void reset ( Arp* obj );
 void step ( Arp* obj );
 void simulate ( Arp* obj, uint32_t cycles );
